@@ -10,7 +10,7 @@ let sprite = kontra.Sprite({
     y:16,
     width:16,
     height: 16,
-    color: 'green'
+    color: 'blue'
 });
 
 let enemy = kontra.Sprite({
@@ -20,6 +20,23 @@ let enemy = kontra.Sprite({
     height: 16,
     color: 'red',
     direction: 'left'
+});
+
+let start = kontra.Sprite({
+    x:16,
+    y:16,
+    width:16,
+    height: 16,
+    color: 'yellow'
+});
+
+
+let end = kontra.Sprite({
+    x:160,
+    y:160,
+    width:16,
+    height: 16,
+    color: 'green'
 });
 
 
@@ -117,13 +134,22 @@ console.log(move)
       cooldown=0;
   }
   cooldown++;
+
+  // Dead
+  if(sprite.x==enemy.x && sprite.y==enemy.y){
+  	console.log('You died');
+  }
   sprite.update();
   enemy.update();
+  start.update();
+  end.update();
     },
     render: function() {
       
-      sprite.render();  
+start.render(); 
+end.render(); 
 enemy.render(); 
+      sprite.render();  
     }
   });
   loop.start();
