@@ -44,6 +44,7 @@ let end = kontra.Sprite({
   
 let reverting=0;
 let cooldown=0;
+let halfway=0;
 let steps=[];
   let loop = kontra.GameLoop({
 
@@ -103,12 +104,22 @@ if(enemy.x==240){
     }
 
   }
+  /*
   if(keyPressed('space')){
       console.log(steps);
       reverting=1;
 
     }
+	*/
 
+// if you touch the end, start reverting back
+	if(sprite.x==end.x && sprite.y==end.y){
+		reverting=1;
+		halfway=1;
+	}
+
+
+// reverting back process
   if(cooldown>15 && reverting==1){
     var move = steps.pop();
 console.log(move)
@@ -136,13 +147,22 @@ console.log(move)
   cooldown++;
 
   // Dead
-  if(sprite.x==enemy.x && sprite.y==enemy.y){
-  	console.log('You died');
+if(sprite.x==enemy.x && sprite.y==enemy.y){
+
+  	alert('You died');
+	sprite.x=-100000
   }
+
+  // win
+if(sprite.x==start.x && sprite.y==start.y && halfway==1){
+	alert('You win');
+	sprite.x=-100000
+}
   sprite.update();
   enemy.update();
   start.update();
   end.update();
+
     },
     render: function() {
       
