@@ -3,33 +3,7 @@ let { canvas, context } = init();
 
 initKeys();
   
-  let midX = canvas.width / 2;
-  let midY = canvas.height / 2;
-  let fields = [
-    kontra.Sprite({
-      x: midX - 75,
-      y: midY + 20,
-      width: 3,
-      height: 3,
-      color: 'green',
-      mass: 900,
-      size: 3
-    }),
-    kontra.Sprite({
-      x: midX + 25,
-      y: midY + 10,
-      width: 3,
-      height: 3,
-      color: 'red',
-      mass: -50,
-      size: 3
-    })
-  ];
-  let pool = kontra.Pool({
-    create: kontra.Sprite,
-    maxSize: 5000,
-    fill: true
-  });
+
 
 let sprite = kontra.Sprite({
     x:16,
@@ -48,9 +22,10 @@ let enemy = kontra.Sprite({
     direction: 'left'
 });
 
-  context.fillStyle = 'white';
 
-  // redefine sprite render to not change context fillStyle every time
+
+  
+let reverting=0;
 let cooldown=0;
 let steps=[];
   let loop = kontra.GameLoop({
@@ -65,7 +40,7 @@ if(enemy.x==240){
   enemy.direction='left'
 }
 
-  if(cooldown>15){
+  if(cooldown>15 && reverting==0){
 
 
     if(keyPressed('up')){
@@ -113,13 +88,40 @@ if(enemy.x==240){
   }
   if(keyPressed('space')){
       console.log(steps);
+      reverting=1;
+
     }
+
+  if(cooldown>15 && reverting==1){
+    var move = steps.pop();
+console.log(move)
+      if(move=='up'){
+        sprite.y+=16;
+      }
+      if(move=='left'){
+        sprite.x+=16;
+      }
+      if(move=='right'){
+        sprite.x-=16;
+      }
+      if(move=='down'){
+        sprite.y-=16;
+      }
+
+
+      if(enemy.direction=='left'){
+        enemy.x-=16;
+      }else{
+        enemy.x+=16;
+      }
+      cooldown=0;
+  }
   cooldown++;
   sprite.update();
   enemy.update();
     },
     render: function() {
-      pool.render();
+      
       sprite.render();  
 enemy.render(); 
     }
