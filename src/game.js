@@ -1,4 +1,4 @@
-let { getCanvas, getContext, init, initKeys, keyPressed } = kontra;
+let { getCanvas, getContext, init, initKeys, keyPressed, TileEngine, load  } = kontra;
 let {  canvas, context } = init();
 
 var ctx = canvas.getContext("2d");
@@ -7,7 +7,11 @@ initKeys();
 
 var uiSprite
 
-  
+let reverting=0;
+let cooldown=0;
+let halfway=0;
+let steps=[];
+
 var ui = {
 	index:100,
 	x:10,
@@ -16,12 +20,20 @@ var ui = {
     planes: 0,
     nextPlane: 1,
     color: 'brown',
+    bajskorv: function(){
+      return 'hejsan hej';
+    },
     render: function () {
         // blue water
+        let message = ""
+        if(reverting==0){
+          message = "Score:"
+        }else{
+          message = this.bajskorv();
+        }
         
-        let message = "Score:"
         ctx.font = "30px Arial";
-        ctx.fillText("Hello World", 10, 50);
+        ctx.fillText(message, 10, 50);
         
     }
 }
@@ -65,11 +77,46 @@ let end = kontra.Sprite({
 
 
   
-let reverting=0;
-let cooldown=0;
-let halfway=0;
-let steps=[];
-  let loop = kontra.GameLoop({
+
+
+
+load('assets/imgs/mapPack_tilesheet.png')
+  .then(function() {
+
+  let img = new Image();
+img.src = 'assets/imgs/mapPack_tilesheet.png';
+
+  let tileEngine = TileEngine({
+    // tile size
+    tilewidth: 64,
+    tileheight: 64,
+
+    // map size in tiles
+    width: 9,
+    height: 9,
+
+    // tileset object
+    tilesets: [{
+      firstgid: 1,
+      image: img
+    }],
+
+    // layer object
+    layers: [{
+      name: 'ground',
+      data: [ 0,  0,  0,  0,  0,  0,  0,  0,  0,
+              0,  0,  6,  7,  7,  8,  0,  0,  0,
+              0,  6,  27, 24, 24, 25, 0,  0,  0,
+              0,  23, 24, 24, 24, 26, 8,  0,  0,
+              0,  23, 24, 24, 24, 24, 26, 8,  0,
+              0,  23, 24, 24, 24, 24, 24, 25, 0,
+              0,  40, 41, 41, 10, 24, 24, 25, 0,
+              0,  0,  0,  0,  40, 41, 41, 42, 0,
+              0,  0,  0,  0,  0,  0,  0,  0,  0 ]
+    }]
+  });
+
+let loop = kontra.GameLoop({
 
     update: function() {
 
@@ -133,13 +180,13 @@ if(enemy.x==240){
       reverting=1;
 
     }
-	*/
+  */
 
 // if you touch the end, start reverting back
-	if(sprite.x==end.x && sprite.y==end.y){
-		reverting=1;
-		halfway=1;
-	}
+  if(sprite.x==end.x && sprite.y==end.y){
+    reverting=1;
+    halfway=1;
+  }
 
 
 // reverting back process
@@ -172,31 +219,37 @@ console.log(move)
   // Dead
 if(sprite.x==enemy.x && sprite.y==enemy.y){
 
-  	alert('You died');
-	sprite.x=-100000
+    alert('You died');
+  sprite.x=-100000
   }
 
   // win
 if(sprite.x==start.x && sprite.y==start.y && halfway==1){
-	alert('You win');
-	sprite.x=-100000
+  alert('You win');
+  sprite.x=-100000
 }
   sprite.update();
   enemy.update();
   start.update();
   end.update();
   uiSprite.update();
+  
 
 
     },
     render: function() {
       
+tileEngine.render();
 start.render(); 
 end.render(); 
 enemy.render(); 
       sprite.render();  
       uiSprite.render();  
-
     }
   });
   loop.start();
+
+  });
+
+  
+
