@@ -1,9 +1,32 @@
 let { getCanvas, getContext, init, initKeys, keyPressed } = kontra;
-let { canvas, context } = init();
+let {  canvas, context } = init();
+
+var ctx = canvas.getContext("2d");
 
 initKeys();
-  
 
+var uiSprite
+
+  
+var ui = {
+	index:100,
+	x:10,
+	y:20,
+    score: 0,
+    planes: 0,
+    nextPlane: 1,
+    color: 'brown',
+    render: function () {
+        // blue water
+        
+        let message = "Score:"
+        ctx.font = "30px Arial";
+        ctx.fillText("Hello World", 10, 50);
+        
+    }
+}
+uiSprite = kontra.Sprite(ui)
+   
 
 let sprite = kontra.Sprite({
     x:16,
@@ -162,6 +185,8 @@ if(sprite.x==start.x && sprite.y==start.y && halfway==1){
   enemy.update();
   start.update();
   end.update();
+  uiSprite.update();
+
 
     },
     render: function() {
@@ -170,6 +195,8 @@ start.render();
 end.render(); 
 enemy.render(); 
       sprite.render();  
+      uiSprite.render();  
+
     }
   });
   loop.start();
