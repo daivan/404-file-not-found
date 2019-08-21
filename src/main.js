@@ -1,24 +1,12 @@
 let { getCanvas, getContext, init, initKeys, keyPressed , TileEngine, load  } = kontra;
 let {  canvas, context } = init();
 
+const levelLoader = new LevelLoader(1,2);
+console.log(levelLoader);
+
+const player = new Player(kontra);
+
 var ctx = canvas.getContext("2d");
-
-var levels = [{
-  level: 1,
-name:'Level 1',
-start:[16,16],
-goal:[100,100]
-}
-,
-{
-  level: 2,
-name:'Level 2',
-start:[24,24],
-goal:[200,200],
-}]
-
-var currentLevel=0;
-
 
 initKeys();
 
@@ -34,7 +22,7 @@ var ui = {
   color: 'brown',
     render: function () {
         // blue water
-    let message = levels[currentLevel].name    
+    let message = "level 1"    
         
         ctx.font = "30px Arial";
 		ctx.fillText(message, 100, 50);
@@ -46,23 +34,14 @@ var ui = {
 uiSprite = kontra.Sprite(ui);
    
 
-let player = kontra.Sprite({
-    x:0,
-    y:0,
-    width:64,
-    height: 64,
-    color: 'blue',
-    move: function(){}
-});
 
-let sprite = kontra.Sprite({
-    x:0,
-    y:0,
-    width:64,
-    height: 64,
-    color: 'blue',
-    move: function(){}
-});
+
+
+
+
+let start = kontra.Sprite(levelLoader.start);
+let end = kontra.Sprite(levelLoader.end);
+
 
 let enemy = kontra.Sprite({
     x:128,
@@ -72,25 +51,6 @@ let enemy = kontra.Sprite({
     color: 'red',
     direction: 'left'
 });
-
-let start = kontra.Sprite({
-    x:0,
-    y:0,
-    width:64,
-    height: 64,
-    color: 'yellow'
-});
-
-
-let end = kontra.Sprite({
-    x:320,
-    y:320,
-    width:64,
-    height: 64,
-    color: 'green'
-});
-
-
 
   
 let reverting=0;
@@ -177,9 +137,8 @@ if(enemy.x==240){
 
 
     if(keyPressed('up')){
-    
-      //tileEngine.setTileAtLayer('level1', {row: 4, col:4}, 10);
-      sprite.y-=64;
+      player.Move('up');
+      
       cooldown=0;
       steps.push('up');
       if(enemy.direction=='left'){
@@ -190,7 +149,7 @@ if(enemy.x==240){
       
     }
     if(keyPressed('down')){
-      sprite.y+=64;
+      player.Move('down');
       cooldown=0;
       steps.push('down');
       if(enemy.direction=='left'){
@@ -200,7 +159,7 @@ if(enemy.x==240){
       }
     }
     if(keyPressed('left')){
-      sprite.x-=64;
+      player.Move('left');
       cooldown=0;
       steps.push('left');
       if(enemy.direction=='left'){
@@ -210,7 +169,8 @@ if(enemy.x==240){
       }
     }
     if(keyPressed('right')){
-      sprite.x+=64;
+      player.Move('right');
+      
       cooldown=0;
       steps.push('right');
       if(enemy.direction=='left'){
@@ -230,7 +190,7 @@ if(enemy.x==240){
   */
 
 // if you touch the end, start reverting back
-  if(sprite.x==end.x && sprite.y==end.y){
+  if(player.sprite.x==end.x && player.sprite.y==end.y){
     reverting=1;
     halfway=1;
     //tileEngine.setTileAtLayer('level1', {row: 2, col: 1}, 10);
@@ -240,18 +200,18 @@ if(enemy.x==240){
 // reverting back process
   if(cooldown>15 && reverting==1){
     var move = steps.pop();
-console.log(move)
+
       if(move=='up'){
-        sprite.y+=64;
+        player.sprite.y+=64;
       }
       if(move=='left'){
-        sprite.x+=64;
+        player.sprite.x+=64;
       }
       if(move=='right'){
-        sprite.x-=64;
+        player.sprite.x-=64;
       }
       if(move=='down'){
-        sprite.y-=64;
+        player.sprite.y-=64;
       }
 
 
@@ -265,35 +225,32 @@ console.log(move)
   cooldown++;
 
   // Dead
-if(sprite.x==enemy.x && sprite.y==enemy.y){
+if(player.sprite.x==enemy.x && player.sprite.y==enemy.y){
 
     alert('You died');
-  sprite.x=-100000
+  player.sprite.x=-100000
   }
 
   // win
-if(sprite.x==start.x && sprite.y==start.y && halfway==1){
+if(player.sprite.x==start.x && player.sprite.y==start.y && halfway==1){
   alert('You win');
-  currentLevel++;
-  sprite.x=-100000
+  player.sprite.x=-100000
 }
-  sprite.update();
-  enemy.update();
-  start.update();
-  end.update();
-  uiSprite.update();
-  tileEngine.update();
-  
 
-
+      player.sprite.update();
+      enemy.update();
+      start.update();
+      end.update();
+      uiSprite.update();
+      tileEngine.update();
     },
-    render: function() {
 
-tileEngine.render();
-start.render(); 
-end.render(); 
-enemy.render(); 
-      sprite.render();  
+    render: function() {
+      tileEngine.render();
+      start.render(); 
+      end.render(); 
+      enemy.render(); 
+      player.sprite.render();  
       uiSprite.render();  
     }
   });
