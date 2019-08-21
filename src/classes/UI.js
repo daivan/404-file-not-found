@@ -1,4 +1,4 @@
-class Player {
+class UserInterface {
 
   constructor(kontra) {
     this.kontra = kontra;

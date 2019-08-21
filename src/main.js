@@ -1,43 +1,16 @@
 let { getCanvas, getContext, init, initKeys, keyPressed , TileEngine, load  } = kontra;
 let {  canvas, context } = init();
 
-const levelLoader = new LevelLoader(1,2);
-console.log(levelLoader);
+initKeys();
 
+const levelLoader = new LevelLoader(1,2);
 const player = new Player(kontra);
+const interface = new UserInterface(kontra);
 
 var ctx = canvas.getContext("2d");
 
-initKeys();
-
-var uiSprite
-
-var ui = {
-	index:100,
-	x:20,
-	y:20,
-  score: 0,
-  planes: 0,
-  nextPlane: 1,
-  color: 'brown',
-    render: function () {
-        // blue water
-    let message = "level 1"    
-        
-        ctx.font = "30px Arial";
-		ctx.fillText(message, 100, 50);
-        //ctx.fillText(message, 0, 0)
-        
-    }
-}
-
-uiSprite = kontra.Sprite(ui);
+var gameStarted=false;
    
-
-
-
-
-
 
 let start = kontra.Sprite(levelLoader.start);
 let end = kontra.Sprite(levelLoader.end);
@@ -134,6 +107,15 @@ if(enemy.x==240){
 }
 
   if(cooldown>15 && reverting==0){
+
+
+    if(gameStarted==false && keyPressed('space')){
+      // Start Game
+      gameStarted=true;
+      interface.gameStarted();
+      
+    }
+
 
 
     if(keyPressed('up')){
@@ -241,17 +223,18 @@ if(player.sprite.x==start.x && player.sprite.y==start.y && halfway==1){
       enemy.update();
       start.update();
       end.update();
-      uiSprite.update();
       tileEngine.update();
     },
 
     render: function() {
-      tileEngine.render();
-      start.render(); 
-      end.render(); 
-      enemy.render(); 
-      player.sprite.render();  
-      uiSprite.render();  
+      if(gameStarted==true){
+        tileEngine.render();
+        start.render(); 
+        end.render(); 
+        enemy.render(); 
+        player.sprite.render();  
+      }
+      interface.Display();
     }
   });
   loop.start();
