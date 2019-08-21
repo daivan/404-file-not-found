@@ -1,83 +1,102 @@
-let { getCanvas, getContext, init, initKeys, keyPressed, TileEngine, load  } = kontra;
+let { getCanvas, getContext, init, initKeys, keyPressed , TileEngine, load  } = kontra;
 let {  canvas, context } = init();
 
 var ctx = canvas.getContext("2d");
+
+var levels = [{
+  level: 1,
+name:'Level 1',
+start:[16,16],
+goal:[100,100]
+}
+,
+{
+  level: 2,
+name:'Level 2',
+start:[24,24],
+goal:[200,200],
+}]
+
+var currentLevel=0;
+
 
 initKeys();
 
 var uiSprite
 
-let reverting=0;
-let cooldown=0;
-let halfway=0;
-let steps=[];
-
 var ui = {
 	index:100,
-	x:10,
+	x:20,
 	y:20,
-    score: 0,
-    planes: 0,
-    nextPlane: 1,
-    color: 'brown',
-    bajskorv: function(){
-      return 'hejsan hej';
-    },
+  score: 0,
+  planes: 0,
+  nextPlane: 1,
+  color: 'brown',
     render: function () {
         // blue water
-        let message = ""
-        if(reverting==0){
-          message = "Score:"
-        }else{
-          message = this.bajskorv();
-        }
+    let message = levels[currentLevel].name    
         
         ctx.font = "30px Arial";
-        ctx.fillText(message, 10, 50);
+		ctx.fillText(message, 100, 50);
+        //ctx.fillText(message, 0, 0)
         
     }
 }
-uiSprite = kontra.Sprite(ui)
+
+uiSprite = kontra.Sprite(ui);
    
 
+let player = kontra.Sprite({
+    x:0,
+    y:0,
+    width:64,
+    height: 64,
+    color: 'blue',
+    move: function(){}
+});
+
 let sprite = kontra.Sprite({
-    x:16,
-    y:16,
-    width:16,
-    height: 16,
-    color: 'blue'
+    x:0,
+    y:0,
+    width:64,
+    height: 64,
+    color: 'blue',
+    move: function(){}
 });
 
 let enemy = kontra.Sprite({
-    x:80,
-    y:80,
-    width:16,
-    height: 16,
+    x:128,
+    y:128,
+    width:64,
+    height: 64,
     color: 'red',
     direction: 'left'
 });
 
 let start = kontra.Sprite({
-    x:16,
-    y:16,
-    width:16,
-    height: 16,
+    x:0,
+    y:0,
+    width:64,
+    height: 64,
     color: 'yellow'
 });
 
 
 let end = kontra.Sprite({
-    x:160,
-    y:160,
-    width:16,
-    height: 16,
+    x:320,
+    y:320,
+    width:64,
+    height: 64,
     color: 'green'
 });
 
 
 
   
-
+let reverting=0;
+let cooldown=0;
+let halfway=0;
+let steps=[];
 
 
 load('assets/imgs/mapPack_tilesheet.png')
@@ -92,8 +111,8 @@ img.src = 'assets/imgs/mapPack_tilesheet.png';
     tileheight: 64,
 
     // map size in tiles
-    width: 9,
-    height: 9,
+    width: 10,
+    height: 10,
 
     // tileset object
     tilesets: [{
@@ -103,17 +122,43 @@ img.src = 'assets/imgs/mapPack_tilesheet.png';
 
     // layer object
     layers: [{
-      name: 'ground',
-      data: [ 0,  0,  0,  0,  0,  0,  0,  0,  0,
-              0,  0,  6,  7,  7,  8,  0,  0,  0,
-              0,  6,  27, 24, 24, 25, 0,  0,  0,
-              0,  23, 24, 24, 24, 26, 8,  0,  0,
-              0,  23, 24, 24, 24, 24, 26, 8,  0,
-              0,  23, 24, 24, 24, 24, 24, 25, 0,
-              0,  40, 41, 41, 10, 24, 24, 25, 0,
-              0,  0,  0,  0,  40, 41, 41, 42, 0,
-              0,  0,  0,  0,  0,  0,  0,  0,  0 ]
-    }]
+      name: 'level1',
+      data: [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+              0,  0,  6,  7,  7,  8,  0,  0,  0,  0,
+              0,  6,  27, 24, 24, 25, 0,  0,  0,  0,
+              0,  23, 24, 24, 24, 26, 8,  0,  0,  0,
+              0,  23, 24, 24, 24, 24, 26, 8,  0,  7,
+              0,  23, 24, 24, 24, 24, 24, 25, 0,  0,
+              0,  40, 41, 41, 10, 24, 24, 25, 0,  0,
+              0,  0,  0,  0,  40, 41, 41, 42, 0,  42,
+              0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+              0,  0,  0,  0,  0,  0,  0,  0,  0,  0  ]
+    },
+    {
+      name: 'level2',
+      data: [ 0,  0,  0,  7,  0,  0,  0,  0,  0,  0,
+              0,  0,  6,  7,  7,  8,  0,  0,  0,  0,
+              0,  6,  27, 24, 24, 25, 0,  0,  0,  0,
+              0,  23, 24, 24, 24, 26, 8,  0,  0,  0,
+              0,  23, 24, 24, 24, 24, 26, 8,  0,  7,
+              0,  23, 24, 24, 24, 24, 24, 25, 0,  0,
+              0,  40, 41, 41, 10, 24, 24, 25, 0,  0,
+              0,  0,  0,  0,  40, 41, 41, 42, 0,  0,
+              0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+              0,  0,  0,  0,  0,  0,  0,  0,  0,  0 ]
+    }
+    ],
+    update: function(){
+      
+  },
+  render: function(){
+      if(reverting==1){
+        tileEngine.renderLayer('level1');        
+      }else{
+        tileEngine.renderLayer('level2');
+      }
+  }
+
   });
 
 let loop = kontra.GameLoop({
@@ -132,44 +177,46 @@ if(enemy.x==240){
 
 
     if(keyPressed('up')){
-      sprite.y-=16;
+    
+      //tileEngine.setTileAtLayer('level1', {row: 4, col:4}, 10);
+      sprite.y-=64;
       cooldown=0;
       steps.push('up');
       if(enemy.direction=='left'){
-        enemy.x-=16;
+        enemy.x-=64;
       }else{
-        enemy.x+=16;
+        enemy.x+=64;
       }
       
     }
     if(keyPressed('down')){
-      sprite.y+=16;
+      sprite.y+=64;
       cooldown=0;
       steps.push('down');
       if(enemy.direction=='left'){
-        enemy.x-=16;
+        enemy.x-=64;
       }else{
-        enemy.x+=16;
+        enemy.x+=64;
       }
     }
     if(keyPressed('left')){
-      sprite.x-=16;
+      sprite.x-=64;
       cooldown=0;
       steps.push('left');
       if(enemy.direction=='left'){
-        enemy.x-=16;
+        enemy.x-=64;
       }else{
-        enemy.x+=16;
+        enemy.x+=64;
       }
     }
     if(keyPressed('right')){
-      sprite.x+=16;
+      sprite.x+=64;
       cooldown=0;
       steps.push('right');
       if(enemy.direction=='left'){
-        enemy.x-=16;
+        enemy.x-=64;
       }else{
-        enemy.x+=16;
+        enemy.x+=64;
       }
     }
 
@@ -186,6 +233,7 @@ if(enemy.x==240){
   if(sprite.x==end.x && sprite.y==end.y){
     reverting=1;
     halfway=1;
+    //tileEngine.setTileAtLayer('level1', {row: 2, col: 1}, 10);
   }
 
 
@@ -194,23 +242,23 @@ if(enemy.x==240){
     var move = steps.pop();
 console.log(move)
       if(move=='up'){
-        sprite.y+=16;
+        sprite.y+=64;
       }
       if(move=='left'){
-        sprite.x+=16;
+        sprite.x+=64;
       }
       if(move=='right'){
-        sprite.x-=16;
+        sprite.x-=64;
       }
       if(move=='down'){
-        sprite.y-=16;
+        sprite.y-=64;
       }
 
 
       if(enemy.direction=='left'){
-        enemy.x-=16;
+        enemy.x-=64;
       }else{
-        enemy.x+=16;
+        enemy.x+=64;
       }
       cooldown=0;
   }
@@ -226,6 +274,7 @@ if(sprite.x==enemy.x && sprite.y==enemy.y){
   // win
 if(sprite.x==start.x && sprite.y==start.y && halfway==1){
   alert('You win');
+  currentLevel++;
   sprite.x=-100000
 }
   sprite.update();
@@ -233,12 +282,13 @@ if(sprite.x==start.x && sprite.y==start.y && halfway==1){
   start.update();
   end.update();
   uiSprite.update();
+  tileEngine.update();
   
 
 
     },
     render: function() {
-      
+
 tileEngine.render();
 start.render(); 
 end.render(); 
@@ -253,3 +303,8 @@ enemy.render();
 
   
 
+
+
+
+
+  
