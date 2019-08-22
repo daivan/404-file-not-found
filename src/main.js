@@ -26,16 +26,6 @@ let end = kontra.Sprite({
     color: 'green'
 });
 
-
-let enemy = kontra.Sprite({
-    x:320,
-    y:320,
-    width:64,
-    height: 64,
-    color: 'red',
-    direction: 'left'
-});
-
   
 let cooldown=0;
 
@@ -82,13 +72,12 @@ let loop = kontra.GameLoop({
 
     update: function(dt) {
 
-if(enemy.x==0){
-  enemy.direction='right'
-}
 
-if(enemy.x==240){
-  enemy.direction='left'
-}
+    // Start Game
+    if(keyPressed('enter')){
+      console.log('hejsan');
+      console.log(player.location());
+    }
 
     // Start Game
     if(gameStarted==false && keyPressed('space')){
@@ -100,48 +89,35 @@ if(enemy.x==240){
 
 
     if(keyPressed('up')){
-      player.Move('up');
-      cooldown=0;
-      steps.push('up');
-      if(enemy.direction=='left'){
-        enemy.x-=64;
-      }else{
-        enemy.x+=64;
+      if(player.Move('up')){
+        steps.push('up');
+        cooldown=0;  
       }
+      
       
     }
     if(keyPressed('down')){
-      player.Move('down');
-      cooldown=0;
-      steps.push('down');
-      if(enemy.direction=='left'){
-        enemy.x-=64;
-      }else{
-        enemy.x+=64;
+      if(player.Move('down')){
+        steps.push('down');
+        cooldown=0;  
       }
+      
+ 
     }
     if(keyPressed('left')){
-      player.Move('left');
-      cooldown=0;
-      steps.push('left');
-      if(enemy.direction=='left'){
-        enemy.x-=64;
-      }else{
-        enemy.x+=64;
+      if(player.Move('left')){
+        steps.push('left');
+        cooldown=0;  
       }
+      
+  
     }
     if(keyPressed('right')){
-      player.Move('right');
-      
-      cooldown=0;
-      steps.push('right');
-      if(enemy.direction=='left'){
-        enemy.x-=64;
-      }else{
-        enemy.x+=64;
+      if(player.Move('right')){
+        steps.push('right');
+        cooldown=0;  
       }
     }
-
   }
 
 
@@ -163,40 +139,32 @@ if(enemy.x==240){
         player.sprite.y-=64;
       }
 
-
-      if(enemy.direction=='left'){
-        enemy.x-=64;
-      }else{
-        enemy.x+=64;
-      }
       cooldown=0;
   }
   cooldown++;
 
+/*
   // Dead
 if(player.sprite.x==enemy.x && player.sprite.y==enemy.y){
 
     alert('You died');
   player.sprite.x=-100000
   }
-
+*/
 
 
 gameState.checkHalfway(player, level);
 
 var result = gameState.checkStageClear(player, level.getCurrentLevel());
 if(result){
-  console.log('hejsan');
-  level.currentLevel++;
-  //level.setCurrentLevel(1);
-  console.log(level.currentLevel);
+  level.setNextLevel();
   gameState.initiateLevel(player,start,end,level.getCurrentLevel());
 }
   // win
 
 
       player.sprite.update();
-      enemy.update();
+    
       start.update();
       end.update();
       background.update();
@@ -207,7 +175,6 @@ if(result){
         background.render();
         start.render(); 
         end.render(); 
-        enemy.render(); 
         player.sprite.render();  
       }
       interface.Display();

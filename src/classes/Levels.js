@@ -82,4 +82,8 @@ class Levels {
     this.currentLevel=newLevel;
   }
  
+  setNextLevel()
+  {
+   this.currentLevel++; 
+  }
 }

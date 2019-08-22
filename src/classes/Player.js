@@ -36,22 +36,91 @@ class Player {
  
 
   Move(direction){
+  	let map=level.maps[level.currentLevel].data;
   	if(direction=='down'){
-  		this.sprite.y+=64;
+  		if(this.IsMovePossible('down',map)){
+			this.sprite.y+=64;
+			return true;
+  		}
+  		return false;
+  		
   	}
   	if(direction=='up'){
-  		this.sprite.y-=64;
+  		if(this.IsMovePossible('up',map)){
+			this.sprite.y-=64;
+			return true;
+  		}
+  		return false;
   	}
   	if(direction=='left'){
-      this.sprite.x-=64;
+  		if(this.IsMovePossible('left',map)){
+			this.sprite.x-=64;
+			return true;
+  		}
+  		return false;
   	}
   	if(direction=='right'){
-  		this.sprite.x+=64;
+  		if(this.IsMovePossible('right',map)){
+			this.sprite.x+=64;
+			return true;
+  		}
+  		return false;
+  		
   	}
   }
 
-  get location(){
-
+  location(){
+	var x;
+	var y;
+  	if(this.sprite.x>0){
+  		x=this.sprite.x/64;
+  	}else{
+		x=0;
+  	}
+  	if(this.sprite.y>0){
+  		y=this.sprite.y/64;
+  	}else{
+		y=0;
+  	}
+  	y=y*10;
+  	return [y,x];
   }
 
+  IsMovePossible(direction,map)
+  {
+  	var sum=this.location()[0]+this.location()[1];
+  	if(direction=='down'){
+  		if(this.location()[0]==90){
+  			return false;
+  		}
+  		if(map[sum+10]==0){
+  			return false;
+  		}
+  		return true;
+  	}else if(direction=='up'){
+  		if(this.location()[0]==0){
+  			return false;
+  		}
+		if(map[sum-10]==0){
+  			return false;
+  		}
+  		return true;
+  	}else if(direction=='left'){
+  		if(this.location()[1]==0){
+  			return false;
+  		}
+		if(map[sum-1]==0){
+  			return false;
+  		}
+  		return true;
+  	}else if(direction=='right'){
+  		if(this.location()[1]==9){
+  			return false;
+  		}
+		if(map[sum+1]==0){
+  			return false;
+  		}
+  		return true;
+  	}
+  }
 }
