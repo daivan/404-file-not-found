@@ -1,4 +1,4 @@
-let { getCanvas, getContext, init, initKeys, keyPressed , TileEngine, load  } = kontra;
+let { getCanvas, getContext, init, initKeys, keyPressed , TileEngine, load,SpriteSheet  } = kontra;
 let {  canvas, context } = init();
 
 initKeys();
@@ -35,8 +35,9 @@ let cooldown=0;
 let steps=[];
 
 
-load('assets/imgs/mapPack_tilesheet.png')
+load('assets/imgs/mapPack_tilesheet.png','assets/imgs/robot.png')
   .then(function() {
+
 
   let img = new Image();
 img.src = 'assets/imgs/mapPack_tilesheet.png';
@@ -73,7 +74,7 @@ img.src = 'assets/imgs/mapPack_tilesheet.png';
 
 let loop = kontra.GameLoop({
 
-    update: function() {
+    update: function(dt) {
 
 if(enemy.x==0){
   enemy.direction='right'
