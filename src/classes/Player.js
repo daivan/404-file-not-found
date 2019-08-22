@@ -24,6 +24,7 @@ class Player {
     this.sprite = this.kontra.Sprite({
 	    x:this.x,
 	    y:this.y,
+	    anchor:{x:0,y:0.4},
 	    width:64,
 	    height: 64,
       //image: this.playerImage,
