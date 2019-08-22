@@ -6,6 +6,10 @@ initKeys();
 const levelLoader = new LevelLoader(1,2);
 const player = new Player(kontra);
 const interface = new UserInterface(kontra);
+const level = new Levels(0);
+const gameState = new GameState();
+
+console.log(level.levels);
 
 var ctx = canvas.getContext("2d");
 
@@ -26,9 +30,8 @@ let enemy = kontra.Sprite({
 });
 
   
-let reverting=0;
 let cooldown=0;
-let halfway=0;
+
 let steps=[];
 
 
@@ -54,38 +57,12 @@ img.src = 'assets/imgs/mapPack_tilesheet.png';
     }],
 
     // layer object
-    layers: [{
-      name: 'level1',
-      data: [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-              0,  0,  6,  7,  7,  8,  0,  0,  0,  0,
-              0,  6,  27, 24, 24, 25, 0,  0,  0,  0,
-              0,  23, 24, 24, 24, 26, 8,  0,  0,  0,
-              0,  23, 24, 24, 24, 24, 26, 8,  0,  7,
-              0,  23, 24, 24, 24, 24, 24, 25, 0,  0,
-              0,  40, 41, 41, 10, 24, 24, 25, 0,  0,
-              0,  0,  0,  0,  40, 41, 41, 42, 0,  42,
-              0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-              0,  0,  0,  0,  0,  0,  0,  0,  0,  0  ]
-    },
-    {
-      name: 'level2',
-      data: [ 0,  0,  0,  7,  0,  0,  0,  0,  0,  0,
-              0,  0,  6,  7,  7,  8,  0,  0,  0,  0,
-              0,  6,  27, 24, 24, 25, 0,  0,  0,  0,
-              0,  23, 24, 24, 24, 26, 8,  0,  0,  0,
-              0,  23, 24, 24, 24, 24, 26, 8,  0,  7,
-              0,  23, 24, 24, 24, 24, 24, 25, 0,  0,
-              0,  40, 41, 41, 10, 24, 24, 25, 0,  0,
-              0,  0,  0,  0,  40, 41, 41, 42, 0,  0,
-              0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-              0,  0,  0,  0,  0,  0,  0,  0,  0,  0 ]
-    }
-    ],
+    layers: level.maps,
     update: function(){
       
   },
   render: function(){
-      if(reverting==1){
+      if(gameState.backing==1){
         tileEngine.renderLayer('level1');        
       }else{
         tileEngine.renderLayer('level2');
@@ -106,16 +83,13 @@ if(enemy.x==240){
   enemy.direction='left'
 }
 
-  if(cooldown>15 && reverting==0){
-
-
+    // Start Game
     if(gameStarted==false && keyPressed('space')){
-      // Start Game
       gameStarted=true;
-      interface.gameStarted();
-      
+      interface.gameStarted();  
     }
 
+  if(cooldown>15 && gameState.backing==0){
 
 
     if(keyPressed('up')){
@@ -163,24 +137,11 @@ if(enemy.x==240){
     }
 
   }
-  /*
-  if(keyPressed('space')){
-      console.log(steps);
-      reverting=1;
-
-    }
-  */
-
-// if you touch the end, start reverting back
-  if(player.sprite.x==end.x && player.sprite.y==end.y){
-    reverting=1;
-    halfway=1;
-    //tileEngine.setTileAtLayer('level1', {row: 2, col: 1}, 10);
-  }
 
 
-// reverting back process
-  if(cooldown>15 && reverting==1){
+
+// gameState.backing back process
+  if(cooldown>15 && gameState.backing==1){
     var move = steps.pop();
 
       if(move=='up'){
@@ -213,11 +174,11 @@ if(player.sprite.x==enemy.x && player.sprite.y==enemy.y){
   player.sprite.x=-100000
   }
 
+gameState.checkHalfway(player,level);
+
+gameState.checkStageClear(player,level);
   // win
-if(player.sprite.x==start.x && player.sprite.y==start.y && halfway==1){
-  alert('You win');
-  player.sprite.x=-100000
-}
+
 
       player.sprite.update();
       enemy.update();
