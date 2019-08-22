@@ -37,12 +37,25 @@ class GameState {
 	}
 	checkStageClear(player,level)
 	{
-		if(player.sprite.x==start.x && player.sprite.y==start.y && gameState.halfway==1){
+		if(player.sprite.x==level.startLocation[0]*64 && player.sprite.y==level.startLocation[1]*64 && gameState.halfway==1){
 		  alert('You win');
-		  player.sprite.x=-100000
 		  return true;
 		}
 
 		return false;
+	}
+
+	initiateLevel(player, start, end, level)
+	{
+	  	this.halfway = 0;
+  		this.backing = 0;
+		player.sprite.x=level.playerLocation[0]*64;
+		player.sprite.y=level.playerLocation[1]*64;
+
+		start.x=level.startLocation[0]*64;
+		start.y=level.startLocation[1]*64;
+
+		end.x=level.endLocation[0]*64;
+		end.y=level.endLocation[1]*64;		
 	}
 }

@@ -3,26 +3,33 @@ let {  canvas, context } = init();
 
 initKeys();
 
-const levelLoader = new LevelLoader(1,2);
 const player = new Player(kontra);
 const interface = new UserInterface(kontra);
 const level = new Levels(0);
 const gameState = new GameState();
 
-console.log(level.levels);
 
 var ctx = canvas.getContext("2d");
 
 var gameStarted=false;
    
 
-let start = kontra.Sprite(levelLoader.start);
-let end = kontra.Sprite(levelLoader.end);
+let start = kontra.Sprite({
+      width:64,
+      height: 64,
+      color: 'yellow'
+    });
+
+let end = kontra.Sprite({
+    width:64,
+    height: 64,
+    color: 'green'
+});
 
 
 let enemy = kontra.Sprite({
-    x:128,
-    y:128,
+    x:320,
+    y:320,
     width:64,
     height: 64,
     color: 'red',
@@ -42,7 +49,7 @@ load('assets/imgs/mapPack_tilesheet.png','assets/imgs/robot.png')
   let img = new Image();
 img.src = 'assets/imgs/mapPack_tilesheet.png';
 
-  let tileEngine = TileEngine({
+  let background = TileEngine({
     // tile size
     tilewidth: 64,
     tileheight: 64,
@@ -63,14 +70,13 @@ img.src = 'assets/imgs/mapPack_tilesheet.png';
       
   },
   render: function(){
-      if(gameState.backing==1){
-        tileEngine.renderLayer('level1');        
-      }else{
-        tileEngine.renderLayer('level2');
-      }
+
+      background.renderLayer(level.getCurrentLevel().name);        
   }
 
   });
+
+gameState.initiateLevel(player,start,end,level.getCurrentLevel());
 
 let loop = kontra.GameLoop({
 
@@ -95,7 +101,6 @@ if(enemy.x==240){
 
     if(keyPressed('up')){
       player.Move('up');
-      
       cooldown=0;
       steps.push('up');
       if(enemy.direction=='left'){
@@ -175,9 +180,18 @@ if(player.sprite.x==enemy.x && player.sprite.y==enemy.y){
   player.sprite.x=-100000
   }
 
-gameState.checkHalfway(player,level);
 
-gameState.checkStageClear(player,level);
+
+gameState.checkHalfway(player, level);
+
+var result = gameState.checkStageClear(player, level.getCurrentLevel());
+if(result){
+  console.log('hejsan');
+  level.currentLevel++;
+  //level.setCurrentLevel(1);
+  console.log(level.currentLevel);
+  gameState.initiateLevel(player,start,end,level.getCurrentLevel());
+}
   // win
 
 
@@ -185,12 +199,12 @@ gameState.checkStageClear(player,level);
       enemy.update();
       start.update();
       end.update();
-      tileEngine.update();
+      background.update();
     },
 
     render: function() {
       if(gameStarted==true){
-        tileEngine.render();
+        background.render();
         start.render(); 
         end.render(); 
         enemy.render(); 

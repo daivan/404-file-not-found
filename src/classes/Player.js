@@ -15,7 +15,7 @@ class Player {
     animations: {
       // create a named animation: walk
       walk: {
-        frames: '0..9',  // frames 0 through 9
+        frames: [0,9],  // frames 0 through 9
         frameRate: 30
       }
     }
@@ -30,6 +30,7 @@ class Player {
       // required for an animation sprite
       animations: this.spriteSheet.animations
 		});
+    
   }
  
 
