@@ -15,14 +15,14 @@ var gameStarted=false;
    
 
 let start = kontra.Sprite({
-      width:64,
-      height: 64,
+      width:32,
+      height: 32,
       color: 'yellow'
     });
 
 let end = kontra.Sprite({
-    width:64,
-    height: 64,
+    width:32,
+    height: 32,
     color: 'green'
 });
 
@@ -32,17 +32,17 @@ let cooldown=0;
 let steps=[];
 
 
-load('assets/imgs/mapPack_tilesheet5.png','assets/imgs/robot.png')
+load('assets/imgs/groundSimple.png','assets/imgs/robot.png')
   .then(function() {
 
 
   let img = new Image();
-img.src = 'assets/imgs/mapPack_tilesheet5.png';
+img.src = 'assets/imgs/groundSimple.png';
 
   let background = TileEngine({
     // tile size
-    tilewidth: 64,
-    tileheight: 64,
+    tilewidth: 32,
+    tileheight: 32,
 
     // map size in tiles
     width: 10,
@@ -72,12 +72,6 @@ let loop = kontra.GameLoop({
 
     update: function(dt) {
 
-
-    // Start Game
-    if(keyPressed('enter')){
-      console.log('hejsan');
-      console.log(player.location());
-    }
 
     // Start Game
     if(gameStarted==false && keyPressed('space')){
@@ -127,16 +121,16 @@ let loop = kontra.GameLoop({
     var move = steps.pop();
 
       if(move=='up'){
-        player.sprite.y+=64;
+        player.sprite.y+=32;
       }
       if(move=='left'){
-        player.sprite.x+=64;
+        player.sprite.x+=32;
       }
       if(move=='right'){
-        player.sprite.x-=64;
+        player.sprite.x-=32;
       }
       if(move=='down'){
-        player.sprite.y-=64;
+        player.sprite.y-=32;
       }
 
       cooldown=0;

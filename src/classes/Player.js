@@ -24,9 +24,9 @@ class Player {
     this.sprite = this.kontra.Sprite({
 	    x:this.x,
 	    y:this.y,
-	    anchor:{x:0,y:0.4},
-	    width:64,
-	    height: 64,
+	    anchor:{x:0,y:0.3},
+	    width:32,
+	    height: 32,
       //image: this.playerImage,
       // required for an animation sprite
       animations: this.spriteSheet.animations
@@ -39,7 +39,7 @@ class Player {
   	let map=level.maps[level.currentLevel].data;
   	if(direction=='down'){
   		if(this.IsMovePossible('down',map)){
-			this.sprite.y+=64;
+			this.sprite.y+=32;
 			return true;
   		}
   		return false;
@@ -47,21 +47,21 @@ class Player {
   	}
   	if(direction=='up'){
   		if(this.IsMovePossible('up',map)){
-			this.sprite.y-=64;
+			this.sprite.y-=32;
 			return true;
   		}
   		return false;
   	}
   	if(direction=='left'){
   		if(this.IsMovePossible('left',map)){
-			this.sprite.x-=64;
+			this.sprite.x-=32;
 			return true;
   		}
   		return false;
   	}
   	if(direction=='right'){
   		if(this.IsMovePossible('right',map)){
-			this.sprite.x+=64;
+			this.sprite.x+=32;
 			return true;
   		}
   		return false;
@@ -73,12 +73,12 @@ class Player {
 	var x;
 	var y;
   	if(this.sprite.x>0){
-  		x=this.sprite.x/64;
+  		x=this.sprite.x/32;
   	}else{
 		x=0;
   	}
   	if(this.sprite.y>0){
-  		y=this.sprite.y/64;
+  		y=this.sprite.y/32;
   	}else{
 		y=0;
   	}

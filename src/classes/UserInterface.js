@@ -15,8 +15,9 @@ class UserInterface {
           // blue water
       let message = "Press Space to start the game"    
           
-      ctx.font = "30px Arial";
-      ctx.fillText(message, 100, 280);
+      ctx.font = "20px Arial";
+      ctx.fillStyle = "#FFF";  //<======= here
+      ctx.fillText(message, 25, 170);
           //ctx.fillText(message, 0, 0)
           
       }

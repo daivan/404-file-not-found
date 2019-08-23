@@ -11,8 +11,8 @@ class GameState {
 		return {
 	    x:0,
 	    y:0,
-	    width:64,
-	    height: 64,
+	    width:32,
+	    height: 32,
 	    color: 'yellow'
 	}
 	}
@@ -21,8 +21,8 @@ class GameState {
 		return {
     x:320,
     y:320,
-    width:64,
-    height: 64,
+    width:32,
+    height: 32,
     color: 'green'
 }
 	}
@@ -37,7 +37,7 @@ class GameState {
 	}
 	checkStageClear(player,level)
 	{
-		if(player.sprite.x==level.startLocation[0]*64 && player.sprite.y==level.startLocation[1]*64 && gameState.halfway==1){
+		if(player.sprite.x==level.startLocation[0]*32 && player.sprite.y==level.startLocation[1]*32 && gameState.halfway==1){
 		  alert('You win');
 		  return true;
 		}
@@ -49,13 +49,13 @@ class GameState {
 	{
 	  	this.halfway = 0;
   		this.backing = 0;
-		player.sprite.x=level.playerLocation[0]*64;
-		player.sprite.y=level.playerLocation[1]*64;
+		player.sprite.x=level.playerLocation[0]*32;
+		player.sprite.y=level.playerLocation[1]*32;
 
-		start.x=level.startLocation[0]*64;
-		start.y=level.startLocation[1]*64;
+		start.x=level.startLocation[0]*32;
+		start.y=level.startLocation[1]*32;
 
-		end.x=level.endLocation[0]*64;
-		end.y=level.endLocation[1]*64;		
+		end.x=level.endLocation[0]*32;
+		end.y=level.endLocation[1]*32;		
 	}
 }
