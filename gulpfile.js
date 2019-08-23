@@ -6,6 +6,7 @@ const plumber = require('gulp-plumber');
 const preprocess = require('gulp-preprocess');
 const rollup = require('rollup-stream');
 const source = require('vinyl-source-stream');
+const minify = require('gulp-minify');
 require('./doc-tasks.js');
 
 // Enables/Disables visual debugging in Kontra
@@ -68,9 +69,15 @@ function distModule() {
     .pipe(gulp.dest('.'));
 }
 
+function distSource() {
+  return gulp.src(['src/*.js','src/classes/*.js'])
+    .pipe(minify())
+    .pipe(gulp.dest('dist'));
+}
+
 gulp.task('build', gulp.series(buildIife, buildModule, 'build:docs'));
 
-gulp.task('dist', gulp.series(distIife, distModule));
+gulp.task('dist', gulp.series(distIife, distModule, distSource));
 
 gulp.task('watch', function() {
   gulp.watch('src/*.js', gulp.series('build', 'dist'));

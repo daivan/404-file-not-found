@@ -32,12 +32,12 @@ let cooldown=0;
 let steps=[];
 
 
-load('assets/imgs/mapPack_tilesheet.png','assets/imgs/robot.png')
+load('assets/imgs/mapPack_tilesheet5.png','assets/imgs/robot.png')
   .then(function() {
 
 
   let img = new Image();
-img.src = 'assets/imgs/mapPack_tilesheet.png';
+img.src = 'assets/imgs/mapPack_tilesheet5.png';
 
   let background = TileEngine({
     // tile size

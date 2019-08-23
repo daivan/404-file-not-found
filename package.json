@@ -36,6 +36,7 @@
     "gulp-changed": "^3.2.0",
     "gulp-concat": "^2.6.1",
     "gulp-livingcss": "^4.1.1",
+    "gulp-minify": "^3.1.0",
     "gulp-plumber": "^1.2.1",
     "gulp-preprocess": "^3.0.2",
     "gulp-rename": "^1.4.0",
