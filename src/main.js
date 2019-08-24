@@ -4,6 +4,7 @@ let {  canvas, context } = init();
 initKeys();
 
 const player = new Player(kontra);
+const enemy = new Enemy(kontra);
 const interface = new UserInterface(kontra);
 const level = new Levels(0);
 const gameState = new GameState();
@@ -26,7 +27,13 @@ let end = kontra.Sprite({
     color: 'green'
 });
 
-  
+
+//enemy.sprite.x=level.enemyLocation[0]*32;
+//enemy.sprite.y=level.enemyLocation[1]*32;
+//enemy.direction='vertical';
+enemy.sprite.y=6*32;
+enemy.sprite.x=5*32;
+
 let cooldown=0;
 
 let steps=[];
@@ -85,6 +92,7 @@ let loop = kontra.GameLoop({
     if(keyPressed('up')){
       if(player.Move('up')){
         steps.push('up');
+        enemy.Move();
         cooldown=0;  
       }
       
@@ -93,6 +101,7 @@ let loop = kontra.GameLoop({
     if(keyPressed('down')){
       if(player.Move('down')){
         steps.push('down');
+        enemy.Move();
         cooldown=0;  
       }
       
@@ -101,6 +110,7 @@ let loop = kontra.GameLoop({
     if(keyPressed('left')){
       if(player.Move('left')){
         steps.push('left');
+        enemy.Move();
         cooldown=0;  
       }
       
@@ -109,6 +119,7 @@ let loop = kontra.GameLoop({
     if(keyPressed('right')){
       if(player.Move('right')){
         steps.push('right');
+        enemy.Move();
         cooldown=0;  
       }
     }
@@ -119,7 +130,7 @@ let loop = kontra.GameLoop({
 // gameState.backing back process
   if(cooldown>15 && gameState.backing==1){
     var move = steps.pop();
-
+      enemy.Move();
       if(move=='up'){
         player.sprite.y+=32;
       }
@@ -158,6 +169,7 @@ if(result){
 
 
       player.sprite.update();
+      enemy.sprite.update();
     
       start.update();
       end.update();
@@ -170,6 +182,7 @@ if(result){
         start.render(); 
         end.render(); 
         player.sprite.render();  
+        enemy.sprite.render();  
       }
       interface.Display();
     }
