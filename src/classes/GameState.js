@@ -45,8 +45,27 @@ class GameState {
 		return false;
 	}
 
+	checkDead(player,enemies)
+	{
+		enemies.map(enemy => this.checkPlayerAndEnemyCollision(player,enemy));
+	}
+
+	checkPlayerAndEnemyCollision(player, enemy)
+	{
+		if(player.sprite.x==enemy.sprite.x && player.sprite.y==enemy.sprite.y){
+			this.playerDied();
+		}
+		return false;
+	}
+
+	playerDied()
+	{
+		alert('you died');
+	}
+
 	initiateLevel(player, start, end, level)
 	{
+		enemies = [];
 	  	this.halfway = 0;
   		this.backing = 0;
 		player.sprite.x=level.playerLocation[0]*32;
@@ -57,5 +76,26 @@ class GameState {
 
 		end.x=level.endLocation[0]*32;
 		end.y=level.endLocation[1]*32;		
+
+		this.spawnEnemies();
+	}
+
+	spawnEnemies()
+	{
+
+		if(level.getCurrentLevel().enemies!==undefined){
+			level.getCurrentLevel().enemies.map(enemy => {
+				if(enemy.type=='straight'){
+					let enemyObject = new Enemy(kontra);
+					enemyObject.sprite.y=enemy.location[0]*32;
+					enemyObject.sprite.x=enemy.location[1]*32;
+					enemyObject.direction=enemy.direction;
+					enemyObject.currentDirection=enemy.currentDirection;
+					enemies.push(enemyObject);
+				}
+			
+				
+			});
+		}
 	}
 }

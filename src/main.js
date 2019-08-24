@@ -4,9 +4,9 @@ let {  canvas, context } = init();
 initKeys();
 
 const player = new Player(kontra);
-const enemy = new Enemy(kontra);
+
 const interface = new UserInterface(kontra);
-const level = new Levels(0);
+const level = new Levels(2);
 const gameState = new GameState();
 
 
@@ -28,11 +28,19 @@ let end = kontra.Sprite({
 });
 
 
+
+
+let enemies = [];
+
 //enemy.sprite.x=level.enemyLocation[0]*32;
 //enemy.sprite.y=level.enemyLocation[1]*32;
 //enemy.direction='vertical';
-enemy.sprite.y=6*32;
-enemy.sprite.x=5*32;
+
+//player.sprite.x=level.playerLocation[0]*32;
+//player.sprite.y=level.playerLocation[1]*32;
+
+
+
 
 let cooldown=0;
 
@@ -44,7 +52,7 @@ load('assets/imgs/groundSimple.png','assets/imgs/robot.png')
 
 
   let img = new Image();
-img.src = 'assets/imgs/groundSimple.png';
+  img.src = 'assets/imgs/groundSimple.png';
 
   let background = TileEngine({
     // tile size
@@ -91,8 +99,10 @@ let loop = kontra.GameLoop({
 
     if(keyPressed('up')){
       if(player.Move('up')){
+        gameState.checkDead(player, enemies);
         steps.push('up');
-        enemy.Move();
+        enemies.map(enemy => enemy.Move());
+        gameState.checkDead(player, enemies);
         cooldown=0;  
       }
       
@@ -100,8 +110,10 @@ let loop = kontra.GameLoop({
     }
     if(keyPressed('down')){
       if(player.Move('down')){
+        gameState.checkDead(player, enemies);
         steps.push('down');
-        enemy.Move();
+        enemies.map(enemy => enemy.Move());
+        gameState.checkDead(player, enemies);
         cooldown=0;  
       }
       
@@ -109,8 +121,10 @@ let loop = kontra.GameLoop({
     }
     if(keyPressed('left')){
       if(player.Move('left')){
+        gameState.checkDead(player, enemies);
         steps.push('left');
-        enemy.Move();
+        enemies.map(enemy => enemy.Move());
+        gameState.checkDead(player, enemies);
         cooldown=0;  
       }
       
@@ -118,8 +132,10 @@ let loop = kontra.GameLoop({
     }
     if(keyPressed('right')){
       if(player.Move('right')){
+        gameState.checkDead(player, enemies);
         steps.push('right');
-        enemy.Move();
+        enemies.map(enemy => enemy.Move());
+        gameState.checkDead(player, enemies);
         cooldown=0;  
       }
     }
@@ -130,7 +146,7 @@ let loop = kontra.GameLoop({
 // gameState.backing back process
   if(cooldown>15 && gameState.backing==1){
     var move = steps.pop();
-      enemy.Move();
+      enemies.map(enemy => enemy.Move());
       if(move=='up'){
         player.sprite.y+=32;
       }
@@ -143,19 +159,14 @@ let loop = kontra.GameLoop({
       if(move=='down'){
         player.sprite.y-=32;
       }
-
+      gameState.checkDead(player, enemies);
       cooldown=0;
   }
   cooldown++;
 
-/*
-  // Dead
-if(player.sprite.x==enemy.x && player.sprite.y==enemy.y){
 
-    alert('You died');
-  player.sprite.x=-100000
-  }
-*/
+
+
 
 
 gameState.checkHalfway(player, level);
@@ -169,7 +180,7 @@ if(result){
 
 
       player.sprite.update();
-      enemy.sprite.update();
+      enemies.map(enemy => enemy.sprite.update());
     
       start.update();
       end.update();
@@ -182,7 +193,7 @@ if(result){
         start.render(); 
         end.render(); 
         player.sprite.render();  
-        enemy.sprite.render();  
+        enemies.map(enemy => enemy.sprite.render());
       }
       interface.Display();
     }

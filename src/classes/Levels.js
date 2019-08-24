@@ -14,19 +14,67 @@ class Levels {
       name: 'level1',
       playerLocation: [1, 4],
       startLocation: [1, 4],
-      endLocation: [8, 4]
+      endLocation: [8, 4],
+      enemies: [
+      {
+        type:'straight',
+        direction: 'vertical',
+        currentDirection: 'down',
+        location: [6, 4]
+      }
+      ]
     },
     {
       name: 'level2',
       playerLocation: [3, 2],
       startLocation: [3, 2],
-      endLocation: [6, 6]
+      endLocation: [6, 6],
+      enemies: [
+      {
+        type:'straight',
+        direction: 'vertical',
+        currentDirection: 'down',
+        location: [4, 4]
+      },
+      {
+        type:'straight',
+        direction: 'horizontal',
+        currentDirection: 'left',
+        location: [6, 4]
+      },
+      ]
     },
     {
       name: 'level3',
       playerLocation: [8, 1],
       startLocation: [1, 1],
-      endLocation: [8, 8]
+      endLocation: [8, 8],
+      enemies: [
+      {
+        type:'straight',
+        direction: 'horizontal',
+        currentDirection: 'left',
+        location: [6, 5]
+      },
+      {
+        type:'straight',
+        direction: 'horizontal',
+        currentDirection: 'right',
+        location: [7, 4]
+      },
+      {
+        type:'straight',
+        direction: 'horizontal',
+        currentDirection: 'left',
+        location: [2, 5]
+      },
+      {
+        type:'straight',
+        direction: 'horizontal',
+        currentDirection: 'right',
+        location: [3, 4]
+      },      
+      ]
     },
     ]
 
