@@ -6,7 +6,7 @@ initKeys();
 const player = new Player(kontra);
 
 const interface = new UserInterface(kontra);
-const level = new Levels(2);
+const level = new Levels(0);
 const gameState = new GameState();
 
 
