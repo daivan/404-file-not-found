@@ -12,9 +12,6 @@ const gameState = new GameState();
 
 var ctx = canvas.getContext("2d");
 
-var gameStarted=false;
-   
-
 let start = kontra.Sprite({
       width:32,
       height: 32,
@@ -31,16 +28,6 @@ let end = kontra.Sprite({
 
 
 let enemies = [];
-
-//enemy.sprite.x=level.enemyLocation[0]*32;
-//enemy.sprite.y=level.enemyLocation[1]*32;
-//enemy.direction='vertical';
-
-//player.sprite.x=level.playerLocation[0]*32;
-//player.sprite.y=level.playerLocation[1]*32;
-
-
-
 
 let cooldown=0;
 
@@ -81,20 +68,26 @@ load('assets/imgs/groundSimple.png','assets/imgs/robot.png')
 
   });
 
-gameState.initiateLevel(player,start,end,level.getCurrentLevel());
+
 
 let loop = kontra.GameLoop({
 
     update: function(dt) {
 
 
-    // Start Game
-    if(gameStarted==false && keyPressed('space')){
-      gameStarted=true;
-      interface.gameStarted();  
+
+    // In the Start Menu and press <space>
+    if(gameState.stage=='menu' && keyPressed('space')){
+      gameState.stage='game';
+      gameState.initiateLevel(player,start,end,level.getCurrentLevel());
     }
 
-  if(cooldown>15 && gameState.backing==0){
+    // Start Game
+    if(gameState.dead==true && keyPressed('space')){
+       gameState.restartLevel(player,start,end,level.getCurrentLevel());
+    }
+
+  if(cooldown>15 && gameState.backing==0 && gameState.dead==false){
 
 
     if(keyPressed('up')){
@@ -146,6 +139,11 @@ let loop = kontra.GameLoop({
 // gameState.backing back process
   if(cooldown>15 && gameState.backing==1){
     var move = steps.pop();
+    if(move===undefined){
+      //interface.gameState='dead';
+      //interface.hide=false;
+      //gameState.dead=true;
+    }
       enemies.map(enemy => enemy.Move());
       if(move=='up'){
         player.sprite.y+=32;
@@ -181,14 +179,14 @@ if(result){
 
       player.sprite.update();
       enemies.map(enemy => enemy.sprite.update());
-    
       start.update();
       end.update();
       background.update();
+      interface.sprite.update(gameState);
     },
 
     render: function() {
-      if(gameStarted==true){
+      if(gameState.stage!='menu'){
         background.render();
         start.render(); 
         end.render(); 

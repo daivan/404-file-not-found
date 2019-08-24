@@ -3,6 +3,8 @@ class GameState {
   constructor() {
   	this.halfway = 0;
   	this.backing = 0;
+  	this.dead = true;
+  	this.stage = 'menu';
   }
  
 
@@ -52,22 +54,35 @@ class GameState {
 
 	checkPlayerAndEnemyCollision(player, enemy)
 	{
+
 		if(player.sprite.x==enemy.sprite.x && player.sprite.y==enemy.sprite.y){
-			this.playerDied();
+			this.dead=true;
+			return true;
 		}
 		return false;
 	}
 
-	playerDied()
+	restartLevel(player, start, end, level)
 	{
-		alert('you died');
+	  	this.halfway = 0;
+  		this.backing = 0;
+  		this.dead = false;
+		player.sprite.x=level.playerLocation[0]*32;
+		player.sprite.y=level.playerLocation[1]*32;
+
+		start.x=level.startLocation[0]*32;
+		start.y=level.startLocation[1]*32;
+
+		end.x=level.endLocation[0]*32;
+		end.y=level.endLocation[1]*32;		
 	}
 
 	initiateLevel(player, start, end, level)
 	{
-		enemies = [];
+		let enemies = [];
 	  	this.halfway = 0;
   		this.backing = 0;
+  		this.dead = false;
 		player.sprite.x=level.playerLocation[0]*32;
 		player.sprite.y=level.playerLocation[1]*32;
 

@@ -13,7 +13,7 @@ class Levels {
     {
       name: 'level1',
       playerLocation: [1, 4],
-      startLocation: [1, 4],
+      startLocation: [0, 4],
       endLocation: [8, 4],
       enemies: [
       {
