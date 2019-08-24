@@ -82,9 +82,9 @@ let loop = kontra.GameLoop({
       gameState.initiateLevel(player,start,end,level.getCurrentLevel());
     }
 
-    // Start Game
+    // Restart the game when dead with <space>
     if(gameState.dead==true && keyPressed('space')){
-       gameState.restartLevel(player,start,end,level.getCurrentLevel());
+       gameState.initiateLevel(player,start,end,level.getCurrentLevel());
     }
 
   if(cooldown>15 && gameState.backing==0 && gameState.dead==false){
@@ -140,9 +140,9 @@ let loop = kontra.GameLoop({
   if(cooldown>15 && gameState.backing==1){
     var move = steps.pop();
     if(move===undefined){
-      //interface.gameState='dead';
-      //interface.hide=false;
-      //gameState.dead=true;
+      interface.gameState='dead';
+      interface.hide=false;
+      gameState.dead=true;
     }
       enemies.map(enemy => enemy.Move());
       if(move=='up'){
@@ -163,19 +163,20 @@ let loop = kontra.GameLoop({
   cooldown++;
 
 
-
-
-
-
 gameState.checkHalfway(player, level);
 
 var result = gameState.checkStageClear(player, level.getCurrentLevel());
 if(result){
   level.setNextLevel();
-  gameState.initiateLevel(player,start,end,level.getCurrentLevel());
+  if(level.currentLevel==3){
+    gameState.stage='end'
+  }else{
+    gameState.initiateLevel(player,start,end,level.getCurrentLevel());  
+  }
+  
+  
 }
   // win
-
 
       player.sprite.update();
       enemies.map(enemy => enemy.sprite.update());
@@ -186,7 +187,7 @@ if(result){
     },
 
     render: function() {
-      if(gameState.stage!='menu'){
+      if(gameState.stage=='game'){
         background.render();
         start.render(); 
         end.render(); 

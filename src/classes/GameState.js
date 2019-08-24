@@ -40,7 +40,6 @@ class GameState {
 	checkStageClear(player,level)
 	{
 		if(player.sprite.x==level.startLocation[0]*32 && player.sprite.y==level.startLocation[1]*32 && gameState.halfway==1){
-		  alert('You win');
 		  return true;
 		}
 
@@ -62,24 +61,10 @@ class GameState {
 		return false;
 	}
 
-	restartLevel(player, start, end, level)
-	{
-	  	this.halfway = 0;
-  		this.backing = 0;
-  		this.dead = false;
-		player.sprite.x=level.playerLocation[0]*32;
-		player.sprite.y=level.playerLocation[1]*32;
-
-		start.x=level.startLocation[0]*32;
-		start.y=level.startLocation[1]*32;
-
-		end.x=level.endLocation[0]*32;
-		end.y=level.endLocation[1]*32;		
-	}
 
 	initiateLevel(player, start, end, level)
 	{
-		let enemies = [];
+		enemies = [];
 	  	this.halfway = 0;
   		this.backing = 0;
   		this.dead = false;

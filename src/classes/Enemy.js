@@ -13,14 +13,7 @@ class Enemy {
     this.spriteSheet = SpriteSheet({
     image: this.playerImage,
     frameWidth: 32,
-    frameHeight: 32,
-    animations: {
-      // create a named animation: walk
-      walk: {
-        frames: [0,9],  // frames 0 through 9
-        frameRate: 30
-      }
-    }
+    frameHeight: 32
   });
 
     this.sprite = this.kontra.Sprite({
@@ -29,9 +22,10 @@ class Enemy {
 	    anchor:{x:0,y:0.3},
 	    width:32,
 	    height: 32,
+      image: this.playerImage,
       //image: this.playerImage,
       // required for an animation sprite
-      animations: this.spriteSheet.animations
+      //animations: this.spriteSheet.animations
 		});
     
   }

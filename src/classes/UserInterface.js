@@ -34,7 +34,9 @@ class UserInterface {
             this.state='';
             this.hide=true;  
           }
-          
+        }else if(gameState.stage=='end'){
+          this.state='end';
+          this.hide=false;
         }
       }
   });
@@ -47,9 +49,6 @@ class UserInterface {
     }
 
   }
-  gameStarted(){
-    this.hide=true;
-  }
 
   headerText()
   {
@@ -58,6 +57,8 @@ class UserInterface {
       return "Press <Space> to start the game";
     }else if(this.state=='dead'){
       return "You Died, <Space> to try again";
+    }else if(this.state=='end'){
+      return "You did it, great job!";
     }else{
       return ""
     }
