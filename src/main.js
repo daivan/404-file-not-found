@@ -26,7 +26,6 @@ let end = kontra.Sprite({
 
 let enemies = [];
 let cooldown=0;
-let steps=[];
 
 load('assets/imgs/groundSimple.png','assets/imgs/robot.png')
   .then(function() {
@@ -83,7 +82,7 @@ let loop = kontra.GameLoop({
     if(keyPressed('up')){
       if(player.Move('up')){
         gameState.checkDead(player, enemies);
-        steps.push('up');
+        gameState.steps.push('up');
         enemies.map(enemy => enemy.Move());
         gameState.checkDead(player, enemies);
         cooldown=0;  
@@ -94,7 +93,7 @@ let loop = kontra.GameLoop({
     if(keyPressed('down')){
       if(player.Move('down')){
         gameState.checkDead(player, enemies);
-        steps.push('down');
+        gameState.steps.push('down');
         enemies.map(enemy => enemy.Move());
         gameState.checkDead(player, enemies);
         cooldown=0;  
@@ -105,7 +104,7 @@ let loop = kontra.GameLoop({
     if(keyPressed('left')){
       if(player.Move('left')){
         gameState.checkDead(player, enemies);
-        steps.push('left');
+        gameState.steps.push('left');
         enemies.map(enemy => enemy.Move());
         gameState.checkDead(player, enemies);
         cooldown=0;  
@@ -116,7 +115,7 @@ let loop = kontra.GameLoop({
     if(keyPressed('right')){
       if(player.Move('right')){
         gameState.checkDead(player, enemies);
-        steps.push('right');
+        gameState.steps.push('right');
         enemies.map(enemy => enemy.Move());
         gameState.checkDead(player, enemies);
         cooldown=0;  
@@ -128,13 +127,16 @@ let loop = kontra.GameLoop({
 
 // gameState.backing back process
   if(cooldown>15 && gameState.backing==1){
-    var move = steps.pop();
+    var move = gameState.steps.pop();
     if(move===undefined){
       interface.gameState='dead';
       interface.hide=false;
       gameState.dead=true;
+      gameState.backing=0;
     }
+
       enemies.map(enemy => enemy.Move());
+
       if(move=='up'){
         player.sprite.y+=32;
       }

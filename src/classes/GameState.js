@@ -2,6 +2,7 @@ class GameState {
 
   constructor() {
   	this.halfway = 0;
+  	this.steps = [];
   	this.backing = 0;
   	this.dead = true;
   	this.stage = 'menu';
@@ -66,6 +67,7 @@ class GameState {
 		enemies = [];
 	  	this.halfway = 0;
   		this.backing = 0;
+		this.steps = [];
   		this.dead = false;
 		player.sprite.x=level.playerLocation[0]*32;
 		player.sprite.y=level.playerLocation[1]*32;
