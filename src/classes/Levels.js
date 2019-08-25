@@ -1,13 +1,7 @@
 class Levels {
 
-
    constructor(currentLevel) {
     this.currentLevel = currentLevel;
-
-    // Description
-    // 1 Start Location
-    // 2 End Location
-    // 3 Walls
 
     this.levels=[
     {
@@ -138,11 +132,6 @@ class Levels {
    return this.levels[this.currentLevel]; 
   }
 
-  setCurrentLevel(newLevel)
-  {
-    this.currentLevel=newLevel;
-  }
- 
   setNextLevel()
   {
    this.currentLevel++; 

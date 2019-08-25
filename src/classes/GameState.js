@@ -30,7 +30,7 @@ class GameState {
 	}
 
 
-	checkHalfway(player,level)
+	checkHalfway(player)
 	{
 	  if(player.sprite.x==end.x && player.sprite.y==end.y){
 	    this.backing=1;
@@ -42,7 +42,6 @@ class GameState {
 		if(player.sprite.x==level.startLocation[0]*32 && player.sprite.y==level.startLocation[1]*32 && gameState.halfway==1){
 		  return true;
 		}
-
 		return false;
 	}
 
@@ -93,8 +92,7 @@ class GameState {
 					enemyObject.currentDirection=enemy.currentDirection;
 					enemies.push(enemyObject);
 				}
-			
-				
+
 			});
 		}
 	}

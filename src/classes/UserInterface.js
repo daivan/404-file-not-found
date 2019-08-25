@@ -43,11 +43,9 @@ class UserInterface {
   }
   
   Display(){
-
     if(!this.hide){
       this.sprite.render();
     }
-
   }
 
   headerText()

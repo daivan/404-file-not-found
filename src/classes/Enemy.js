@@ -2,19 +2,10 @@ class Enemy {
 
   constructor(kontra) {
     this.kontra = kontra;
-    this.x = 0;
-    this.y = 0;
     this.direction = 'horizontal';
     this.currentDirection = 'left';
     this.playerImage = new Image();
     this.playerImage.src = 'assets/imgs/enemy.png';
-
-
-    this.spriteSheet = SpriteSheet({
-    image: this.playerImage,
-    frameWidth: 32,
-    frameHeight: 32
-  });
 
     this.sprite = this.kontra.Sprite({
 	    x:this.x,
@@ -22,15 +13,11 @@ class Enemy {
 	    anchor:{x:0,y:0.3},
 	    width:32,
 	    height: 32,
-      image: this.playerImage,
-      //image: this.playerImage,
-      // required for an animation sprite
-      //animations: this.spriteSheet.animations
+      image: this.playerImage
 		});
     
   }
  
-
   Move(){
   	let map=level.maps[level.currentLevel].data;
   	if(this.direction=='vertical'){

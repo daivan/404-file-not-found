@@ -24,15 +24,9 @@ let end = kontra.Sprite({
     color: 'green'
 });
 
-
-
-
 let enemies = [];
-
 let cooldown=0;
-
 let steps=[];
-
 
 load('assets/imgs/groundSimple.png','assets/imgs/robot.png')
   .then(function() {
@@ -69,12 +63,9 @@ load('assets/imgs/groundSimple.png','assets/imgs/robot.png')
   });
 
 
-
 let loop = kontra.GameLoop({
 
     update: function(dt) {
-
-
 
     // In the Start Menu and press <space>
     if(gameState.stage=='menu' && keyPressed('space')){
@@ -88,7 +79,6 @@ let loop = kontra.GameLoop({
     }
 
   if(cooldown>15 && gameState.backing==0 && gameState.dead==false){
-
 
     if(keyPressed('up')){
       if(player.Move('up')){
@@ -176,7 +166,6 @@ if(result){
   
   
 }
-  // win
 
       player.sprite.update();
       enemies.map(enemy => enemy.sprite.update());
@@ -198,13 +187,4 @@ if(result){
     }
   });
   loop.start();
-
   });
-
-  
-
-
-
-
-
-  
