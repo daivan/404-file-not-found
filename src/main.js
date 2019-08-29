@@ -71,6 +71,7 @@ function gameLoop() {
 
   if(delta > interval) {
     cx.clearRect(0,0,cw,cw);
+
     if (state.pressedKeys.left) {
       player.move('left');
     }else if (state.pressedKeys.right) {

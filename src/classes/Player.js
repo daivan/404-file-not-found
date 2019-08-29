@@ -67,8 +67,6 @@ class Player {
 
   IsMovePossible(direction,map)
   {
-  	var sum=[this.location()[0],this.location()[1]];
-  	console.log(sum);
   	if(direction=='down'){
   		if(this.location()[0]===7){
   			return false;
