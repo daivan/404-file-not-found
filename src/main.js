@@ -5,6 +5,33 @@ for(var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
       window[vendors[x]+'CancelAnimationFrame'] || window[vendors[x]+'CancelRequestAnimationFrame'];
 }
 
+var state = {
+  pressedKeys: {
+    left: false,
+    right: false,
+    up: false,
+    down: false
+  }
+}
+
+var keyMap = {
+  68: 'right',
+  65: 'left',
+  87: 'up',
+  83: 'down'
+}
+function keydown(event) {
+  var key = keyMap[event.keyCode]
+  state.pressedKeys[key] = true
+}
+function keyup(event) {
+  var key = keyMap[event.keyCode]
+  state.pressedKeys[key] = false
+}
+
+window.addEventListener("keydown", keydown, false)
+window.addEventListener("keyup", keyup, false)
+
 var canvas = document.getElementById('canvas'),
     cw = canvas.width,
     ch = canvas.height,
@@ -25,8 +52,8 @@ var canvas = document.getElementById('canvas'),
 var map=[[1, 0, 0, 0, 0, 0, 0, 0],
         [1, 1, 1, 1, 1, 1, 1, 1],
         [2, 2, 2, 2, 2, 2, 2, 2],
-        [2, 2, 2, 2, 2, 2, 2, 2],
-        [1, 1, 1, 1, 1, 1, 1, 1],
+        [2, 2, 2, 0, 2, 2, 2, 2],
+        [1, 1, 1, 1, 0, 1, 1, 1],
         [2, 2, 2, 2, 2, 2, 2, 2],
         [1, 1, 1, 1, 1, 1, 1, 1],
         [0, 0, 0, 0, 0, 0, 0, 0]];
@@ -37,13 +64,24 @@ var player = new Player(cx);
 function gameLoop() {
   window.requestAnimationFrame(gameLoop);
 
+
+
   currentTime = (new Date()).getTime();
   delta = (currentTime-lastTime);
 
   if(delta > interval) {
+    cx.clearRect(0,0,cw,cw);
+    if (state.pressedKeys.left) {
+      player.move('left');
+    }else if (state.pressedKeys.right) {
+      player.move('right');
+    }else if (state.pressedKeys.up) {
+      player.move('up');
+    }else if (state.pressedKeys.down) {
+      player.move('down');
+    }
 
     Background.render();
-
     player.render();
 
     lastTime = currentTime - (delta % interval);
