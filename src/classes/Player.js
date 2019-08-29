@@ -1,22 +1,18 @@
 class Player {
 
-  constructor(kontra) {
-    this.kontra = kontra;
-    this.playerImage = new Image();
-    this.playerImage.src = 'assets/imgs/robot.png';
+  constructor(context) {
+	  var image = new Image();
+	  image.src = 'assets/imgs/robot.png';
+	  this.context=context;
+	  this.image=image;
 
-    this.sprite = this.kontra.Sprite({
-	    x:this.x,
-	    y:this.y,
-	    anchor:{x:0,y:0.3},
-	    width:32,
-	    height: 32,
-		image: this.playerImage
-		});
-    
   }
  
 
+  render()
+  {
+	  this.context.drawImage(this.image, 0, 0, 32, 32, 0, 0, 64, 64);
+  }
   Move(direction){
   	let map=level.maps[level.currentLevel].data;
   	if(direction=='down'){

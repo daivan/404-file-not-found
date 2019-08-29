@@ -1,192 +1,79 @@
-let { getCanvas, getContext, init, initKeys, keyPressed , TileEngine, load,SpriteSheet  } = kontra;
-let {  canvas, context } = init();
-
-initKeys();
-
-const player = new Player(kontra);
-
-const interface = new UserInterface(kontra);
-const level = new Levels(0);
-const gameState = new GameState();
-
-
-var ctx = canvas.getContext("2d");
-
-let start = kontra.Sprite({
-      width:32,
-      height: 32,
-      color: 'yellow'
-    });
-
-let end = kontra.Sprite({
-    width:32,
-    height: 32,
-    color: 'green'
-});
-
-let enemies = [];
-let cooldown=0;
-
-load('assets/imgs/groundSimple.png','assets/imgs/robot.png')
-  .then(function() {
-
-
-  let img = new Image();
-  img.src = 'assets/imgs/groundSimple.png';
-
-  let background = TileEngine({
-    // tile size
-    tilewidth: 32,
-    tileheight: 32,
-
-    // map size in tiles
-    width: 10,
-    height: 10,
-
-    // tileset object
-    tilesets: [{
-      firstgid: 1,
-      image: img
-    }],
-
-    // layer object
-    layers: level.maps,
-    update: function(){
-      
-  },
-  render: function(){
-
-      background.renderLayer(level.getCurrentLevel().name);        
-  }
-
-  });
-
-
-let loop = kontra.GameLoop({
-
-    update: function(dt) {
-
-    // In the Start Menu and press <space>
-    if(gameState.stage=='menu' && keyPressed('space')){
-      gameState.stage='game';
-      gameState.initiateLevel(player,start,end,level.getCurrentLevel());
-    }
-
-    // Restart the game when dead with <space>
-    if(gameState.dead==true && keyPressed('space')){
-       gameState.initiateLevel(player,start,end,level.getCurrentLevel());
-    }
-
-  if(cooldown>15 && gameState.backing==0 && gameState.dead==false){
-
-    if(keyPressed('up')){
-      if(player.Move('up')){
-        gameState.checkDead(player, enemies);
-        gameState.steps.push('up');
-        enemies.map(enemy => enemy.Move());
-        gameState.checkDead(player, enemies);
-        cooldown=0;  
-      }
-      
-      
-    }
-    if(keyPressed('down')){
-      if(player.Move('down')){
-        gameState.checkDead(player, enemies);
-        gameState.steps.push('down');
-        enemies.map(enemy => enemy.Move());
-        gameState.checkDead(player, enemies);
-        cooldown=0;  
-      }
-      
- 
-    }
-    if(keyPressed('left')){
-      if(player.Move('left')){
-        gameState.checkDead(player, enemies);
-        gameState.steps.push('left');
-        enemies.map(enemy => enemy.Move());
-        gameState.checkDead(player, enemies);
-        cooldown=0;  
-      }
-      
-  
-    }
-    if(keyPressed('right')){
-      if(player.Move('right')){
-        gameState.checkDead(player, enemies);
-        gameState.steps.push('right');
-        enemies.map(enemy => enemy.Move());
-        gameState.checkDead(player, enemies);
-        cooldown=0;  
-      }
-    }
-  }
-
-
-
-// gameState.backing back process
-  if(cooldown>15 && gameState.backing==1){
-    var move = gameState.steps.pop();
-    if(move===undefined){
-      interface.gameState='dead';
-      interface.hide=false;
-      gameState.dead=true;
-      gameState.backing=0;
-    }
-
-      enemies.map(enemy => enemy.Move());
-
-      if(move=='up'){
-        player.sprite.y+=32;
-      }
-      if(move=='left'){
-        player.sprite.x+=32;
-      }
-      if(move=='right'){
-        player.sprite.x-=32;
-      }
-      if(move=='down'){
-        player.sprite.y-=32;
-      }
-      gameState.checkDead(player, enemies);
-      cooldown=0;
-  }
-  cooldown++;
-
-
-gameState.checkHalfway(player, level);
-
-var result = gameState.checkStageClear(player, level.getCurrentLevel());
-if(result){
-  level.setNextLevel();
-  if(level.currentLevel==3){
-    gameState.stage='end'
-  }else{
-    gameState.initiateLevel(player,start,end,level.getCurrentLevel());  
-  }
-  
-  
+var vendors = ['webkit', 'moz'];
+for(var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
+  window.requestAnimationFrame = window[vendors[x]+'RequestAnimationFrame'];
+  window.cancelAnimationFrame =
+      window[vendors[x]+'CancelAnimationFrame'] || window[vendors[x]+'CancelRequestAnimationFrame'];
 }
 
-      player.sprite.update();
-      enemies.map(enemy => enemy.sprite.update());
-      start.update();
-      end.update();
-      background.update();
-      interface.sprite.update(gameState);
-    },
+var canvas = document.getElementById('canvas'),
+    cw = canvas.width,
+    ch = canvas.height,
+    cx = null,
+    fps = 30,
+    bX = 30,
+    bY = 30,
+    mX = 10,
+    mY = 20,
+    interval     =    1000/fps,
+    lastTime     =    (new Date()).getTime(),
+    currentTime  =    0,
+    delta = 0;
+    cx = canvas.getContext('2d');
 
-    render: function() {
-      if(gameState.stage=='game'){
-        background.render();
-        start.render(); 
-        end.render(); 
-        player.sprite.render();  
-        enemies.map(enemy => enemy.sprite.render());
-      }
-      interface.Display();
-    }
+
+
+var map=[[1, 0, 0, 0, 0, 0, 0, 0],
+        [1, 1, 1, 1, 1, 1, 1, 1],
+        [2, 2, 2, 2, 2, 2, 2, 2],
+        [2, 2, 2, 2, 2, 2, 2, 2],
+        [1, 1, 1, 1, 1, 1, 1, 1],
+        [2, 2, 2, 2, 2, 2, 2, 2],
+        [1, 1, 1, 1, 1, 1, 1, 1],
+        [0, 0, 0, 0, 0, 0, 0, 0]];
+var Background = new TileSheet(cx, map);
+
+var player = new Player(cx);
+
+function gameLoop() {
+  window.requestAnimationFrame(gameLoop);
+
+  currentTime = (new Date()).getTime();
+  delta = (currentTime-lastTime);
+
+  if(delta > interval) {
+
+    Background.render();
+
+    player.render();
+
+    lastTime = currentTime - (delta % interval);
+  }
+}
+
+
+
+
+
+// get images
+Promise.all([
+  loadImage("assets/imgs/groundSimple.png"),
+  loadImage("assets/imgs/robot.png"),
+])
+    .then((images) => {
+      // draw images to canvas
+      //context.drawImage(images[0], 0, 180, canvas.width, canvas.height);
+      //context.drawImage(images[1], 0, 0, canvas.width, 180);
+
+      //window.requestAnimationFrame(gameLoop);
+
+      gameLoop();
+    });
+
+// function to retrieve an image
+function loadImage(url) {
+  return new Promise((fulfill, reject) => {
+    let imageObj = new Image();
+    imageObj.onload = () => fulfill(imageObj);
+    imageObj.src = url;
   });
-  loop.start();
-  });
+}
