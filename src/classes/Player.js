@@ -17,8 +17,6 @@ class Player {
  animateIdle()
 {
       this.context.drawImage(this.image, 0, 0, 32, 32, this.x, this.y, 64, 64);
-
-  
 }  
 
 
