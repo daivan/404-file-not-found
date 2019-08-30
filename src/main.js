@@ -98,14 +98,10 @@ function gameLoop() {
 // get images
 Promise.all([
   loadImage("assets/imgs/groundSimple.png"),
-  loadImage("assets/imgs/robot.png"),
+  loadImage("assets/imgs/robot2.png"),
 ])
     .then((images) => {
       // draw images to canvas
-      //context.drawImage(images[0], 0, 180, canvas.width, canvas.height);
-      //context.drawImage(images[1], 0, 0, canvas.width, 180);
-
-      //window.requestAnimationFrame(gameLoop);
 
       gameLoop();
 

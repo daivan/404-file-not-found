@@ -2,18 +2,85 @@ class Player {
 
   constructor(context) {
 	  var image = new Image();
-	  image.src = 'assets/imgs/robot.png';
+	  image.src = 'assets/imgs/robot2.png';
 	  this.context=context;
 	  this.image=image;
 	  this.x=0;
 	  this.y=0;
 	  this.moving=false;
+    this.animate=0;
   }
  
 
+animateRight()
+{
+    if(this.animate==0){
+      this.context.drawImage(this.image, 0, 32, 32, 32, this.x, this.y, 64, 64);
+      this.animate++;
+    }else if(this.animate==1){
+      this.context.drawImage(this.image, 32, 32, 32, 32, this.x, this.y, 64, 64);
+      this.animate++;
+    }else{
+      this.context.drawImage(this.image, 64, 32, 32, 32, this.x, this.y, 64, 64);
+      this.animate=0;
+    }
+  
+}  
+
+
+animateLeft()
+{
+    if(this.animate==0){
+      this.context.drawImage(this.image, 0, 96, 32, 32, this.x, this.y, 64, 64);
+      this.animate++;
+    }else if(this.animate==1){
+      this.context.drawImage(this.image, 32, 96, 32, 32, this.x, this.y, 64, 64);
+      this.animate++;
+    }else{
+      this.context.drawImage(this.image, 64, 96, 32, 32, this.x, this.y, 64, 64);
+      this.animate=0;
+    }
+  
+}  
+
+
+animateUp()
+{
+    if(this.animate==0){
+      this.context.drawImage(this.image, 0, 64, 32, 32, this.x, this.y, 64, 64);
+      this.animate++;
+    }else if(this.animate==1){
+      this.context.drawImage(this.image, 32, 64, 32, 32, this.x, this.y, 64, 64);
+      this.animate++;
+    }else{
+      this.context.drawImage(this.image, 64, 64, 32, 32, this.x, this.y, 64, 64);
+      this.animate=0;
+    }
+  
+}  
+
+
+
+animateDown()
+{
+    if(this.animate==0){
+      this.context.drawImage(this.image, 0, 0, 32, 32, this.x, this.y, 64, 64);
+      this.animate++;
+    }else if(this.animate==1){
+      this.context.drawImage(this.image, 32, 0, 32, 32, this.x, this.y, 64, 64);
+      this.animate++;
+    }else{
+      this.context.drawImage(this.image, 64, 0, 32, 32, this.x, this.y, 64, 64);
+      this.animate=0;
+    }
+  
+}  
+
+
   render()
   {
-	  this.context.drawImage(this.image, 0, 0, 32, 32, this.x, this.y, 64, 64);
+    this.animateDown();  
+
   }
 
   move(direction){
