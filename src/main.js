@@ -5,6 +5,8 @@ for(var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
       window[vendors[x]+'CancelAnimationFrame'] || window[vendors[x]+'CancelRequestAnimationFrame'];
 }
 
+
+  
 var state = {
   pressedKeys: {
     left: false,
@@ -21,7 +23,7 @@ var keyMap = {
   83: 'down'
 }
 function keydown(event) {
-  var key = keyMap[event.keyCode]
+	var key = keyMap[event.keyCode]
   state.pressedKeys[key] = true
 }
 function keyup(event) {
@@ -60,6 +62,7 @@ var map=[[1, 0, 0, 0, 0, 0, 0, 0],
 var Background = new TileSheet(cx, map);
 
 var player = new Player(cx);
+var music = new Music();
 
 function gameLoop() {
   window.requestAnimationFrame(gameLoop);
@@ -74,6 +77,7 @@ function gameLoop() {
 
     if (state.pressedKeys.left) {
       player.move('left');
+      music.playMove();
     }else if (state.pressedKeys.right) {
       player.move('right');
     }else if (state.pressedKeys.up) {
@@ -91,8 +95,6 @@ function gameLoop() {
 
 
 
-
-
 // get images
 Promise.all([
   loadImage("assets/imgs/groundSimple.png"),
@@ -106,7 +108,10 @@ Promise.all([
       //window.requestAnimationFrame(gameLoop);
 
       gameLoop();
+
     });
+
+
 
 // function to retrieve an image
 function loadImage(url) {
