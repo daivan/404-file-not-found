@@ -9,8 +9,18 @@ class Player {
 	  this.y=0;
 	  this.moving=false;
     this.animate=0;
+    this.destination = [0,0]
+    this.currentAnimation='idle';
+    this.isMoving=false;
   }
  
+ animateIdle()
+{
+      this.context.drawImage(this.image, 0, 0, 32, 32, this.x, this.y, 64, 64);
+
+  
+}  
+
 
 animateRight()
 {
@@ -79,14 +89,53 @@ animateDown()
 
   render()
   {
-    this.animateDown();  
+    if(this.currentAnimation==='walkRight'){
+      this.animateRight();  
+    }else if(this.currentAnimation==='walkLeft'){
+      this.animateLeft();  
+    }else if(this.currentAnimation==='walkUp'){
+      this.animateUp();  
+    }else if(this.currentAnimation==='walkDown'){
+      this.animateDown();  
+    }else if(this.currentAnimation==='idle'){
+      this.animateIdle();  
+    }
+    if(this.isMoving){
+      this.movePlayer();
+    }
 
   }
 
+  movePlayer()
+  {
+    if(this.x!==this.destination[0]){
+      if(this.x>this.destination[0]){
+        this.x=this.x-2;
+      }else{
+        this.x=this.x+2;
+      }
+    }else if(this.y!==this.destination[1]){
+      if(this.y>this.destination[1]){
+        this.y=this.y-2;
+      }else{
+        this.y=this.y+2;
+      }
+    }else{
+      this.isMoving=false;
+    }
+
+  }
+
+
   move(direction){
+    if(this.isMoving){
+      return false;
+    }
   	if(direction=='down'){
   		if(this.IsMovePossible('down',map)){
-			this.y+=64;
+        this.isMoving=true;
+        this.currentAnimation='walkDown';
+			this.destination=[this.x,this.y+64];
 			return true;
   		}
   		return false;
@@ -94,21 +143,27 @@ animateDown()
   	}
   	if(direction=='up'){
   		if(this.IsMovePossible('up',map)){
-			this.y-=64;
+        this.isMoving=true;
+        this.currentAnimation='walkUp';
+      this.destination=[this.x,this.y-64];
 			return true;
   		}
   		return false;
   	}
   	if(direction==='left'){
   		if(this.IsMovePossible('left',map)){
-			this.x-=64;
+        this.isMoving=true;
+        this.currentAnimation='walkLeft';
+        this.destination=[this.x-64,this.y];
 			//return true;
   		}
   		return false;
   	}
   	if(direction=='right'){
   		if(this.IsMovePossible('right',map)){
-			this.x+=64;
+        this.isMoving=true;
+        this.currentAnimation='walkRight';
+			this.destination=[this.x+64,this.y];
 			return true;
   		}
   		return false;
