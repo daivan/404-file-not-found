@@ -10,7 +10,6 @@ class Music {
 
   
   playMove(){
-    this.moveSound.play(); 
-  
+    //this.moveSound.play();
   }
 }

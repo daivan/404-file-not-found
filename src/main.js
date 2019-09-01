@@ -1,34 +1,47 @@
 var vendors = ['webkit', 'moz'];
-for(var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
-  window.requestAnimationFrame = window[vendors[x]+'RequestAnimationFrame'];
-  window.cancelAnimationFrame =
-      window[vendors[x]+'CancelAnimationFrame'] || window[vendors[x]+'CancelRequestAnimationFrame'];
+for (var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
+    window.requestAnimationFrame = window[vendors[x] + 'RequestAnimationFrame'];
+    window.cancelAnimationFrame =
+        window[vendors[x] + 'CancelAnimationFrame'] || window[vendors[x] + 'CancelRequestAnimationFrame'];
 }
 
+let gameState = new GameState();
+let level = new Levels(1);
 
-  
+
+let startImage = new Image();
+startImage.src = 'assets/imgs/goal.png';
+
+let goalImage = new Image();
+goalImage.src = 'assets/imgs/goal.png';
+
+let start = [0, 0];
+let end = [3, 5];
+
 var state = {
-  pressedKeys: {
-    left: false,
-    right: false,
-    up: false,
-    down: false
-  }
+    pressedKeys: {
+        left: false,
+        right: false,
+        up: false,
+        down: false
+    }
 }
 
 var keyMap = {
-  68: 'right',
-  65: 'left',
-  87: 'up',
-  83: 'down'
+    68: 'right',
+    65: 'left',
+    87: 'up',
+    83: 'down'
 }
+
 function keydown(event) {
-	var key = keyMap[event.keyCode]
-  state.pressedKeys[key] = true
+    var key = keyMap[event.keyCode]
+    state.pressedKeys[key] = true
 }
+
 function keyup(event) {
-  var key = keyMap[event.keyCode]
-  state.pressedKeys[key] = false
+    var key = keyMap[event.keyCode]
+    state.pressedKeys[key] = false
 }
 
 window.addEventListener("keydown", keydown, false)
@@ -43,77 +56,134 @@ var canvas = document.getElementById('canvas'),
     bY = 30,
     mX = 10,
     mY = 20,
-    interval     =    1000/fps,
-    lastTime     =    (new Date()).getTime(),
-    currentTime  =    0,
+    interval = 1000 / fps,
+    lastTime = (new Date()).getTime(),
+    currentTime = 0,
     delta = 0;
-    cx = canvas.getContext('2d');
+cx = canvas.getContext('2d');
 
 
-
-var map=[[1, 0, 0, 0, 0, 0, 0, 0],
-        [1, 1, 1, 1, 1, 1, 1, 1],
-        [2, 2, 2, 2, 2, 2, 2, 2],
-        [2, 2, 2, 0, 2, 2, 2, 2],
-        [1, 1, 1, 1, 0, 1, 1, 1],
-        [2, 2, 2, 2, 2, 2, 2, 2],
-        [1, 1, 1, 1, 1, 1, 1, 1],
-        [0, 0, 0, 0, 0, 0, 0, 0]];
+var map = [[1, 0, 0, 0, 0, 0, 0, 0],
+    [1, 1, 1, 1, 1, 1, 1, 1],
+    [2, 2, 2, 2, 2, 2, 2, 2],
+    [2, 2, 2, 0, 2, 2, 2, 2],
+    [1, 1, 1, 1, 0, 1, 1, 1],
+    [2, 2, 2, 2, 2, 2, 2, 2],
+    [1, 1, 1, 1, 1, 1, 1, 1],
+    [0, 0, 0, 0, 0, 0, 0, 0]];
 var Background = new TileSheet(cx, map);
 
 var player = new Player(cx);
 var music = new Music();
 
+gameState.initiateLevel(player, start, end, level.getCurrentLevel());
+
 function gameLoop() {
-  window.requestAnimationFrame(gameLoop);
+    window.requestAnimationFrame(gameLoop);
 
 
+    currentTime = (new Date()).getTime();
+    delta = (currentTime - lastTime);
 
-  currentTime = (new Date()).getTime();
-  delta = (currentTime-lastTime);
+    if (delta > interval) {
+        cx.clearRect(0, 0, cw, cw);
 
-  if(delta > interval) {
-    cx.clearRect(0,0,cw,cw);
+        if (gameState.backing !== 1) {
 
-    if (state.pressedKeys.left) {
-      player.move('left');
-      music.playMove();
-    }else if (state.pressedKeys.right) {
-      player.move('right');
-    }else if (state.pressedKeys.up) {
-      player.move('up');
-    }else if (state.pressedKeys.down) {
-      player.move('down');
+
+            if (state.pressedKeys.left) {
+                if (player.move('left')) {
+                    music.playMove();
+                    gameState.steps.push('left');
+                }
+            } else if (state.pressedKeys.right) {
+                if (player.move('right')) {
+                    music.playMove();
+                    gameState.steps.push('right');
+                }
+            } else if (state.pressedKeys.up) {
+                if (player.move('up')) {
+                    music.playMove();
+                    gameState.steps.push('up');
+                }
+            } else if (state.pressedKeys.down) {
+                if (player.move('down')) {
+                    music.playMove();
+                    gameState.steps.push('down');
+                }
+            }
+        }
+
+        // gameState.backing back process
+        if (gameState.backing === 1 && player.isMoving===false) {
+            console.log(gameState.steps);
+            var move = gameState.steps.pop();
+            if (move === undefined) {
+                /*
+                interface.gameState = 'dead';
+                interface.hide = false;
+                gameState.dead = true;
+                gameState.backing = 0;
+                */
+
+            }
+
+            //enemies.map(enemy => enemy.Move());
+
+            if (move == 'up') {
+                player.move('down');
+                music.playMove();
+            }
+            if (move == 'left') {
+                player.move('right');
+                music.playMove();
+            }
+            if (move == 'right') {
+                player.move('left');
+                music.playMove();
+            }
+            if (move == 'down') {
+                player.move('up');
+                music.playMove();
+            }
+            //gameState.checkDead(player, enemies);
+            //cooldown = 0;
+        }
+
+        Background.render();
+        cx.drawImage(goalImage, 0, 0, 32, 32, level.getCurrentLevel().endLocation[0] * 64, level.getCurrentLevel().endLocation[1] * 64, 64, 64);
+        cx.drawImage(startImage, 0, 0, 32, 32, level.getCurrentLevel().startLocation[0] * 64, level.getCurrentLevel().startLocation[1] * 64, 64, 64);
+        player.render();
+
+        gameState.checkHalfway(player);
+        if(gameState.checkStageClear(player,level.getCurrentLevel())){
+            console.log('you did it!');
+
+        }
+        lastTime = currentTime - (delta % interval);
     }
-
-    Background.render();
-    player.render();
-
-    lastTime = currentTime - (delta % interval);
-  }
 }
-
 
 
 // get images
 Promise.all([
-  loadImage("assets/imgs/groundSimple.png"),
-  loadImage("assets/imgs/robot2.png"),
+    loadImage("assets/imgs/groundSimple.png"),
+    loadImage("assets/imgs/robot2.png"),
+    loadImage("assets/imgs/goal.png"),
 ])
     .then((images) => {
-      // draw images to canvas
+        // draw images to canvas
 
-      gameLoop();
+        gameLoop();
 
     });
 
 
-
 // function to retrieve an image
 function loadImage(url) {
-  return new Promise((fulfill, reject) => {
-    let imageObj = new Image();
-    imageObj.onload = () => fulfill(imageObj);
-    imageObj.src = url;
-  });
+    return new Promise((fulfill, reject) => {
+        let imageObj = new Image();
+        imageObj.onload = () => fulfill(imageObj);
+        imageObj.src = url;
+    });
 }

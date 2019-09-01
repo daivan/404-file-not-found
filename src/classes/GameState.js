@@ -33,14 +33,17 @@ class GameState {
 
 	checkHalfway(player)
 	{
-	  if(player.sprite.x==end.x && player.sprite.y==end.y){
+
+	  if(player.x===end.x && player.y===end.y){
+		  console.log(player.y,end.x);
 	    this.backing=1;
 	    this.halfway=1;
 	  }
 	}
+
 	checkStageClear(player,level)
 	{
-		if(player.sprite.x==level.startLocation[0]*32 && player.sprite.y==level.startLocation[1]*32 && gameState.halfway==1){
+		if(player.x===level.startLocation[0]*64 && player.y===level.startLocation[1]*64 && gameState.halfway===1){
 		  return true;
 		}
 		return false;
@@ -64,21 +67,22 @@ class GameState {
 
 	initiateLevel(player, start, end, level)
 	{
-		enemies = [];
+		console.log(level);
+		//enemies = [];
 	  	this.halfway = 0;
   		this.backing = 0;
 		this.steps = [];
   		this.dead = false;
-		player.sprite.x=level.playerLocation[0]*32;
-		player.sprite.y=level.playerLocation[1]*32;
+		player.x=level.playerLocation[0]*64;
+		player.y=level.playerLocation[1]*64;
 
-		start.x=level.startLocation[0]*32;
-		start.y=level.startLocation[1]*32;
+		start.x=level.startLocation[0]*64;
+		start.y=level.startLocation[1]*64;
 
-		end.x=level.endLocation[0]*32;
-		end.y=level.endLocation[1]*32;		
+		end.x=level.endLocation[0]*64;
+		end.y=level.endLocation[1]*64;
 
-		this.spawnEnemies();
+		//this.spawnEnemies();
 	}
 
 	spawnEnemies()
