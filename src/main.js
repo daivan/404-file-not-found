@@ -6,7 +6,7 @@ for (var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
 }
 
 let gameState = new GameState();
-let level = new Levels(1);
+let level = new Levels(0);
 
 
 let startImage = new Image();
@@ -109,7 +109,6 @@ function gameLoop() {
 
         // gameState.backing back process
         if (gameState.backing === 1 && player.isMoving===false) {
-            console.log(gameState.steps);
             var move = gameState.steps.pop();
             if (move === undefined) {
                 /*

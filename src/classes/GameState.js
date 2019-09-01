@@ -35,7 +35,6 @@ class GameState {
 	{
 
 	  if(player.x===end.x && player.y===end.y){
-		  console.log(player.y,end.x);
 	    this.backing=1;
 	    this.halfway=1;
 	  }
@@ -67,7 +66,6 @@ class GameState {
 
 	initiateLevel(player, start, end, level)
 	{
-		console.log(level);
 		//enemies = [];
 	  	this.halfway = 0;
   		this.backing = 0;
