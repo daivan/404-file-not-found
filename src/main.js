@@ -64,8 +64,6 @@ cx = canvas.getContext('2d');
 
 
 var map = level.maps[0].data;
-console.log(map);
-console.log(map);
 var Background = new TileSheet(cx, map);
 
 var player = new Player(cx);
