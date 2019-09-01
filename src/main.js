@@ -63,14 +63,9 @@ var canvas = document.getElementById('canvas'),
 cx = canvas.getContext('2d');
 
 
-var map = [[1, 0, 0, 0, 0, 0, 0, 0],
-    [1, 1, 1, 1, 1, 1, 1, 1],
-    [2, 2, 2, 2, 2, 2, 2, 2],
-    [2, 2, 2, 0, 2, 2, 2, 2],
-    [1, 1, 1, 1, 0, 1, 1, 1],
-    [2, 2, 2, 2, 2, 2, 2, 2],
-    [1, 1, 1, 1, 1, 1, 1, 1],
-    [0, 0, 0, 0, 0, 0, 0, 0]];
+var map = level.maps[0].data;
+console.log(map);
+console.log(map);
 var Background = new TileSheet(cx, map);
 
 var player = new Player(cx);
@@ -156,10 +151,17 @@ function gameLoop() {
         player.render();
 
         gameState.checkHalfway(player);
-        if(gameState.checkStageClear(player,level.getCurrentLevel())){
-            console.log('you did it!');
 
+        var result = gameState.checkStageClear(player, level.getCurrentLevel());
+        if(result) {
+            level.setNextLevel();
+            if (level.currentLevel === 3) {
+                gameState.stage = 'end'
+            } else {
+                gameState.initiateLevel(player, start, end, level.getCurrentLevel());
+            }
         }
+
         lastTime = currentTime - (delta % interval);
     }
 }
