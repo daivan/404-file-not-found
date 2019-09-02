@@ -117,7 +117,7 @@ class Player {
     }
 
 
-    move(direction) {
+    move(direction,map) {
         if (this.isMoving) {
             return false;
         }
