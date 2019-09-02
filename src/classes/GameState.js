@@ -68,7 +68,7 @@ class GameState {
 	initiateLevel(player, start, end, level)
 	{
 
-		//enemies = [];
+		enemies = [];
 	  	this.halfway = 0;
   		this.backing = 0;
 		this.steps = [];
@@ -84,7 +84,7 @@ class GameState {
 		end.y=level.endLocation[1]*64;
 
 		Background.setMap(level.map);
-		//this.spawnEnemies();
+		this.spawnEnemies();
 	}
 
 	spawnEnemies()
@@ -93,9 +93,9 @@ class GameState {
 		if(level.getCurrentLevel().enemies!==undefined){
 			level.getCurrentLevel().enemies.map(enemy => {
 				if(enemy.type==='straight'){
-					let enemyObject = new Enemy(kontra);
-					enemyObject.sprite.y=enemy.location[0]*32;
-					enemyObject.sprite.x=enemy.location[1]*32;
+					let enemyObject = new Enemy(cx);
+					enemyObject.y=enemy.location[0]*64;
+					enemyObject.x=enemy.location[1]*64;
 					enemyObject.direction=enemy.direction;
 					enemyObject.currentDirection=enemy.currentDirection;
 					enemies.push(enemyObject);

@@ -4,6 +4,7 @@ for (let x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
     window.cancelAnimationFrame =
         window[vendors[x] + 'CancelAnimationFrame'] || window[vendors[x] + 'CancelRequestAnimationFrame'];
 }
+let enemies = [];
 let textInterface = new TextInterface();
 let game = new Game();
 let gameState = new GameState();

@@ -1,23 +1,37 @@
 class Enemy {
 
-  constructor(kontra) {
-    this.kontra = kontra;
+  constructor(context) {
     this.direction = 'horizontal';
     this.currentDirection = 'left';
     this.playerImage = new Image();
     this.playerImage.src = 'assets/imgs/enemy.png';
+	this.context = context;
+    this.x=0;
+    this.y=0;
+    this.currentAnimation='idle';
 
-    this.sprite = this.kontra.Sprite({
-	    x:this.x,
-	    y:this.y,
-	    anchor:{x:0,y:0.3},
-	    width:32,
-	    height: 32,
-      image: this.playerImage
-		});
-    
   }
- 
+	animateIdle() {
+		this.context.drawImage(this.playerImage, 0, 0, 32, 32, this.x, this.y, 64, 64);
+	}
+
+	render() {
+		if (this.currentAnimation === 'walkRight') {
+			this.animateRight();
+		} else if (this.currentAnimation === 'walkLeft') {
+			this.animateLeft();
+		} else if (this.currentAnimation === 'walkUp') {
+			this.animateUp();
+		} else if (this.currentAnimation === 'walkDown') {
+			this.animateDown();
+		} else if (this.currentAnimation === 'idle') {
+			this.animateIdle();
+		}
+		if (this.isMoving) {
+			this.movePlayer();
+		}
+	}
+
   Move(){
   	let map=level.maps[level.currentLevel].data;
   	if(this.direction=='vertical'){
@@ -59,13 +73,13 @@ class Enemy {
   location(){
 	var x;
 	var y;
-  	if(this.sprite.x>0){
-  		x=this.sprite.x/32;
+  	if(this.x>0){
+  		x=this.x/64;
   	}else{
 		x=0;
   	}
-  	if(this.sprite.y>0){
-  		y=this.sprite.y/32;
+  	if(this.y>0){
+  		y=this.y/64;
   	}else{
 		y=0;
   	}

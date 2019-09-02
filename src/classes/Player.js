@@ -94,7 +94,6 @@ class Player {
         if (this.isMoving) {
             this.movePlayer();
         }
-
     }
 
     movePlayer() {
