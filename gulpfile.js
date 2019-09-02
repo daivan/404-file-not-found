@@ -9,7 +9,7 @@ gulp.task('dist', function(){
 });
 */
 function minifyJs() {
-    return gulp.src(['src/kontra.js','src/classes/*.js','src/main.js'])
+    return gulp.src(['src/classes/*.js','src/main.js'])
     .pipe(minify({noSource: true}))
     .pipe(concat('all.js'))
     .pipe(gulp.dest('dist/js'))

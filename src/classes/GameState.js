@@ -1,6 +1,7 @@
 class GameState {
 
   constructor() {
+  	this.state = 'start_menu';
   	this.halfway = 0;
   	this.steps = [];
   	this.backing = 0;

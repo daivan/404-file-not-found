@@ -5,6 +5,7 @@ for (var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
         window[vendors[x] + 'CancelAnimationFrame'] || window[vendors[x] + 'CancelRequestAnimationFrame'];
 }
 
+let startmenu = new StartMenu();
 let gameState = new GameState();
 let level = new Levels(0);
 
@@ -75,11 +76,14 @@ function gameLoop() {
     window.requestAnimationFrame(gameLoop);
 
 
+
     currentTime = (new Date()).getTime();
     delta = (currentTime - lastTime);
 
     if (delta > interval) {
+
         cx.clearRect(0, 0, cw, cw);
+
 
         if (gameState.backing !== 1) {
 
@@ -159,6 +163,12 @@ function gameLoop() {
             }
         }
 
+        // Stage
+        if(gameState.state==='start_menu'){
+            cx.clearRect(0, 0, cw, cw);
+            startmenu.render();
+        }
+
         lastTime = currentTime - (delta % interval);
     }
 }
@@ -170,7 +180,7 @@ Promise.all([
     loadImage("assets/imgs/robot2.png"),
     loadImage("assets/imgs/goal.png"),
 ])
-    .then((images) => {
+    .then(() => {
         // draw images to canvas
 
         gameLoop();
@@ -180,7 +190,7 @@ Promise.all([
 
 // function to retrieve an image
 function loadImage(url) {
-    return new Promise((fulfill, reject) => {
+    return new Promise((fulfill) => {
         let imageObj = new Image();
         imageObj.onload = () => fulfill(imageObj);
         imageObj.src = url;
