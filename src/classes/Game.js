@@ -2,7 +2,9 @@ class Game {
 
 	update()
 	{
-		if (gameState.backing !== 1) {
+
+
+		if (gameState.backing !== 1 && gameState.dead===false) {
 
 
 			if (state.pressedKeys.left) {
@@ -33,7 +35,7 @@ class Game {
 		}
 
 		// gameState.backing back process
-		if (gameState.backing === 1 && player.isMoving===false) {
+		if (gameState.backing === 1 && player.isMoving===false && gameState.dead===false) {
 			var move = gameState.steps.pop();
 			if (move === undefined) {
 				/*
@@ -45,7 +47,7 @@ class Game {
 
 			}
 
-			//enemies.map(enemy => enemy.Move());
+			enemies.map(enemy => enemy.Move(level.getCurrentLevel().map));
 
 			if (move == 'up') {
 				player.move('down',level.getCurrentLevel().map);
@@ -63,10 +65,10 @@ class Game {
 				player.move('up',level.getCurrentLevel().map);
 				music.playMove();
 			}
-			//gameState.checkDead(player, enemies);
-			//cooldown = 0;
-		}
 
+
+		}
+		gameState.checkDead(player, enemies);
 		Background.render();
 		cx.drawImage(goalImage, 0, 0, 32, 32, level.getCurrentLevel().endLocation[0] * 64, level.getCurrentLevel().endLocation[1] * 64, 64, 64);
 		cx.drawImage(startImage, 0, 0, 32, 32, level.getCurrentLevel().startLocation[0] * 64, level.getCurrentLevel().startLocation[1] * 64, 64, 64);

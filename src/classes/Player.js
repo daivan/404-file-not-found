@@ -120,7 +120,7 @@ class Player {
         if (this.isMoving) {
             return false;
         }
-        if (direction == 'down') {
+        if (direction === 'down') {
             if (this.IsMovePossible('down', map)) {
                 this.isMoving = true;
                 this.currentAnimation = 'walkDown';
@@ -130,7 +130,7 @@ class Player {
             return false;
 
         }
-        if (direction == 'up') {
+        if (direction === 'up') {
             if (this.IsMovePossible('up', map)) {
                 this.isMoving = true;
                 this.currentAnimation = 'walkUp';
@@ -148,7 +148,7 @@ class Player {
             }
             return false;
         }
-        if (direction == 'right') {
+        if (direction === 'right') {
             if (this.IsMovePossible('right', map)) {
                 this.isMoving = true;
                 this.currentAnimation = 'walkRight';
@@ -161,8 +161,8 @@ class Player {
     }
 
     location() {
-        var x;
-        var y;
+        let x;
+        let y;
         if (this.x > 0) {
             x = this.x / 64;
         } else {
@@ -177,7 +177,7 @@ class Player {
     }
 
     IsMovePossible(direction, map) {
-        if (direction == 'down') {
+        if (direction === 'down') {
             if (this.location()[0] === 7) {
                 return false;
             }

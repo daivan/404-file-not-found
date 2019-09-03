@@ -34,4 +34,17 @@ class TextInterface {
 		cx.fillText(credits, 75, 350);
 
 	}
+
+	renderDead(){
+		let title = "You died";
+
+		let start = "Press Space to try again";
+
+		cx.font = "50px Arial Black";
+		cx.fillStyle = "#FFF";  //<======= here
+		cx.fillText(title, 140, 170);
+		cx.font = "20px Arial Black";
+		cx.fillText(start, 115, 350);
+
+	}
 }

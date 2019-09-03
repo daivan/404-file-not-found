@@ -76,6 +76,12 @@ function gameLoop() {
         gameState.state='level1';
     }
 
+    // Press Space if dead
+    if(state.pressedKeys.space && gameState.dead===true){
+        gameState.initiateLevel(player, start, end, level.getCurrentLevel());
+        gameState.state='inGame';
+    }
+
     currentTime = (new Date()).getTime();
     delta = (currentTime - lastTime);
 
@@ -90,6 +96,9 @@ function gameLoop() {
         }else if(gameState.state==='end'){
             cx.clearRect(0, 0, cw, cw);
             textInterface.renderEnd();
+        }else if(gameState.state==='dead'){
+            game.update();
+            textInterface.renderDead();
         }else{
             game.update();
 

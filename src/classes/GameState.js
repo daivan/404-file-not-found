@@ -51,14 +51,16 @@ class GameState {
 
 	checkDead(player,enemies)
 	{
+
 		enemies.map(enemy => this.checkPlayerAndEnemyCollision(player,enemy));
 	}
 
 	checkPlayerAndEnemyCollision(player, enemy)
 	{
 
-		if(player.sprite.x==enemy.sprite.x && player.sprite.y==enemy.sprite.y){
+		if(player.x===enemy.x && player.y===enemy.y){
 			this.dead=true;
+			this.state='dead';
 			return true;
 		}
 		return false;

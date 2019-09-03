@@ -13,8 +13,8 @@ class Levels {
                     {
                         type: 'straight',
                         direction: 'horizontal',
-                        currentDirection: 'right',
-                        location: [4, 4]
+                        currentDirection: 'left',
+                        location: [4, 5]
                     }
                 ],
                 map: [[0, 0, 0, 0, 0, 0, 0, 0],
