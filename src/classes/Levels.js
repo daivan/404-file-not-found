@@ -12,9 +12,9 @@ class Levels {
                 enemies: [
                     {
                         type: 'straight',
-                        direction: 'vertical',
-                        currentDirection: 'down',
-                        location: [6, 4]
+                        direction: 'horizontal',
+                        currentDirection: 'right',
+                        location: [4, 4]
                     }
                 ],
                 map: [[0, 0, 0, 0, 0, 0, 0, 0],
@@ -35,14 +35,14 @@ class Levels {
                     {
                         type: 'straight',
                         direction: 'vertical',
-                        currentDirection: 'down',
+                        currentDirection: 'up',
                         location: [4, 4]
                     },
                     {
                         type: 'straight',
                         direction: 'horizontal',
                         currentDirection: 'left',
-                        location: [6, 4]
+                        location: [4, 4]
                     },
                 ],
                 map: [[0, 0, 1, 2, 2, 3, 0, 0],
@@ -64,25 +64,25 @@ class Levels {
                         type: 'straight',
                         direction: 'horizontal',
                         currentDirection: 'left',
-                        location: [6, 5]
+                        location: [5, 4]
                     },
                     {
                         type: 'straight',
                         direction: 'horizontal',
                         currentDirection: 'right',
-                        location: [7, 4]
+                        location: [6, 3]
                     },
                     {
                         type: 'straight',
                         direction: 'horizontal',
                         currentDirection: 'left',
-                        location: [2, 5]
+                        location: [1, 4]
                     },
                     {
                         type: 'straight',
                         direction: 'horizontal',
                         currentDirection: 'right',
-                        location: [3, 4]
+                        location: [2, 3]
                     },
                 ],
                 map: [[1, 2, 3, 0, 0, 1, 2, 3],

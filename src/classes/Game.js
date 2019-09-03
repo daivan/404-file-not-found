@@ -9,21 +9,25 @@ class Game {
 				if (player.move('left',level.getCurrentLevel().map)) {
 					music.playMove();
 					gameState.steps.push('left');
+					enemies.map(enemy => enemy.Move(level.getCurrentLevel().map));
 				}
 			} else if (state.pressedKeys.right) {
 				if (player.move('right',level.getCurrentLevel().map)) {
 					music.playMove();
 					gameState.steps.push('right');
+					enemies.map(enemy => enemy.Move(level.getCurrentLevel().map));
 				}
 			} else if (state.pressedKeys.up) {
 				if (player.move('up',level.getCurrentLevel().map)) {
 					music.playMove();
 					gameState.steps.push('up');
+					enemies.map(enemy => enemy.Move(level.getCurrentLevel().map));
 				}
 			} else if (state.pressedKeys.down) {
 				if (player.move('down',level.getCurrentLevel().map)) {
 					music.playMove();
 					gameState.steps.push('down');
+					enemies.map(enemy => enemy.Move(level.getCurrentLevel().map));
 				}
 			}
 		}

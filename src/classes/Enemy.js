@@ -32,39 +32,39 @@ class Enemy {
 		}
 	}
 
-  Move(){
-  	let map=level.maps[level.currentLevel].data;
-  	if(this.direction=='vertical'){
-      if(this.currentDirection=='up'){
+  Move(map){
+
+  	if(this.direction==='vertical'){
+      if(this.currentDirection==='up'){
         if(this.IsMovePossible('up',map)){            
-          this.sprite.y-=32;
+          this.y-=64;
         }else{
           this.currentDirection='down';
-          this.sprite.y+=32;
+          this.y+=64;
         }
       }else{
         if(this.IsMovePossible('down',map)){            
-          this.sprite.y+=32;
+          this.y+=64;
         }else{
           this.currentDirection='up';
-          this.sprite.y-=32;
+          this.y-=64;
         }
       }		
   	}else{ // horizontal
 
-      if(this.currentDirection=='left'){
+      if(this.currentDirection==='left'){
         if(this.IsMovePossible('left',map)){            
-          this.sprite.x-=32;
+          this.x-=64;
         }else{
           this.currentDirection='right';
-          this.sprite.x+=32;
+          this.x+=64;
         }
       }else{
         if(this.IsMovePossible('right',map)){            
-          this.sprite.x+=32;
+          this.x+=64;
         }else{
           this.currentDirection='left';
-          this.sprite.x-=32;
+          this.x-=64;
         }
       }
     }
@@ -83,42 +83,40 @@ class Enemy {
   	}else{
 		y=0;
   	}
-  	y=y*10;
   	return [y,x];
   }
 
   IsMovePossible(direction,map)
   {
-  	var sum=this.location()[0]+this.location()[1];
-  	if(direction=='down'){
-  		if(this.location()[0]==90){
+  	if(direction==='down'){
+  		if(this.location()[1]===6){
   			return false;
   		}
-  		if(map[sum+10]==0){
-  			return false;
-  		}
-  		return true;
-  	}else if(direction=='up'){
-  		if(this.location()[0]==0){
-  			return false;
-  		}
-		if(map[sum-10]==0){
+  		if(map[this.location()[0]+1][this.location()[1]]===0){
   			return false;
   		}
   		return true;
-  	}else if(direction=='left'){
-  		if(this.location()[1]==0){
+  	}else if(direction==='up'){
+  		if(this.location()[0]===0){
   			return false;
   		}
-		if(map[sum-1]==0){
+		if(map[this.location()[0]-1][this.location()[1]]===0){
   			return false;
   		}
   		return true;
-  	}else if(direction=='right'){
-  		if(this.location()[1]==9){
+  	}else if(direction==='left'){
+  		if(this.location()[1]===0){
   			return false;
   		}
-		if(map[sum+1]==0){
+		if(map[this.location()[0]][this.location()[1]-1]===0){
+  			return false;
+  		}
+  		return true;
+  	}else if(direction==='right'){
+  		if(this.location()[1]===7){
+  			return false;
+  		}
+		if(map[this.location()[0]][this.location()[1]+1]===0){
   			return false;
   		}
   		return true;

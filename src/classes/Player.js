@@ -99,15 +99,15 @@ class Player {
     movePlayer() {
         if (this.x !== this.destination[0]) {
             if (this.x > this.destination[0]) {
-                this.x = this.x - 2;
+                this.x = this.x - 4;
             } else {
-                this.x = this.x + 2;
+                this.x = this.x + 4;
             }
         } else if (this.y !== this.destination[1]) {
             if (this.y > this.destination[1]) {
-                this.y = this.y - 2;
+                this.y = this.y - 4;
             } else {
-                this.y = this.y + 2;
+                this.y = this.y + 4;
             }
         } else {
             this.isMoving = false;
@@ -144,7 +144,7 @@ class Player {
                 this.isMoving = true;
                 this.currentAnimation = 'walkLeft';
                 this.destination = [this.x - 64, this.y];
-                //return true;
+                return true;
             }
             return false;
         }
