@@ -118,7 +118,7 @@ class Enemy {
 
   	if(this.direction==='vertical'){
       if(this.currentDirection==='up'){
-        if(this.IsMovePossible('up',map)){            
+        if(this.IsMovePossible('up',map)){
 			this.isMoving = true;
 			this.currentAnimation = 'walkUp';
 			this.destination = [this.x, this.y - 64];
@@ -140,7 +140,7 @@ class Enemy {
 			this.currentAnimation = 'walkUp';
 			this.destination = [this.x, this.y - 64];
         }
-      }		
+      }
   	}else{ // horizontal
 
       if(this.currentDirection==='left'){
@@ -170,8 +170,8 @@ class Enemy {
   }
 
   location(){
-	var x;
-	var y;
+	let x;
+	let y;
   	if(this.x>0){
   		x=this.x/64;
   	}else{

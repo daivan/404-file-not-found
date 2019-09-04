@@ -1,7 +1,7 @@
 {
   "name": "palindrome",
   "version": "1.0.0",
-  "description": "Palindrome the game for js13kgames",
+  "description": "Palindrome the game for js13kGames",
   "main": "src/main.js",
   "sideEffects": false,
   "scripts": {

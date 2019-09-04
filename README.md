@@ -2,7 +2,7 @@ Forward and Back
 
 This game is created to be part of the https://js13kgames.com/ Competition.
 
-IT was created by Me (daivan trinh) and Håkan Einarsson.
+IT was created by Me (Daivan Trinh) and Håkan Einarsson.
 
 Clone the repo.
 

@@ -8,29 +8,6 @@ class GameState {
   	this.dead = true;
   	this.stage = 0;
   }
- 
-
-
-	get start(){
-		return {
-	    x:0,
-	    y:0,
-	    width:32,
-	    height: 32,
-	    color: 'yellow'
-	}
-	}
-
-	get end(){
-		return {
-    x:320,
-    y:320,
-    width:32,
-    height: 32,
-    color: 'green'
-}
-	}
-
 
 	checkHalfway(player)
 	{
@@ -43,10 +20,7 @@ class GameState {
 
 	checkStageClear(player,level)
 	{
-		if(player.x===level.startLocation[0]*64 && player.y===level.startLocation[1]*64 && gameState.halfway===1){
-		  return true;
-		}
-		return false;
+		return (player.x===level.startLocation[0]*64 && player.y===level.startLocation[1]*64 && gameState.halfway===1);
 	}
 
 	checkDead(player,enemies)

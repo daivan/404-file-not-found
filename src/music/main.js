@@ -1,4 +1,4 @@
-const A4=440*1/Math.pow(2,2);
+const A4=440/Math.pow(2,2);
 const Bs4=A4*Math.pow(2,1/12);
 const B4=A4*Math.pow(2,2/12);
 const C4=A4*Math.pow(2,-9/12);
@@ -13,22 +13,22 @@ const Gs4=A4*Math.pow(2,-1/12);
 
 const bpm = 120;
 const bps = bpm/60;
-var type="sine";
-var notes = [
+let type="sine";
+let notes = [
     [A4,3/bps],
     [A4,1/bps],
     [C4*2,2/bps],
     [G4*2,2/bps]
     
 ];
-var notes2 = [
+let notes2 = [
     [C4*2*2,3/bps],
     [B4*2*2,2/bps],
     [E4*2*2,1/bps],
     [B4*2*2,2/bps]
    
 ];
-var audioContext = new AudioContext();
+let audioContext = new AudioContext();
 
 function startMusic(){
     play(notes);

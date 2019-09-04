@@ -34,7 +34,7 @@ class Game {
 
 		// gameState.backing back process
 		if (gameState.backing === 1 && player.isMoving===false && gameState.dead===false) {
-			var move = gameState.steps.pop();
+			let move = gameState.steps.pop();
 			if (move === undefined) {
 
                 gameState.dead = true;
@@ -45,19 +45,19 @@ class Game {
 
 			enemies.map(enemy => enemy.Move(level.getCurrentLevel().map));
 
-			if (move == 'up') {
+			if (move === 'up') {
 				player.move('down',level.getCurrentLevel().map);
 				music.playMove();
 			}
-			if (move == 'left') {
+			if (move === 'left') {
 				player.move('right',level.getCurrentLevel().map);
 				music.playMove();
 			}
-			if (move == 'right') {
+			if (move === 'right') {
 				player.move('left',level.getCurrentLevel().map);
 				music.playMove();
 			}
-			if (move == 'down') {
+			if (move === 'down') {
 				player.move('up',level.getCurrentLevel().map);
 				music.playMove();
 			}
@@ -72,7 +72,7 @@ class Game {
 		enemies.map(enemy => enemy.render());
 		gameState.checkHalfway(player);
 
-		var result = gameState.checkStageClear(player, level.getCurrentLevel());
+		let result = gameState.checkStageClear(player, level.getCurrentLevel());
 		if(result) {
 			level.setNextLevel();
 			if (level.currentLevel === 3) {

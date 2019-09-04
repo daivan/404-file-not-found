@@ -31,7 +31,7 @@ class Instrument{
         filter.type=this.filterType;
         filter.frequency.value=this.filterFreqValue;
         gainNode.gain.setValueAtTime(0.02,audioContext.currentTime);
-        gainNode.gain.setTargetAtTime(this.gainNodeProps[0],this.audioContext.currentTime+this.gainNodeProps[1],this.gainNodeProps[2])
+        gainNode.gain.setTargetAtTime(this.gainNodeProps[0],this.audioContext.currentTime+this.gainNodeProps[1],this.gainNodeProps[2]);
         oscillator.type=this.wave;
         oscillator.frequency.setValueAtTime(note[0],this.audioContext.currentTime);
         oscillator.start();
@@ -39,7 +39,7 @@ class Instrument{
             ()=> {
                 oscillator.stop(this.audioContext.currentTime);
                 this.counter++;
-                console.log(this.notes[this.counter])
+                console.log(this.notes[this.counter]);
                 this.playMelody();
             }, note[1]*1000);
         

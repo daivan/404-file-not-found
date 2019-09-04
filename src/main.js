@@ -19,9 +19,9 @@ let canvas = document.getElementById('canvas'),
     delta = 0;
 cx = canvas.getContext('2d');
 
-var Background = new TileSheet(cx);
-var player = new Player(cx);
-var music = new Music();
+let Background = new TileSheet(cx);
+let player = new Player(cx);
+let music = new Music();
 
 let startImage = new Image();
 startImage.src = 'assets/images/objects.png';
@@ -32,7 +32,7 @@ goalImage.src = 'assets/images/objects.png';
 let start = [0, 0];
 let end = [3, 5];
 
-var state = {
+let state = {
     pressedKeys: {
         space: false,
         left: false,
@@ -40,28 +40,28 @@ var state = {
         up: false,
         down: false
     }
-}
+};
 
-var keyMap = {
+let keyMap = {
     'ArrowRight': 'right',
     'ArrowLeft': 'left',
     'ArrowUp': 'up',
     'ArrowDown': 'down',
     'Space': 'space'
-}
+};
 
 function keydown(event) {
-    var key = keyMap[event.code];
+    let key = keyMap[event.code];
     state.pressedKeys[key] = true
 }
 
 function keyup(event) {
-    var key = keyMap[event.code];
+    let key = keyMap[event.code];
     state.pressedKeys[key] = false
 }
 
-window.addEventListener("keydown", keydown, false)
-window.addEventListener("keyup", keyup, false)
+window.addEventListener("keydown", keydown, false);
+window.addEventListener("keyup", keyup, false);
 
 
 

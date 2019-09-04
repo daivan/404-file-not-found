@@ -3,7 +3,7 @@ class TileSheet
 
 	constructor(context)
 	{
-		var img_background = new Image();
+		let img_background = new Image();
 		img_background.src = 'assets/images/ground.png';
 		this.context=context;
 		this.image=img_background;
@@ -17,12 +17,12 @@ class TileSheet
 
 	render()
 	{
-		var row=0;
+		let row=0;
 		if(this.map.length>0){
 			this.map.map((x)=>{
-				var column=0;
+				let column=0;
 				x.map((y)=>{
-					var croppedImage=this.calculate(y);
+					let croppedImage=this.calculate(y);
 					if(y!==0){
 						this.context.drawImage(this.image, croppedImage[0], croppedImage[1], 32, 32, column*64, row*64, 64, 64);
 					}
