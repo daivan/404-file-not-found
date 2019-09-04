@@ -38,12 +38,10 @@ class Game {
 		if (gameState.backing === 1 && player.isMoving===false && gameState.dead===false) {
 			var move = gameState.steps.pop();
 			if (move === undefined) {
-				/*
-                interface.gameState = 'dead';
-                interface.hide = false;
+
                 gameState.dead = true;
                 gameState.backing = 0;
-                */
+				gameState.state='dead';
 
 			}
 
