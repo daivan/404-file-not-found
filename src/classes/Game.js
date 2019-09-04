@@ -3,9 +3,7 @@ class Game {
 	update()
 	{
 
-
 		if (gameState.backing !== 1 && gameState.dead===false) {
-
 
 			if (state.pressedKeys.left) {
 				if (player.move('left',level.getCurrentLevel().map)) {

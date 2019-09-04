@@ -2,7 +2,7 @@ class Player {
 
     constructor(context) {
         let image = new Image();
-        image.src = 'assets/imgs/robot2.png';
+        image.src = 'assets/images/robot.png';
         this.context = context;
         this.image = image;
         this.x = 0;

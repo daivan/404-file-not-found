@@ -16,8 +16,8 @@ function minifyJs() {
 }
 
 function moveAssets() {
-    return gulp.src(['assets/imgs/enemy.png','assets/imgs/robot.png','assets/imgs/groundSimple.png'])
-    .pipe(gulp.dest('dist/assets/imgs'))
+    return gulp.src(['assets/images/objects.png','assets/images/enemy.png','assets/images/robot.png','assets/images/ground.png'])
+    .pipe(gulp.dest('dist/assets/images'))
 }
 
 gulp.task('dist', gulp.series(minifyJs,moveAssets));

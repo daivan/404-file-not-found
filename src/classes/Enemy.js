@@ -4,7 +4,7 @@ class Enemy {
     this.direction = 'horizontal';
     this.currentDirection = 'left';
     this.image = new Image();
-    this.image.src = 'assets/imgs/enemy-draft.png';
+    this.image.src = 'assets/images/enemy.png';
 	this.context = context;
     this.x=0;
     this.y=0;

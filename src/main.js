@@ -24,10 +24,10 @@ var player = new Player(cx);
 var music = new Music();
 
 let startImage = new Image();
-startImage.src = 'assets/imgs/goal.png';
+startImage.src = 'assets/images/objects.png';
 
 let goalImage = new Image();
-goalImage.src = 'assets/imgs/goal.png';
+goalImage.src = 'assets/images/objects.png';
 
 let start = [0, 0];
 let end = [3, 5];
@@ -111,10 +111,10 @@ function gameLoop() {
 
 // get images
 Promise.all([
-    loadImage("assets/imgs/groundSimple.png"),
-    loadImage("assets/imgs/robot2.png"),
-    loadImage("assets/imgs/goal.png"),
-    loadImage("assets/imgs/enemy-draft.png"),
+    loadImage("assets/images/ground.png"),
+    loadImage("assets/images/robot.png"),
+    loadImage("assets/images/objects.png"),
+    loadImage("assets/images/enemy.png"),
 ])
     .then(() => {
         // draw images to canvas
