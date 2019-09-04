@@ -3,16 +3,80 @@ class Enemy {
   constructor(context) {
     this.direction = 'horizontal';
     this.currentDirection = 'left';
-    this.playerImage = new Image();
-    this.playerImage.src = 'assets/imgs/enemy.png';
+    this.image = new Image();
+    this.image.src = 'assets/imgs/enemy-draft.png';
 	this.context = context;
     this.x=0;
     this.y=0;
     this.currentAnimation='idle';
 
+  this.animate = 0;
+  this.destination = [0, 0];
+  this.isMoving = false;
+
   }
 	animateIdle() {
-		this.context.drawImage(this.playerImage, 0, 0, 32, 32, this.x, this.y, 64, 64);
+		this.context.drawImage(this.image, 0, 0, 32, 32, this.x, this.y, 64, 64);
+	}
+
+
+	animateRight() {
+		if (this.animate === 0) {
+			this.context.drawImage(this.image, 0, 32, 32, 32, this.x, this.y, 64, 64);
+			this.animate++;
+		} else if (this.animate === 1) {
+			this.context.drawImage(this.image, 32, 32, 32, 32, this.x, this.y, 64, 64);
+			this.animate++;
+		} else {
+			this.context.drawImage(this.image, 64, 32, 32, 32, this.x, this.y, 64, 64);
+			this.animate = 0;
+		}
+
+	}
+
+
+	animateLeft() {
+		if (this.animate === 0) {
+			this.context.drawImage(this.image, 0, 96, 32, 32, this.x, this.y, 64, 64);
+			this.animate++;
+		} else if (this.animate === 1) {
+			this.context.drawImage(this.image, 32, 96, 32, 32, this.x, this.y, 64, 64);
+			this.animate++;
+		} else {
+			this.context.drawImage(this.image, 64, 96, 32, 32, this.x, this.y, 64, 64);
+			this.animate = 0;
+		}
+
+	}
+
+
+	animateUp() {
+		if (this.animate === 0) {
+			this.context.drawImage(this.image, 0, 64, 32, 32, this.x, this.y, 64, 64);
+			this.animate++;
+		} else if (this.animate === 1) {
+			this.context.drawImage(this.image, 32, 64, 32, 32, this.x, this.y, 64, 64);
+			this.animate++;
+		} else {
+			this.context.drawImage(this.image, 64, 64, 32, 32, this.x, this.y, 64, 64);
+			this.animate = 0;
+		}
+
+	}
+
+
+	animateDown() {
+		if (this.animate === 0) {
+			this.context.drawImage(this.image, 0, 0, 32, 32, this.x, this.y, 64, 64);
+			this.animate++;
+		} else if (this.animate === 1) {
+			this.context.drawImage(this.image, 32, 0, 32, 32, this.x, this.y, 64, 64);
+			this.animate++;
+		} else {
+			this.context.drawImage(this.image, 64, 0, 32, 32, this.x, this.y, 64, 64);
+			this.animate = 0;
+		}
+
 	}
 
 	render() {
@@ -28,7 +92,25 @@ class Enemy {
 			this.animateIdle();
 		}
 		if (this.isMoving) {
-			this.movePlayer();
+			this.moveEnemy();
+		}
+	}
+
+	moveEnemy() {
+		if (this.x !== this.destination[0]) {
+			if (this.x > this.destination[0]) {
+				this.x = this.x - 4;
+			} else {
+				this.x = this.x + 4;
+			}
+		} else if (this.y !== this.destination[1]) {
+			if (this.y > this.destination[1]) {
+				this.y = this.y - 4;
+			} else {
+				this.y = this.y + 4;
+			}
+		} else {
+			this.isMoving = false;
 		}
 	}
 
@@ -37,34 +119,51 @@ class Enemy {
   	if(this.direction==='vertical'){
       if(this.currentDirection==='up'){
         if(this.IsMovePossible('up',map)){            
-          this.y-=64;
+			this.isMoving = true;
+			this.currentAnimation = 'walkUp';
+			this.destination = [this.x, this.y - 64];
+
         }else{
           this.currentDirection='down';
-          this.y+=64;
+			this.isMoving = true;
+			this.currentAnimation = 'walkDown';
+			this.destination = [this.x, this.y + 64];
         }
       }else{
-        if(this.IsMovePossible('down',map)){            
-          this.y+=64;
+        if(this.IsMovePossible('down',map)){
+			this.isMoving = true;
+			this.currentAnimation = 'walkDown';
+			this.destination = [this.x, this.y + 64];
         }else{
           this.currentDirection='up';
-          this.y-=64;
+			this.isMoving = true;
+			this.currentAnimation = 'walkUp';
+			this.destination = [this.x, this.y - 64];
         }
       }		
   	}else{ // horizontal
 
       if(this.currentDirection==='left'){
-        if(this.IsMovePossible('left',map)){            
-          this.x-=64;
+        if(this.IsMovePossible('left',map)){
+			this.isMoving = true;
+			this.currentAnimation = 'walkLeft';
+			this.destination = [this.x-64, this.y];
         }else{
           this.currentDirection='right';
-          this.x+=64;
+			this.isMoving = true;
+			this.currentAnimation = 'walkRight';
+			this.destination = [this.x+64, this.y];
         }
       }else{
-        if(this.IsMovePossible('right',map)){            
-          this.x+=64;
+        if(this.IsMovePossible('right',map)){
+			this.isMoving = true;
+			this.currentAnimation = 'walkRight';
+			this.destination = [this.x+64, this.y];
         }else{
           this.currentDirection='left';
-          this.x-=64;
+			this.isMoving = true;
+			this.currentAnimation = 'walkLeft';
+			this.destination = [this.x-64, this.y];
         }
       }
     }

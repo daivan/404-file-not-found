@@ -112,7 +112,6 @@ class Player {
         } else {
             this.isMoving = false;
         }
-
     }
 
 

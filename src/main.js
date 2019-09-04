@@ -114,6 +114,7 @@ Promise.all([
     loadImage("assets/imgs/groundSimple.png"),
     loadImage("assets/imgs/robot2.png"),
     loadImage("assets/imgs/goal.png"),
+    loadImage("assets/imgs/enemy-draft.png"),
 ])
     .then(() => {
         // draw images to canvas
