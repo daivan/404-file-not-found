@@ -1,13 +1,7 @@
 const gulp = require("gulp");
 const minify = require("gulp-minify");
 const concat = require('gulp-concat');
-/*
-gulp.task('dist', function(){
-  return gulp.src(['src/classes/*.js','src/*.js'])
-    .pipe(minify({noSource: true}))
-    .pipe(gulp.dest('dist/js'))
-});
-*/
+
 function minifyJs() {
     return gulp.src(['src/classes/*.js','src/main.js'])
     .pipe(minify({noSource: true}))

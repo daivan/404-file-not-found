@@ -1,5 +1,3 @@
 /.idea/
 /node_modules/
-/dist/js/
-/dist/assets/
 package-lock.json
