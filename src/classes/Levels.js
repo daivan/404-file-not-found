@@ -97,6 +97,14 @@ class Levels {
         ];
     }
 
+    changeTile(mouseX, mouseY){
+        if(this.levels[0].map[0][0] > 8){
+            this.levels[0].map[0][0] = 0;
+        }else{
+            this.levels[0].map[0][0] += 1;
+        }
+
+    }
     getCurrentLevel() {
         return this.levels[this.currentLevel];
     }

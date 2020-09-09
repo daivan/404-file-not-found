@@ -5,17 +5,17 @@ class TextInterface {
 
 
 	renderStart() {
-		let title = "PALINDROME";
-		let subtitle = "We go forward then back";
-		let start = "Press Space to play game";
-		let credits = "Created by: Daivan Trinh & Hakan Einarsson for js13kGames.com";
+		let title = "404";
+		let subtitle = "File not found";
+		let start = "Press <Space> to play";
+		let credits = "Created by: Daivan Trinh & Håkan Einarsson for js13kGames.com 2020";
 		cx.font = "50px Arial Black";
 		cx.fillStyle = "#FFF";  //<======= here
-		cx.fillText(title, 60, 170);
+		cx.fillText(title, 200, 170);
 		cx.font = "20px Arial Black";
-		cx.fillText(subtitle, 100, 220);
+		cx.fillText(subtitle, 175, 220);
 
-		cx.fillText(start, 100, 350);
+		cx.fillText(start, 135, 350);
 
 		cx.font = "8px Arial";
 		cx.fillText(credits, 10, 500);

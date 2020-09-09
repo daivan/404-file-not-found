@@ -21,6 +21,7 @@ cx = canvas.getContext('2d');
 
 let Background = new TileSheet(cx);
 let player = new Player(cx);
+let testTile = new TestTile(cx);
 let music = new Music();
 
 let startImage = new Image();
@@ -52,6 +53,7 @@ let keyMap = {
 
 function keydown(event) {
     let key = keyMap[event.code];
+    console.log(key);
     state.pressedKeys[key] = true
 }
 
@@ -60,15 +62,24 @@ function keyup(event) {
     state.pressedKeys[key] = false
 }
 
+function onClick(event) {
+    level.changeTile(event.clientX, event.clientY);
+}
+
 window.addEventListener("keydown", keydown, false);
 window.addEventListener("keyup", keyup, false);
 
+// mouse click
+window.addEventListener("click", onClick, false);
 
 
 
 
 function gameLoop() {
     window.requestAnimationFrame(gameLoop);
+
+    testTile.x=3*64;
+    testTile.y=3*64;
 
     // Press Space in main menu
     if(state.pressedKeys.space && gameState.state==='start_menu'){
@@ -132,3 +143,14 @@ function loadImage(url) {
         imageObj.src = url;
     });
 }
+
+// A * STAR Example needed for isConnected
+var graph = new Graph([
+    [1,1,1,1],
+    [0,0,0,0],
+    [0,0,1,1]
+]);
+var start1 = graph.grid[0][0];
+var end1 = graph.grid[2][2];
+var result = astar.search(graph, start1, end1);
+console.log(result);
