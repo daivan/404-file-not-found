@@ -49,9 +49,6 @@ class GameState {
   		this.backing = 0;
 		this.steps = [];
   		this.dead = false;
-		player.x=level.playerLocation[0]*64;
-		player.y=level.playerLocation[1]*64;
-		player.destination=[player.x,player.y];
 
 		start.x=level.startLocation[0]*64;
 		start.y=level.startLocation[1]*64;

@@ -68,9 +68,9 @@ class Game {
 		Background.render();
 		cx.drawImage(goalImage, 0, 0, 32, 32, level.getCurrentLevel().endLocation[0] * 64, level.getCurrentLevel().endLocation[1] * 64, 64, 64);
 		cx.drawImage(startImage, 0, 32, 32, 32, level.getCurrentLevel().startLocation[0] * 64, level.getCurrentLevel().startLocation[1] * 64, 64, 64);
-		player.render();
-		testTile.render();
-		requestTile.render();
+		//player.render();
+		//testTile.render();
+		//requestTile.render();
 		enemies.map(enemy => enemy.render());
 		gameState.checkHalfway(player);
 

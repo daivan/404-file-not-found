@@ -67,6 +67,7 @@ function keyup(event) {
 }
 
 function onClick(event) {
+    console.log('test');
     level.changeTile(event.clientX, event.clientY);
 }
 

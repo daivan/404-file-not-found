@@ -2,7 +2,7 @@ class Request {
 
     constructor(context) {
         let image = new Image();
-        image.src = 'assets/images/robot.png';
+        image.src = 'assets/images/request.png';
         this.context = context;
         this.image = image;
         this.x = 0;

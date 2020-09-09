@@ -4,7 +4,7 @@ class TileSheet
 	constructor(context)
 	{
 		let img_background = new Image();
-		img_background.src = 'assets/images/ground.png';
+		img_background.src = 'assets/images/wires.png';
 		this.context=context;
 		this.image=img_background;
 		this.map=[];

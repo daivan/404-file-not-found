@@ -6,23 +6,14 @@ class Levels {
         this.levels = [
             {
                 name: 'level1',
-                playerLocation: [1, 4],
                 startLocation: [1, 4],
                 endLocation: [6, 3],
-                enemies: [
-                    {
-                        type: 'straight',
-                        direction: 'horizontal',
-                        currentDirection: 'left',
-                        location: [4, 5]
-                    }
-                ],
                 map: [[0, 0, 0, 0, 0, 0, 0, 0],
                     [0, 0, 0, 0, 0, 0, 0, 0],
-                    [1, 2, 2, 2, 2, 2, 2, 3],
-                    [4, 5, 5, 5, 5, 5, 5, 6],
-                    [4, 5, 5, 5, 5, 5, 5, 6],
-                    [7, 8, 8, 8, 8, 8, 8, 9],
+                    [0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0],
                     [0, 0, 0, 0, 0, 0, 0, 0],
                     [0, 0, 0, 0, 0, 0, 0, 0]]
             },
@@ -103,6 +94,7 @@ class Levels {
         }else{
             this.levels[0].map[0][0] += 1;
         }
+        console.log(this.levels[0].map[0][0]);
 
     }
     getCurrentLevel() {
