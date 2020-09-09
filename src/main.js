@@ -67,8 +67,8 @@ function keyup(event) {
 }
 
 function onClick(event) {
-    console.log('test');
-    level.changeTile(event.clientX, event.clientY);
+    console.log(event.pageX, event.pageY);
+    level.changeTile(event.pageX, event.pageY);
 }
 
 window.addEventListener("keydown", keydown, false);
