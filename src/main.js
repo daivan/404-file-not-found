@@ -22,6 +22,7 @@ cx = canvas.getContext('2d');
 let Background = new TileSheet(cx);
 let player = new Player(cx);
 let testTile = new TestTile(cx);
+let requestTile = new Request(cx);
 let music = new Music();
 
 let startImage = new Image();
@@ -44,6 +45,7 @@ let state = {
 };
 
 let keyMap = {
+    'Enter': 'we tryin',
     'ArrowRight': 'right',
     'ArrowLeft': 'left',
     'ArrowUp': 'up',
@@ -53,8 +55,10 @@ let keyMap = {
 
 function keydown(event) {
     let key = keyMap[event.code];
-    console.log(key);
-    state.pressedKeys[key] = true
+    state.pressedKeys[key] = true;
+    requestTile.isConnected(level.getCurrentLevel().map);
+
+
 }
 
 function keyup(event) {

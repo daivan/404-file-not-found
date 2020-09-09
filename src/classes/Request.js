@@ -13,8 +13,26 @@ class Request {
     }
 
 
-    isConnected(){
-        
+    isConnected(Map){
+
+        console.log('false not connected');
+        console.log(Map);
+        // A * STAR Example needed for isConnected
+        let graph = new Graph([
+            [1,1,1,1],
+            [0,0,0,0],
+            [0,0,1,1]
+        ]);
+        let start = graph.grid[0][0];
+        let end = graph.grid[2][2];
+        let result = this.connected(graph, start, end);
+        console.log(result);
+
+
+    }
+
+    connected(map, start, stopp){
+        return true;
     }
 
     render() {
