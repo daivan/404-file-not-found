@@ -1,5 +1,8 @@
 class Game {
 
+  constructor() {
+  	this.nextTile = Math.floor(Math.random() * 9) + 1;
+  }
 
 	makeMove(event)
 	{
@@ -10,8 +13,13 @@ class Game {
             gameState.movesLeft -= 1;
             gameState.checkGameOver();
             game.changeTile(mouseX, mouseY);
+            game.changeNextTile();
 		}
 	}
+	changeNextTile(){
+      this.nextTile = Math.floor(Math.random() * 9) + 1;
+    }
+
 	clickWithinArea(mouseX, mouseY)
     {
         if(mouseX > 8 && mouseY > 8 && mouseX < 520 && mouseY < 520){
@@ -29,11 +37,8 @@ class Game {
 
     changeTile(mouseX, mouseY){
         let selectedTiles = this.selectedTile(mouseX, mouseY);
-        if( gameState.map[selectedTiles[0]][selectedTiles[1]] > 8){
-            gameState.map[selectedTiles[0]][selectedTiles[1]] = 0;
-        }else{
-            gameState.map[selectedTiles[0]][selectedTiles[1]] += 1;
-        }
+
+        gameState.map[selectedTiles[0]][selectedTiles[1]] = this.nextTile;
 
         gameState.checkLevelComplete();
     }

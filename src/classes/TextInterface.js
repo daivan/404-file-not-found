@@ -90,10 +90,16 @@ class TextInterface {
 		let movesLeft = gameState.movesLeft;
 		let levelText = "Level: " + currentLevel.toString();
 		let movesLeftText = "Moves left: " + movesLeft.toString();
+		let nextTileText = "Next Tile: ";
 		cx.font = "12px Arial";
 		cx.fillStyle = "#000";  //<======= here
 		cx.fillText(levelText, 530, 18);
 		cx.fillText(movesLeftText, 530, 38);
+		cx.fillText(nextTileText, 530, 58);
 
+	    let image = new Image();
+        image.src = 'assets/images/wires.png';
+		let croppedImage = Background.calculate(game.nextTile);
+		cx.drawImage(image, croppedImage[0], croppedImage[1], 32, 32, 530, 68, 64, 64);
 	}
 }

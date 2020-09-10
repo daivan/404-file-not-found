@@ -7,7 +7,7 @@ for (let x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
 
 let requests = [];
 let goals = [];
-let textInterface = new TextInterface();
+
 let game = new Game();
 let gameState = new GameState();
 let level = new Levels(0);
@@ -23,6 +23,7 @@ let canvas = document.getElementById('canvas'),
 cx = canvas.getContext('2d');
 
 let Background = new TileSheet(cx);
+let textInterface = new TextInterface();
 let music = new Music();
 
 
