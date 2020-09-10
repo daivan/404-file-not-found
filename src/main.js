@@ -5,6 +5,8 @@ for (let x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
         window[vendors[x] + 'CancelAnimationFrame'] || window[vendors[x] + 'CancelRequestAnimationFrame'];
 }
 let enemies = [];
+let requests = [];
+let goals = [];
 let textInterface = new TextInterface();
 let game = new Game();
 let gameState = new GameState();
@@ -56,8 +58,10 @@ let keyMap = {
 function keydown(event) {
     let key = keyMap[event.code];
     state.pressedKeys[key] = true;
-    requestTile.isConnected(level.getCurrentLevel().map);
 
+    if (event.code==='Enter'){
+    requests.map(request => request.isConnected(level.getCurrentLevel().map));
+    }
 
 }
 

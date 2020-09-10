@@ -6,8 +6,24 @@ class Levels {
         this.levels = [
             {
                 name: 'level1',
-                startLocation: [1, 4],
-                endLocation: [6, 3],
+                requests: [
+                    {
+                        location: [0, 4],
+                        goal: [7, 4]
+                    },
+                    {
+                        location: [4, 0],
+                        goal:[4, 7]
+                    },
+                ],
+                goals: [
+                    {
+                        location: [7, 4]
+                    },
+                    {
+                        location: [4, 7]
+                    },
+                ],
                 map: [[0, 0, 0, 0, 0, 0, 0, 0],
                     [0, 0, 0, 0, 0, 0, 0, 0],
                     [0, 0, 0, 0, 0, 0, 0, 0],

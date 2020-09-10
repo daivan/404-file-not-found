@@ -10,7 +10,7 @@ function minifyJs() {
 }
 
 function moveAssets() {
-    return gulp.src(['assets/images/objects.png','assets/images/enemy.png','assets/images/robot.png','assets/images/ground.png'])
+    return gulp.src(['assets/images/objects.png','assets/images/enemy.png','assets/images/robot.png','assets/images/ground.png','assets/images/wires.png','assets/images/request.png'])
     .pipe(gulp.dest('dist/assets/images'))
 }
 

@@ -20,7 +20,7 @@ class GameState {
 
 	checkStageClear(player,level)
 	{
-		return (player.x===level.startLocation[0]*64 && player.y===level.startLocation[1]*64 && gameState.halfway===1);
+		//return (player.x===level.startLocation[0]*64 && player.y===level.startLocation[1]*64 && gameState.halfway===1);
 	}
 
 	checkDead(player,enemies)
@@ -50,14 +50,11 @@ class GameState {
 		this.steps = [];
   		this.dead = false;
 
-		start.x=level.startLocation[0]*64;
-		start.y=level.startLocation[1]*64;
-
-		end.x=level.endLocation[0]*64;
-		end.y=level.endLocation[1]*64;
 
 		Background.setMap(level.map);
-		this.spawnEnemies();
+		//this.spawnEnemies();
+		this.spawnRequests();
+		this.spawnGoals();
 	}
 
 	spawnEnemies()
@@ -73,6 +70,37 @@ class GameState {
 					enemyObject.currentDirection=enemy.currentDirection;
 					enemies.push(enemyObject);
 				}
+
+			});
+		}
+	}
+	spawnRequests()
+	{
+
+		if(level.getCurrentLevel().requests!==undefined){
+			level.getCurrentLevel().requests.map(request => {
+
+					let requestObject = new Request(cx);
+					requestObject.y=request.location[0]*64;
+					requestObject.x=request.location[1]*64;
+					requestObject.goal = [request.goal[0], request.goal[1]];
+					requests.push(requestObject);
+
+
+			});
+		}
+	}
+	spawnGoals()
+	{
+
+		if(level.getCurrentLevel().goals!==undefined){
+			level.getCurrentLevel().goals.map(goal => {
+
+				let goalObject = new Goal(cx);
+				goalObject.y=goal.location[0]*64;
+				goalObject.x=goal.location[1]*64;
+				goals.push(goalObject);
+
 
 			});
 		}

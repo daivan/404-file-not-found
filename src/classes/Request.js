@@ -7,7 +7,7 @@ class Request {
         this.image = image;
         this.x = 0;
         this.y = 0;
-        this.destination = [0, 0];
+        this.goal = [0, 0];
         this.xFrame = 0;
         this.yFrame = 0;
     }
@@ -24,8 +24,9 @@ class Request {
             [0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0]];
         let start = [0,0];
-        let goal = [0,7];
+        let goal = this.goal;
         let path = this.navigate(tempMap, start, [start]);
+        console.log(goal);
         if(searchForArray(path, goal) === -1){
             console.log('You didnt reach your goal :(');
         }else{
@@ -34,23 +35,9 @@ class Request {
         console.log("result from navigate: ", result);
     }
 
-    vectorsAreTheSame(vector1, vector2){
-        if(vector1[0]===vector2[0] && vector1[1] === vector2[1]){
-            return true;
-        }
-        return false;
-    }
 
     navigate(tempMap, currentPosition, path = []){
 
-        /*
-        // reached the goal
-        if (this.vectorsAreTheSame(currentPosition, goal)){
-            console.log('we reached the goal');
-            console.log(path);
-            return path;
-        }
-*/
 
         let possibleMoves  = this.possibleMovements(tempMap, currentPosition, path);
 
@@ -60,22 +47,7 @@ class Request {
             this.navigate(tempMap, move, path);
         });
 
-
-        /*
-        // no more moves check if we can go back
-        if(path.length>1){
-            let back = path.pop();
-            this.navigate(tempMap, back, goal, path);
-        }
-*/
-        /*
-        if(path.length<10){
-            path.push([1,1])
-            return this.navigate(tempMap,start, goal, path);
-        }
-         */
         return path;
-       //return path;
     }
     possibleMovements(Map, Vector, path){
         let x = Vector[0];
