@@ -4,21 +4,59 @@ class GameState {
   	this.state = 'start_menu';
   	this.dead = true;
   	this.stage = 0;
+  	this.movesLeft = 0;
+  	this.map = [];
+  }
+
+  checkGameOver()
+  {
+  	if(this.movesLeft < 1){
+  		this.state = 'dead';
+	}
+  }
+
+  checkLevelComplete()
+  {
+
+    let completed = true;
+    requests.forEach(request => {
+        if(request.isConnected(gameState.map) === false){
+            completed = false;
+        }
+    });
+
+    if(completed){
+		this.loadNextLevel();
+    }
+
+  }
+
+  loadNextLevel()
+  {
+        level.setNextLevel();
+        if(level.currentLevel === 3){
+            gameState.state = 'end';
+        }else{
+            gameState.initiateLevel(level.getCurrentLevel());
+        }
   }
 
 	initiateLevel(level)
 	{
 
-		setTimeout(areAllRequestsConnected, level.timeLimit);
-
-
-	  	this.halfway = 0;
-  		this.backing = 0;
-		this.steps = [];
+		//setTimeout(areAllRequestsConnected, level.timeLimit);
+		this.movesLeft = level.movesLeft;
   		this.dead = false;
+		this.map = [[0, 0, 0, 0, 0, 0, 0, 0],
+					[0, 0, 0, 0, 0, 0, 0, 0],
+					[0, 0, 0, 0, 0, 0, 0, 0],
+					[0, 0, 0, 0, 0, 0, 0, 0],
+					[0, 0, 0, 0, 0, 0, 0, 1],
+					[0, 0, 0, 0, 0, 0, 0, 0],
+					[0, 0, 0, 0, 0, 0, 0, 0],
+					[0, 0, 0, 0, 2, 0, 0, 0]];
 
-
-		Background.setMap(level.map);
+		Background.setMap(this.map);
 
 		this.spawnRequests();
 		this.spawnGoals();

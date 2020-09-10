@@ -26,28 +26,6 @@ let Background = new TileSheet(cx);
 let music = new Music();
 
 
-function areAllRequestsConnected(){
-    let completed = true;
-    requests.forEach(request => {
-        if(request.isConnected(level.getCurrentLevel().map) === false){
-            completed = false;
-        }
-    });
-    if(completed){
-        console.log('you did good');
-        level.setNextLevel();
-        if(level.currentLevel === 3){
-            gameState.state = 'end';
-        }else{
-            gameState.initiateLevel(level.getCurrentLevel());
-        }
-
-    }else{
-        gameState.state = 'dead';
-        console.log('lost!!!');
-    }
-}
-
 let state = {
     pressedKeys: {
         space: false,
@@ -70,7 +48,6 @@ let keyMap = {
 function keydown(event) {
     let key = keyMap[event.code];
     state.pressedKeys[key] = true;
-
 }
 
 function keyup(event) {
@@ -79,7 +56,10 @@ function keyup(event) {
 }
 
 function onClick(event) {
-    level.changeTile(event.pageX, event.pageY);
+    if(gameState.state === 'inGame'){
+        game.makeMove();
+        game.changeTile(event.pageX, event.pageY);
+    }
 }
 
 window.addEventListener("keydown", keydown, false);
@@ -88,19 +68,7 @@ window.addEventListener("keyup", keyup, false);
 // mouse click
 window.addEventListener("click", onClick, false);
 
-/*
-// Test array include
-let array1 = [[0,1],[0,2]];
-let array2 = [[1],2,3];
-console.log(array2.includes([1]));
-let a = [1];
-let b = [1];
-if(a===b){
-    console.log("they match");
-}
 
-console.log(searchForArray(array1,[0,2])); // 0
-*/
 function searchForArray(haystack, needle){
     var i, j, current;
     for(i = 0; i < haystack.length; ++i){
@@ -120,11 +88,11 @@ function gameLoop() {
     // Press Space in main menu
     if(state.pressedKeys.space && gameState.state==='start_menu'){
         gameState.initiateLevel(level.getCurrentLevel());
-        gameState.state='level1';
+        gameState.state='inGame';
     }
 
     // Press Space if dead
-    if(state.pressedKeys.space && gameState.dead===true){
+    if(state.pressedKeys.space && gameState.state==='dead'){
         gameState.initiateLevel(level.getCurrentLevel());
         gameState.state='inGame';
     }

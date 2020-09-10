@@ -43,27 +43,53 @@ class TextInterface {
 	}
 
 	renderDead(){
-		let title = "404 Files not found";
 
-		let start = "Press <space> to try again";
+		cx.fillStyle = 'rgba(225,225,225,0.8)';
+		cx.fillRect(0,0,768,512);
+
+
+		let header = "Server Error";
+		let title = "404 - File or directory not found.";
+		let subtitle1 = "The resource you are looking for might have been removed...";
+		let subtitle2 = "Or maybe the server is just bad at finding your file.";
+
+		let start = "Press <space> to play  again";
 
 		cx.font = "30px Arial Black";
+
+
+		cx.fillStyle = 'rgba(82,84,82,1)';
+		cx.fillRect(0,0,768,50);
+
+		cx.fillStyle = 'rgba(255,255,255,1)';
+		cx.fillRect(20,60,728,200);
+
+		cx.beginPath();
+		cx.rect(30, 70, 708, 180);
+		cx.stroke();
+
+		cx.font = "30px Arial";
+		cx.fillStyle = "#FFF";  //<======= here
+		cx.fillText(header, 10, 40);
 		cx.fillStyle = "#FF0000";  //<======= here
-		cx.fillText(title, 140, 170);
-		cx.font = "20px Arial Black";
-		cx.fillText(start, 115, 350);
+		cx.fillText(title, 40, 105);
+		cx.font = "18px Arial";
+		cx.fillStyle = "#000";  //<======= here
+		cx.fillText(subtitle1, 40, 145);
+		cx.fillText(subtitle2, 40, 180);
+		cx.fillText(start, 40, 230);
 
 	}
 
 	renderInfoPanel(){
 		let currentLevel = level.currentLevel + 1;
-		let seconds = level.getCurrentLevel().timeLimit / 1000;
+		let movesLeft = gameState.movesLeft;
 		let levelText = "Level: " + currentLevel.toString();
-		let timeLimitText = "Time to complete: " + seconds.toString() + " s";
-		cx.font = "12px Arial Black";
+		let movesLeftText = "Moves left: " + movesLeft.toString();
+		cx.font = "12px Arial";
 		cx.fillStyle = "#000";  //<======= here
 		cx.fillText(levelText, 530, 18);
-		cx.fillText(timeLimitText, 530, 38);
+		cx.fillText(movesLeftText, 530, 38);
 
 	}
 }
