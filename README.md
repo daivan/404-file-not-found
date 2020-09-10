@@ -1,13 +1,12 @@
 Forward and Back
 
-This game is created to be part of the https://js13kgames.com/ Competition.
+This game is created to be a part of the https://js13kgames.com/ 2020 Competition.
 
-IT was created Daivan Trinh.
+It was created Daivan Trinh and Håkan Einarsson.
 
 Clone the repo.
 
-npm install
+`npm install`  
+`npm run dist`
 
-npm run dist
-
-the folder called dist is the full game.
+The folder called dist is the full game.
