@@ -56,10 +56,7 @@ function keyup(event) {
 }
 
 function onClick(event) {
-    if(gameState.state === 'inGame'){
-        game.makeMove();
-        game.changeTile(event.pageX, event.pageY);
-    }
+    game.makeMove(event);
 }
 
 window.addEventListener("keydown", keydown, false);

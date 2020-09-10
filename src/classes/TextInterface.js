@@ -9,7 +9,7 @@ class TextInterface {
 		let subtitle = "";
 		let story1 = "You are a file server to a special site.";
 		let story2 = "Your job is to make sure that the requests get their files.";
-		let story3 = "Never give a request a 404! That is your purpose in life!";
+		let story3 = "Never give a request 404 - File not found.";
 		let start = "Press <Space> to play";
 		let credits = "Created by: Daivan Trinh & Hakan Einarsson for js13kGames.com 2020";
 		cx.font = "50px Arial";
@@ -61,7 +61,7 @@ class TextInterface {
 		let subtitle1 = "The resource you are looking for might have been removed...";
 		let subtitle2 = "Or maybe the server is just bad at finding your file.";
 
-		let start = "Press <space> to play  again";
+		let start = "Press <space> to play again";
 
 		cx.font = "30px Arial";
 

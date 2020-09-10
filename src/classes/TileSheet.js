@@ -54,6 +54,8 @@ class TileSheet
 			return [32,64]
 		}else if(number===9){
 			return [64,64]
+		}else{
+			return [0,0];
 		}
 	}
 
