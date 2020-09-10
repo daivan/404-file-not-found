@@ -67,7 +67,6 @@ function keyup(event) {
 }
 
 function onClick(event) {
-    console.log(event.pageX, event.pageY);
     level.changeTile(event.pageX, event.pageY);
 }
 
@@ -77,8 +76,31 @@ window.addEventListener("keyup", keyup, false);
 // mouse click
 window.addEventListener("click", onClick, false);
 
+/*
+// Test array include
+let array1 = [[0,1],[0,2]];
+let array2 = [[1],2,3];
+console.log(array2.includes([1]));
+let a = [1];
+let b = [1];
+if(a===b){
+    console.log("they match");
+}
 
-
+console.log(searchForArray(array1,[0,2])); // 0
+*/
+function searchForArray(haystack, needle){
+    var i, j, current;
+    for(i = 0; i < haystack.length; ++i){
+        if(needle.length === haystack[i].length){
+            current = haystack[i];
+            for(j = 0; j < needle.length && needle[j] === current[j]; ++j);
+            if(j === needle.length)
+                return i;
+        }
+    }
+    return -1;
+}
 
 function gameLoop() {
     window.requestAnimationFrame(gameLoop);
