@@ -22,7 +22,6 @@ let canvas = document.getElementById('canvas'),
 cx = canvas.getContext('2d');
 
 let Background = new TileSheet(cx);
-let testTile = new TestTile(cx);
 let music = new Music();
 
 
@@ -117,9 +116,6 @@ function searchForArray(haystack, needle){
 function gameLoop() {
     window.requestAnimationFrame(gameLoop);
 
-    testTile.x=3*64;
-    testTile.y=3*64;
-
     // Press Space in main menu
     if(state.pressedKeys.space && gameState.state==='start_menu'){
         gameState.initiateLevel(level.getCurrentLevel());
@@ -161,10 +157,9 @@ function gameLoop() {
 
 // get images
 Promise.all([
-    loadImage("assets/images/ground.png"),
-    loadImage("assets/images/robot.png"),
-    loadImage("assets/images/objects.png"),
-    loadImage("assets/images/enemy.png"),
+    loadImage("assets/images/file.png"),
+    loadImage("assets/images/request.png"),
+    loadImage("assets/images/wires.png"),
 ])
     .then(() => {
         // draw images to canvas
@@ -182,14 +177,3 @@ function loadImage(url) {
         imageObj.src = url;
     });
 }
-
-// A * STAR Example needed for isConnected
-var graph = new Graph([
-    [1,1,1,1],
-    [0,0,0,0],
-    [0,0,1,1]
-]);
-var start1 = graph.grid[0][0];
-var end1 = graph.grid[2][2];
-var result = astar.search(graph, start1, end1);
-console.log(result);
