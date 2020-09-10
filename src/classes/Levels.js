@@ -38,31 +38,43 @@ class Levels {
             },
             {
                 name: 'level2',
-                playerLocation: [2, 2],
-                startLocation: [2, 2],
-                endLocation: [6, 5],
-                enemies: [
+                timeLimit: 10000,
+                requests: [
                     {
-                        type: 'straight',
-                        direction: 'vertical',
-                        currentDirection: 'up',
-                        location: [4, 4]
+                        location: [0, 4],
+                        start: [0, 4],
+                        goal: [7, 4]
                     },
                     {
-                        type: 'straight',
-                        direction: 'horizontal',
-                        currentDirection: 'left',
-                        location: [4, 4]
+                        location: [4, 0],
+                        start: [4, 0],
+                        goal:[4, 7]
+                    },
+                    {
+                        location: [3, 0],
+                        start: [3, 0],
+                        goal:[4, 7]
                     },
                 ],
-                map: [[0, 0, 1, 2, 2, 3, 0, 0],
-                    [0, 1, 5, 5, 5, 6, 0, 0],
-                    [0, 4, 5, 5, 5, 5, 3, 0],
-                    [0, 4, 5, 5, 5, 5, 5, 3],
-                    [0, 4, 5, 5, 5, 5, 5, 6],
-                    [0, 7, 8, 8, 5, 5, 5, 6],
-                    [0, 0, 0, 0, 7, 8, 8, 9],
-                    [0, 0, 0, 0, 0, 0, 0, 0]]
+                goals: [
+                    {
+                        location: [7, 4]
+                    },
+                    {
+                        location: [4, 7]
+                    },
+                    {
+                        location: [3, 7]
+                    },
+                ],
+                map: [[0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 1],
+                    [0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 2, 0, 0, 0]]
             },
             {
                 name: 'level3',

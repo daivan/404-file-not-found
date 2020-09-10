@@ -30,11 +30,16 @@ let music = new Music();
 function areAllRequestsConnected(){
     let completed = true;
     requests.forEach(request => {
-            completed = request.isConnected(level.getCurrentLevel().map);
+        if(request.isConnected(level.getCurrentLevel().map) === false){
+            completed = false;
+        }
     });
     if(completed){
         console.log('you did good');
+        level.setNextLevel();
+        gameState.initiateLevel(player, level.getCurrentLevel());
     }else{
+        gameState.state = 'dead';
         console.log('lost!!!');
     }
 }
