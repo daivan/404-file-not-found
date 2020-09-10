@@ -6,6 +6,7 @@ class Levels {
         this.levels = [
             {
                 name: 'level1',
+                timeLimit: 10000,
                 requests: [
                     {
                         location: [0, 4],

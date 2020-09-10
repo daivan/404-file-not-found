@@ -11,11 +11,13 @@ class GameState {
 
 	checkHalfway(player)
 	{
-
+/*
 	  if(player.x===end.x && player.y===end.y){
 	    this.backing=1;
 	    this.halfway=1;
 	  }
+
+ */
 	}
 
 	checkStageClear(player,level)
@@ -41,8 +43,10 @@ class GameState {
 	}
 
 
-	initiateLevel(player, start, end, level)
+	initiateLevel(player, level)
 	{
+
+		setTimeout(areAllRequestsConnected, level.timeLimit);
 
 		enemies = [];
 	  	this.halfway = 0;

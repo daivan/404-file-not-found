@@ -24,17 +24,20 @@ cx = canvas.getContext('2d');
 let Background = new TileSheet(cx);
 let player = new Player(cx);
 let testTile = new TestTile(cx);
-let requestTile = new Request(cx);
 let music = new Music();
 
-let startImage = new Image();
-startImage.src = 'assets/images/objects.png';
 
-let goalImage = new Image();
-goalImage.src = 'assets/images/objects.png';
-
-let start = [0, 0];
-let end = [3, 5];
+function areAllRequestsConnected(){
+    let completed = true;
+    requests.forEach(request => {
+            completed = request.isConnected(level.getCurrentLevel().map);
+    });
+    if(completed){
+        console.log('you did good');
+    }else{
+        console.log('lost!!!');
+    }
+}
 
 let state = {
     pressedKeys: {
@@ -114,13 +117,13 @@ function gameLoop() {
 
     // Press Space in main menu
     if(state.pressedKeys.space && gameState.state==='start_menu'){
-        gameState.initiateLevel(player, start, end, level.getCurrentLevel());
+        gameState.initiateLevel(player, level.getCurrentLevel());
         gameState.state='level1';
     }
 
     // Press Space if dead
     if(state.pressedKeys.space && gameState.dead===true){
-        gameState.initiateLevel(player, start, end, level.getCurrentLevel());
+        gameState.initiateLevel(player, level.getCurrentLevel());
         gameState.state='inGame';
     }
 

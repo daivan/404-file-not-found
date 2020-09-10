@@ -19,14 +19,12 @@ class Request {
         let start = this.start;
         let goal = this.goal;
         let path = this.navigate(Map, start, [start]);
-        console.log("start:",start);
-        console.log("goal:",goal);
+
         if(searchForArray(path, goal) === -1){
-            console.log('You didnt reach your goal :(');
+            return false;
         }else{
-            console.log('reach your goal :)');
+            return true;
         }
-        console.log("result from navigate: ", path);
     }
 
 
@@ -110,10 +108,6 @@ class Request {
             return [x, y-1];
         }
         return false;
-    }
-
-    connected(map, start, stop){
-        return true;
     }
 
     render() {
