@@ -78,43 +78,54 @@ class Levels {
             },
             {
                 name: 'level3',
-                playerLocation: [6, 1],
-                startLocation: [1, 1],
-                endLocation: [6, 6],
-                enemies: [
+                timeLimit: 10000,
+                requests: [
                     {
-                        type: 'straight',
-                        direction: 'horizontal',
-                        currentDirection: 'left',
-                        location: [5, 4]
+                        location: [0, 4],
+                        start: [0, 4],
+                        goal: [7, 4]
                     },
                     {
-                        type: 'straight',
-                        direction: 'horizontal',
-                        currentDirection: 'right',
-                        location: [6, 3]
+                        location: [4, 0],
+                        start: [4, 0],
+                        goal:[4, 7]
                     },
                     {
-                        type: 'straight',
-                        direction: 'horizontal',
-                        currentDirection: 'left',
-                        location: [1, 4]
+                        location: [3, 0],
+                        start: [3, 0],
+                        goal:[4, 7]
                     },
                     {
-                        type: 'straight',
-                        direction: 'horizontal',
-                        currentDirection: 'right',
-                        location: [2, 3]
+                        location: [3, 7],
+                        start: [3, 7],
+                        goal:[4, 7]
                     },
                 ],
-                map: [[1, 2, 3, 0, 0, 1, 2, 3],
-                    [4, 5, 5, 2, 2, 5, 5, 6],
-                    [4, 5, 5, 8, 8, 5, 5, 6],
-                    [4, 5, 6, 0, 0, 4, 5, 6],
-                    [4, 5, 6, 0, 0, 4, 5, 6],
-                    [4, 5, 5, 2, 2, 5, 5, 6],
-                    [4, 5, 5, 8, 8, 5, 5, 6],
-                    [7, 8, 9, 0, 0, 7, 8, 9]]
+                goals: [
+                    {
+                        location: [7, 4]
+                    },
+                    {
+                        location: [4, 7]
+                    },
+                    {
+                        location: [3, 7]
+                    },
+                    {
+                        location: [2, 7]
+                    },
+                    {
+                        location: [1, 7]
+                    },
+                ],
+                map: [[0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 1],
+                    [0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 2, 0, 0, 0]]
             },
         ];
     }
@@ -142,10 +153,10 @@ class Levels {
     changeTile(mouseX, mouseY){
         let selectedTiles = this.selectedTile(mouseX, mouseY);
         console.log(selectedTiles);
-        if( this.levels[0].map[selectedTiles[0]][selectedTiles[1]] > 8){
-            this.levels[0].map[selectedTiles[0]][selectedTiles[1]] = 0;
+        if( this.levels[this.currentLevel].map[selectedTiles[0]][selectedTiles[1]] > 8){
+            this.levels[this.currentLevel].map[selectedTiles[0]][selectedTiles[1]] = 0;
         }else{
-            this.levels[0].map[selectedTiles[0]][selectedTiles[1]] += 1;
+            this.levels[this.currentLevel].map[selectedTiles[0]][selectedTiles[1]] += 1;
         }
 
     }

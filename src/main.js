@@ -4,7 +4,7 @@ for (let x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
     window.cancelAnimationFrame =
         window[vendors[x] + 'CancelAnimationFrame'] || window[vendors[x] + 'CancelRequestAnimationFrame'];
 }
-let enemies = [];
+
 let requests = [];
 let goals = [];
 let textInterface = new TextInterface();
@@ -22,7 +22,6 @@ let canvas = document.getElementById('canvas'),
 cx = canvas.getContext('2d');
 
 let Background = new TileSheet(cx);
-let player = new Player(cx);
 let testTile = new TestTile(cx);
 let music = new Music();
 
@@ -37,7 +36,12 @@ function areAllRequestsConnected(){
     if(completed){
         console.log('you did good');
         level.setNextLevel();
-        gameState.initiateLevel(player, level.getCurrentLevel());
+        if(level.currentLevel === 3){
+            gameState.state = 'end';
+        }else{
+            gameState.initiateLevel(level.getCurrentLevel());
+        }
+
     }else{
         gameState.state = 'dead';
         console.log('lost!!!');
@@ -66,10 +70,6 @@ let keyMap = {
 function keydown(event) {
     let key = keyMap[event.code];
     state.pressedKeys[key] = true;
-
-    if (event.code==='Enter'){
-    requests.map(request => request.isConnected(level.getCurrentLevel().map));
-    }
 
 }
 
@@ -122,13 +122,13 @@ function gameLoop() {
 
     // Press Space in main menu
     if(state.pressedKeys.space && gameState.state==='start_menu'){
-        gameState.initiateLevel(player, level.getCurrentLevel());
+        gameState.initiateLevel(level.getCurrentLevel());
         gameState.state='level1';
     }
 
     // Press Space if dead
     if(state.pressedKeys.space && gameState.dead===true){
-        gameState.initiateLevel(player, level.getCurrentLevel());
+        gameState.initiateLevel(level.getCurrentLevel());
         gameState.state='inGame';
     }
 
