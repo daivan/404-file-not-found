@@ -28,26 +28,26 @@ class Request {
     }
 
 
-    navigate(tempMap, currentPosition, path = []){
+    navigate(Map, currentPosition, path = []){
 
-
-        let possibleMoves  = this.possibleMovements(tempMap, currentPosition, path);
-
+        let possibleMoves  = this.possibleMovements(Map, currentPosition, path);
         // looping though all moves
         possibleMoves.forEach(move =>{
             path.push(move);
-            this.navigate(tempMap, move, path);
+            this.navigate(Map, move, path);
         });
 
         return path;
     }
     possibleMovements(Map, Vector, path){
+
         let x = Vector[0];
         let y = Vector[1];
-        let north = this.isNorthPossible(Map, x, y);
-        let east = this.isEastPossible(Map, x, y);
-        let south = this.isSouthPossible(Map, x, y);
-        let west = this.isWestPossible(Map, x, y);
+        let currentPieceNumber = Map[x][y];
+        let north = this.isNorthPossible(Map, x, y, currentPieceNumber);
+        let east = this.isEastPossible(Map, x, y, currentPieceNumber);
+        let south = this.isSouthPossible(Map, x, y, currentPieceNumber);
+        let west = this.isWestPossible(Map, x, y, currentPieceNumber);
 
         let moves = [];
         if (north !== false){
@@ -72,38 +72,85 @@ class Request {
         return realMoves;
     }
 
-    isNorthPossible(Map, x, y){
+    isNorthPossible(Map, x, y, currentPieceNumber){
         if (x === 0){
             return false;
         }
+
+        // 0 because of start position
+        let workingCurrentPieces = [0,2,3,6,7,8,9];
+        let workingMovingPieces = [2,3,4,5,6,9];
+
+        if(workingCurrentPieces.includes(currentPieceNumber) === false){
+            return false;
+        }
+        if(workingMovingPieces.includes(Map[x-1][y]) === false){
+            return false;
+        }
+
         if(Map[x-1][y] !== 0){
             return [x-1, y];
         }
         return false;
     }
 
-    isEastPossible(Map, x, y){
+    isEastPossible(Map, x, y, currentPieceNumber){
         if (y === 7){
             return false;
         }
+
+        // 0 because of start position
+        let workingCurrentPieces = [0,1,3,4,6,7,9];
+        let workingMovingPieces = [1,3,5,6,8,9];
+
+        if(workingCurrentPieces.includes(currentPieceNumber) === false){
+            return false;
+        }
+        if(workingMovingPieces.includes(Map[x][y+1]) === false){
+            return false;
+        }
+
         if(Map[x][y+1] !== 0){
             return [x, y+1];
         }
         return false;
     }
-    isSouthPossible(Map, x, y){
+    isSouthPossible(Map, x, y, currentPieceNumber){
         if (x === 7){
             return false;
         }
+        // 0 because of start position
+        let workingCurrentPieces = [0,2,3,4,6,9];
+        let workingMovingPieces = [2,3,6,7,8,9];
+
+        if(workingCurrentPieces.includes(currentPieceNumber) === false){
+            return false;
+        }
+        if(workingMovingPieces.includes(Map[x+1][y]) === false){
+            return false;
+        }
+
         if(Map[x+1][y] !== 0){
             return [x+1, y];
         }
         return false;
     }
-    isWestPossible(Map, x, y){
+    isWestPossible(Map, x, y, currentPieceNumber){
         if (y === 0){
             return false;
         }
+
+        // 0 because of start position
+        let workingCurrentPieces = [0,1,3,5,6,8,9];
+        let workingMovingPieces = [1,3,4,6,7,9];
+
+        if(workingCurrentPieces.includes(currentPieceNumber) === false){
+            return false;
+        }
+        if(workingMovingPieces.includes(Map[x][y-1]) === false){
+            return false;
+        }
+
         if(Map[x][y-1] !== 0){
             return [x, y-1];
         }
