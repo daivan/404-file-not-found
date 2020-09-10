@@ -56,4 +56,23 @@ class TileSheet
 			return [64,64]
 		}
 	}
+
+	renderGamePanels(){
+
+		// Game Panel
+		cx.rect(0, 0, 512, 512);
+		cx.fillStyle = "#AAA";
+		cx.fill();
+		cx.lineWidth = 1;
+		cx.strokeStyle = "black";
+		cx.stroke();
+
+		// sidePanel
+		cx.rect(520, 0, 248, 512);
+		cx.fillStyle = "#AAA";
+		cx.fill();
+		cx.lineWidth = 1;
+		cx.strokeStyle = "black";
+		cx.stroke();
+	}
 }

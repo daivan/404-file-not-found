@@ -19,6 +19,7 @@ let canvas = document.getElementById('canvas'),
     lastTime = (new Date()).getTime(),
     currentTime = 0,
     delta = 0;
+
 cx = canvas.getContext('2d');
 
 let Background = new TileSheet(cx);

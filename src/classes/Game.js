@@ -3,6 +3,7 @@ class Game {
 	update()
 	{
 
+		Background.renderGamePanels();
 
 		Background.render();
 
@@ -10,7 +11,7 @@ class Game {
 
 		goals.map(goal => goal.render());
 
-
+		textInterface.renderInfoPanel();
 
 	}
 }
