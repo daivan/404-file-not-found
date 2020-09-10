@@ -83,6 +83,8 @@ class GameState {
 					let requestObject = new Request(cx);
 					requestObject.y=request.location[0]*64;
 					requestObject.x=request.location[1]*64;
+
+					requestObject.start = [request.start[0], request.start[1]];
 					requestObject.goal = [request.goal[0], request.goal[1]];
 					requests.push(requestObject);
 

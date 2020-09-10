@@ -7,6 +7,7 @@ class Request {
         this.image = image;
         this.x = 0;
         this.y = 0;
+        this.start = [0, 0];
         this.goal = [0, 0];
         this.xFrame = 0;
         this.yFrame = 0;
@@ -14,25 +15,18 @@ class Request {
 
 
     isConnected(Map){
-        let tempMap = [
-            [0, 1, 1, 0, 1, 1, 1, 1],
-            [1, 0, 1, 0, 0, 1, 0, 0],
-            [0, 0, 1, 1, 1, 1, 0, 0],
-            [0, 0, 1, 1, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0]];
-        let start = [0,0];
+
+        let start = this.start;
         let goal = this.goal;
-        let path = this.navigate(tempMap, start, [start]);
-        console.log(goal);
+        let path = this.navigate(Map, start, [start]);
+        console.log("start:",start);
+        console.log("goal:",goal);
         if(searchForArray(path, goal) === -1){
             console.log('You didnt reach your goal :(');
         }else{
             console.log('reach your goal :)');
         }
-        console.log("result from navigate: ", result);
+        console.log("result from navigate: ", path);
     }
 
 
@@ -84,7 +78,7 @@ class Request {
         if (x === 0){
             return false;
         }
-        if(Map[x-1][y] === 1){
+        if(Map[x-1][y] !== 0){
             return [x-1, y];
         }
         return false;
@@ -94,7 +88,7 @@ class Request {
         if (y === 7){
             return false;
         }
-        if(Map[x][y+1] === 1){
+        if(Map[x][y+1] !== 0){
             return [x, y+1];
         }
         return false;
@@ -103,7 +97,7 @@ class Request {
         if (x === 7){
             return false;
         }
-        if(Map[x+1][y] === 1){
+        if(Map[x+1][y] !== 0){
             return [x+1, y];
         }
         return false;
@@ -112,7 +106,7 @@ class Request {
         if (y === 0){
             return false;
         }
-        if(Map[x][y-1] === 1){
+        if(Map[x][y-1] !== 0){
             return [x, y-1];
         }
         return false;
