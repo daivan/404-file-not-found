@@ -34,7 +34,7 @@ class GameState {
   loadNextLevel()
   {
         level.setNextLevel();
-        if(level.currentLevel === 3){
+        if(level.currentLevel === 1){
             gameState.state = 'end';
         }else{
             gameState.initiateLevel(level.getCurrentLevel());
@@ -43,7 +43,7 @@ class GameState {
 
 	initiateLevel(level)
 	{
-
+		cx.clearRect(0, 0, cw, ch);
 		//setTimeout(areAllRequestsConnected, level.timeLimit);
 		this.movesLeft = level.movesLeft;
   		this.dead = false;

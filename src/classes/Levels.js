@@ -7,7 +7,7 @@ class Levels {
             {
                 name: 'level1',
                 timeLimit: 10000,
-                movesLeft: 1,
+                movesLeft: 20,
                 requests: [
                     {
                         location: [0, 4],
