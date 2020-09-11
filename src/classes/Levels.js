@@ -6,125 +6,72 @@ class Levels {
         this.levels = [
             {
                 name: 'level1',
-                timeLimit: 10000,
                 movesLeft: 50,
                 requests: [
                     {
-                        start: [4,4],
-                        goal: [7, 4],
-                        name: 'A'
+                        start: [0, 4],
+                        goal: [7, 3],
+                        name: 'index.html'
                     },
                     {
-                        start: [4,3],
-                        goal: [7, 4],
-                        name: 'B'
-                    },
-                    {
-                        start: [3,4],
-                        goal: [7, 4],
-                        name: 'A'
-                    },
-                    {
-                        start: [3,3],
-                        goal: [7, 4],
-                        name: 'B'
+                        start: [3, 0],
+                        goal: [5, 7],
+                        name: 'meme.png'
                     },
                 ],
                 goals: [
                     {
-                        start: [3, 5],
-                        name: 'A'
+                        start: [7, 3],
+                        name: 'index.html'
 
                     },
                     {
-                        start: [3, 6],
-                        name: 'B'
-                    },
-                    {
-                        start: [4, 5],
-                        name: 'A'
-
-                    },
-                    {
-                        start: [4, 6],
-                        name: 'B'
+                        start: [5, 7],
+                        name: 'meme.png'
                     },
                 ],
             },
             {
                 name: 'level2',
-                timeLimit: 10000,
-                movesLeft: 20,
+                movesLeft: 200,
                 requests: [
                     {
-                        location: [0, 4],
                         start: [0, 4],
-                        goal: [7, 4]
+                        goal: [7, 1],
+                        name: 'index.php'
                     },
                     {
-                        location: [4, 0],
+                        start: [0, 2],
+                        goal: [7, 4],
+                        name: 'style.css'
+                    },
+                    {
                         start: [4, 0],
-                        goal:[4, 7]
+                        goal: [3, 7],
+                        name: 'hack.js'
                     },
                     {
-                        location: [3, 0],
                         start: [3, 0],
-                        goal:[4, 7]
+                        goal: [4, 7],
+                        name: 'dont.zip'
                     },
                 ],
                 goals: [
                     {
-                        location: [7, 4]
+                        start: [7, 1],
+                        name: 'index.php'
                     },
                     {
-                        location: [4, 7]
+                        start: [7, 4],
+                        name: 'style.css'
                     },
                     {
-                        location: [3, 7]
-                    },
-                ],
-            },
-            {
-                name: 'level3',
-                timeLimit: 10000,
-                movesLeft: 30,
-                requests: [
-                    {
-                        location: [0, 4],
-                        start: [0, 4],
-                        goal: [7, 4]
-                    },
-                    {
-                        location: [4, 0],
-                        start: [4, 0],
-                        goal:[4, 7]
-                    },
-                    {
-                        location: [3, 0],
-                        start: [3, 0],
-                        goal:[4, 7]
-                    },
-                    {
-                        location: [3, 7],
                         start: [3, 7],
-                        goal:[4, 7]
-                    },
-                ],
-                goals: [
-                    {
-                        location: [7, 4]
+                        name: 'hack.js'
                     },
                     {
-                        location: [4, 7]
-                    },
-                    {
-                        location: [3, 7]
-                    },
-                    {
-                        location: [2, 7]
-                    },
-                    {
-                        location: [1, 7]
+                        start: [4, 7],
+                        name: 'dont.zip'
                     },
                 ],
             },

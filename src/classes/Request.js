@@ -32,7 +32,6 @@ class Request {
     navigate(Map, currentPosition, path = []){
 
         let possibleMoves  = this.possibleMovements(Map, currentPosition, path);
-        console.log(possibleMoves)
         // looping though all moves
         possibleMoves.forEach(move =>{
             path.push(move);

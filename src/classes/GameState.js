@@ -34,7 +34,7 @@ class GameState {
   loadNextLevel()
   {
         level.setNextLevel();
-        if(level.currentLevel === 3){
+        if(level.currentLevel === 2){
             gameState.state = 'end';
         }else{
             gameState.initiateLevel(level.getCurrentLevel());
