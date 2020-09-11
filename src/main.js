@@ -104,10 +104,8 @@ function gameLoop() {
 
         // Stage
         if(gameState.state==='start_menu'){
-            cx.clearRect(0, 0, cw, cw);
             textInterface.renderStart();
         }else if(gameState.state==='end'){
-            cx.clearRect(0, 0, cw, cw);
             textInterface.renderEnd();
         }else if(gameState.state==='dead'){
             game.update();

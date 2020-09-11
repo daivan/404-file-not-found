@@ -43,8 +43,6 @@ class GameState {
 
 	initiateLevel(level)
 	{
-		cx.clearRect(0, 0, cw, ch);
-		//setTimeout(areAllRequestsConnected, level.timeLimit);
 		this.movesLeft = level.movesLeft;
   		this.dead = false;
 		this.map = [[0, 0, 0, 0, 0, 0, 0, 0],
@@ -65,6 +63,7 @@ class GameState {
 	spawnRequests()
 	{
 
+		requests = [];
 		if(level.getCurrentLevel().requests!==undefined){
 			level.getCurrentLevel().requests.map(request => {
 
@@ -84,6 +83,7 @@ class GameState {
 	spawnGoals()
 	{
 
+		goals = [];
 		if(level.getCurrentLevel().goals!==undefined){
 			level.getCurrentLevel().goals.map(goal => {
 
