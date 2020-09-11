@@ -69,8 +69,9 @@ class GameState {
 			level.getCurrentLevel().requests.map(request => {
 
 					let requestObject = new Request(cx);
-					requestObject.y=request.location[0]*64;
-					requestObject.x=request.location[1]*64;
+					requestObject.y=request.start[0]*64;
+					requestObject.x=request.start[1]*64;
+					requestObject.name=request.name;
 
 					requestObject.start = [request.start[0], request.start[1]];
 					requestObject.goal = [request.goal[0], request.goal[1]];
@@ -87,8 +88,9 @@ class GameState {
 			level.getCurrentLevel().goals.map(goal => {
 
 				let goalObject = new Goal(cx);
-				goalObject.y=goal.location[0]*64;
-				goalObject.x=goal.location[1]*64;
+				goalObject.y=goal.start[0]*64;
+				goalObject.x=goal.start[1]*64;
+				goalObject.name=goal.name;
 				goals.push(goalObject);
 
 

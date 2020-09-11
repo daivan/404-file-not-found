@@ -11,6 +11,7 @@ class Request {
         this.goal = [0, 0];
         this.xFrame = 0;
         this.yFrame = 192;
+        this.name = '';
     }
 
 
@@ -159,7 +160,13 @@ class Request {
     }
 
     render() {
+        // Render image
         this.context.drawImage(this.image, this.xFrame, this.yFrame, 64, 64, this.x, this.y, 64, 64);
+
+        // Render name
+		cx.font = "12px Arial";
+		cx.fillStyle = "#000";
+		cx.fillText(this.name, this.x, this.y+62);
 
     }
 
