@@ -23,9 +23,9 @@ class TileSheet
 				let column=0;
 				x.map((y)=>{
 					let croppedImage=this.calculate(y);
-					if(y!==0){
-						this.context.drawImage(this.image, croppedImage[0], croppedImage[1], 32, 32, column*64, row*64, 64, 64);
-					}
+
+					this.context.drawImage(this.image, croppedImage[0], croppedImage[1], 32, 32, column*64, row*64, 64, 64);
+
 					column++;
 				});
 				row++;
@@ -54,8 +54,12 @@ class TileSheet
 			return [32,64]
 		}else if(number===9){
 			return [64,64]
-		}else{
-			return [0,0];
+		}else if (number === 0){
+			return [0,96];
+		}else if (number === 11){
+			return [32,96];
+		}else if (number === 12){
+			return [64,96];
 		}
 	}
 
