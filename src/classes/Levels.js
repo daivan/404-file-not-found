@@ -10,22 +10,27 @@ class Levels {
                 movesLeft: 50,
                 requests: [
                     {
-                        location: [0, 4],
-                        start: [0, 4],
-                        goal: [7, 4]
+                        location: [0,3],
+                        start: [0,3],
+                        goal: [7, 4],
+                        name: 'A'
                     },
                     {
-                        location: [4, 0],
-                        start: [4, 0],
-                        goal:[4, 7]
+                        location: [4,3],
+                        start:  [4,3],
+                        goal: [7, 4],
+                        name: 'B'
                     },
                 ],
                 goals: [
                     {
-                        location: [7, 4]
+                        location: [7, 4],
+                        name: 'A'
+
                     },
                     {
-                        location: [4, 7]
+                        location: [4, 7],
+                        name: 'B'
                     },
                 ],
             },

@@ -31,6 +31,7 @@ class Request {
     navigate(Map, currentPosition, path = []){
 
         let possibleMoves  = this.possibleMovements(Map, currentPosition, path);
+        console.log(possibleMoves)
         // looping though all moves
         possibleMoves.forEach(move =>{
             path.push(move);
@@ -44,10 +45,10 @@ class Request {
         let x = Vector[0];
         let y = Vector[1];
         let currentPieceNumber = Map[x][y];
-        let north = this.isNorthPossible(Map, x, y, currentPieceNumber);
         let east = this.isEastPossible(Map, x, y, currentPieceNumber);
-        let south = this.isSouthPossible(Map, x, y, currentPieceNumber);
         let west = this.isWestPossible(Map, x, y, currentPieceNumber);
+        let south = this.isSouthPossible(Map, x, y, currentPieceNumber);
+        let north = this.isNorthPossible(Map, x, y, currentPieceNumber);
 
         let moves = [];
         if (north !== false){
@@ -120,7 +121,7 @@ class Request {
             return false;
         }
         // 0 because of start position
-        let workingCurrentPieces = [0,2,3,4,6,9];
+        let workingCurrentPieces = [0,2,3,4,5,6,9];
         let workingMovingPieces = [2,3,6,7,8,9];
 
         if(workingCurrentPieces.includes(currentPieceNumber) === false){
