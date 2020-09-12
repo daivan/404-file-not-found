@@ -67,6 +67,12 @@ class TileSheet
 
 	renderGamePanels(){
 
+		let game_background = new Image();
+		game_background.src = 'assets/images/game_background.png';
+
+		cx.drawImage(game_background, 0, 0, 768, 512, 0, 0, 768, 512);
+
+		/*
 		// Game Panel
 		cx.rect(0, 0, 512, 512);
 		cx.fillStyle = "#AAA";
@@ -82,5 +88,7 @@ class TileSheet
 		cx.lineWidth = 1;
 		cx.strokeStyle = "black";
 		cx.stroke();
+
+		 */
 	}
 }

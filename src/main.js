@@ -126,6 +126,7 @@ Promise.all([
     loadImage("assets/images/request.png"),
     loadImage("assets/images/wires.png"),
     loadImage("assets/images/collection.png"),
+    loadImage("assets/images/game_background.png"),
 ])
     .then(() => {
         // draw images to canvas

@@ -86,6 +86,7 @@ class TextInterface {
 	}
 
 	renderInfoPanel(){
+
 		let currentLevel = level.currentLevel + 1;
 		let movesLeft = gameState.movesLeft;
 		let levelText = "Level: " + currentLevel.toString();
