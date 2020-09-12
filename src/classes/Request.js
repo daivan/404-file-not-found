@@ -12,6 +12,10 @@ class Request {
         this.xFrame = 0;
         this.yFrame = 192;
         this.name = '';
+        this.animate = 0;
+        this.animateCounter = 0;
+        this.idleAnimation = [[0,192],[0,256],[0,320], [0,384]];
+        this.connected = false;
     }
 
 
@@ -22,8 +26,10 @@ class Request {
         let path = this.navigate(Map, start, [start]);
 
         if(searchForArray(path, goal) === -1){
+            this.connected = false;
             return false;
         }else{
+            this.connected = true;
             return true;
         }
     }
@@ -277,6 +283,27 @@ class Request {
         return false;
     }
 
+    animateIdle(){
+        if (this.animate === 3) {
+            this.animate = 0;
+        }
+        let x = this.idleAnimation[this.animate][0];
+        let y = this.idleAnimation[this.animate][1];
+        this.context.drawImage(this.image, x, y, 64, 64, this.x, this.y, 64, 64);
+        if(this.animateCounter === 24){
+            this.animate += 1;
+            this.animateCounter=0;
+        }else{
+            this.animateCounter+=1;
+        }
+    }
+
+    animateConnected(){
+        let x = 0;
+        let y = 448;
+        this.context.drawImage(this.image, x, y, 64, 64, this.x, this.y, 64, 64);
+    }
+
     render() {
 
         let croppedImage = [];
@@ -288,8 +315,14 @@ class Request {
 
         // background pipe
         this.context.drawImage(this.image, croppedImage[0], croppedImage[1], 64, 64, this.x, this.y, 64, 64);
-        // Render image
-        this.context.drawImage(this.image, this.xFrame, this.yFrame, 64, 64, this.x, this.y, 64, 64);
+
+
+        if(this.connected){
+            this.animateConnected();
+        }else{
+            this.animateIdle();
+        }
+
 
         // Render name
 		cx.font = "12px Arial";
