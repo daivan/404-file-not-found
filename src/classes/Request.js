@@ -31,7 +31,7 @@ class Request {
 
     navigate(Map, currentPosition, path = []){
 
-        let possibleMoves  = this.possibleMovements(Map, currentPosition, path);
+        let possibleMoves = this.possibleMovements(Map, currentPosition, path);
         // looping though all moves
         possibleMoves.forEach(move =>{
             path.push(move);
@@ -77,6 +77,7 @@ class Request {
         if (x === 0){
             return false;
         }
+        // goal cant be north
 
         // 0 because of start position
         let workingCurrentPieces = [0,2,3,6,7,8,9];
@@ -100,6 +101,11 @@ class Request {
             return false;
         }
 
+        // no the east is goal?
+        if(this.goal[0]===x && this.goal[1]===(y+1)){
+            return [x, y+1];
+        }
+
         // 0 because of start position
         let workingCurrentPieces = [0,1,3,4,6,7,9];
         let workingMovingPieces = [1,3,5,6,8,9];
@@ -120,6 +126,12 @@ class Request {
         if (x === 7){
             return false;
         }
+
+        // no the east is goal?
+        if(this.goal[0]===(x+1) && this.goal[1]===y){
+            return [x+1, y];
+        }
+
         // 0 because of start position
         let workingCurrentPieces = [0,2,3,4,5,6,9];
         let workingMovingPieces = [2,3,6,7,8,9];
