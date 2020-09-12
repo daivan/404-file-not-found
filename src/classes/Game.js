@@ -2,6 +2,7 @@ class Game {
 
   constructor() {
   	this.nextTile = Math.floor(Math.random() * 9) + 1;
+  	//this.nextTile = 1;
   }
 
 	makeMove(event)
@@ -18,6 +19,14 @@ class Game {
 	}
 	changeNextTile(){
       this.nextTile = Math.floor(Math.random() * 9) + 1;
+      /*
+        if(this.nextTile===9){
+            this.nextTile = 1;
+        }else{
+            this.nextTile+=1;
+        }
+
+       */
     }
 
 	clickWithinArea(mouseX, mouseY)
@@ -49,6 +58,7 @@ class Game {
 		Background.renderGamePanels();
 
 		Background.render();
+
 
 		requests.map(request => request.render());
 

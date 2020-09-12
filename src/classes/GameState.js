@@ -34,7 +34,7 @@ class GameState {
   loadNextLevel()
   {
         level.setNextLevel();
-        if(level.currentLevel === 3){
+        if(level.currentLevel === 2){
             gameState.state = 'end';
         }else{
             gameState.initiateLevel(level.getCurrentLevel());
@@ -43,18 +43,17 @@ class GameState {
 
 	initiateLevel(level)
 	{
-		cx.clearRect(0, 0, cw, ch);
-		//setTimeout(areAllRequestsConnected, level.timeLimit);
 		this.movesLeft = level.movesLeft;
   		this.dead = false;
-		this.map = [[0, 11, 11, 11, 11, 11, 11, 0],
-					[11, 0, 0, 0, 0, 0, 0, 12],
-					[11, 0, 0, 0, 0, 0, 0, 12],
-					[11, 0, 0, 0, 0, 0, 0, 12],
-					[11, 0, 0, 0, 0, 0, 0, 1],
-					[11, 0, 0, 0, 0, 0, 0, 12],
-					[11, 0, 0, 0, 0, 0, 0, 12],
-					[0, 12, 12, 12, 2, 12, 12, 0]];
+
+		this.map = [[0, 0, 0, 0, 0, 0, 0, 0],
+					[0, 0, 0, 0, 0, 0, 0, 0],
+					[0, 0, 0, 0, 0, 0, 0, 0],
+					[0, 0, 0, 0, 0, 0, 0, 0],
+					[0, 0, 0, 0, 0, 0, 0, 0],
+					[0, 0, 0, 0, 0, 0, 0, 0],
+					[0, 0, 0, 0, 0, 0, 0, 0],
+					[0, 0, 0, 0, 0, 0, 0, 0]];
 
 		Background.setMap(this.map);
 
@@ -65,12 +64,14 @@ class GameState {
 	spawnRequests()
 	{
 
+		requests = [];
 		if(level.getCurrentLevel().requests!==undefined){
 			level.getCurrentLevel().requests.map(request => {
 
 					let requestObject = new Request(cx);
-					requestObject.y=request.location[0]*64;
-					requestObject.x=request.location[1]*64;
+					requestObject.y=request.start[0]*64;
+					requestObject.x=request.start[1]*64;
+					requestObject.name=request.name;
 
 					requestObject.start = [request.start[0], request.start[1]];
 					requestObject.goal = [request.goal[0], request.goal[1]];
@@ -83,12 +84,14 @@ class GameState {
 	spawnGoals()
 	{
 
+		goals = [];
 		if(level.getCurrentLevel().goals!==undefined){
 			level.getCurrentLevel().goals.map(goal => {
 
 				let goalObject = new Goal(cx);
-				goalObject.y=goal.location[0]*64;
-				goalObject.x=goal.location[1]*64;
+				goalObject.y=goal.start[0]*64;
+				goalObject.x=goal.start[1]*64;
+				goalObject.name=goal.name;
 				goals.push(goalObject);
 
 

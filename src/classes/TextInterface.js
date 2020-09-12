@@ -98,8 +98,8 @@ class TextInterface {
 		cx.fillText(nextTileText, 530, 58);
 
 	    let image = new Image();
-        image.src = 'assets/images/wires.png';
+        image.src = 'assets/images/collection.png';
 		let croppedImage = Background.calculate(game.nextTile);
-		cx.drawImage(image, croppedImage[0], croppedImage[1], 32, 32, 530, 68, 64, 64);
+		cx.drawImage(image, croppedImage[0], croppedImage[1], 64, 64, 530, 68, 64, 64);
 	}
 }

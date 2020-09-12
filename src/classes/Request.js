@@ -2,7 +2,7 @@ class Request {
 
     constructor(context) {
         let image = new Image();
-        image.src = 'assets/images/request.png';
+        image.src = 'assets/images/collection.png';
         this.context = context;
         this.image = image;
         this.x = 0;
@@ -10,7 +10,8 @@ class Request {
         this.start = [0, 0];
         this.goal = [0, 0];
         this.xFrame = 0;
-        this.yFrame = 0;
+        this.yFrame = 192;
+        this.name = '';
     }
 
 
@@ -44,10 +45,10 @@ class Request {
         let x = Vector[0];
         let y = Vector[1];
         let currentPieceNumber = Map[x][y];
-        let north = this.isNorthPossible(Map, x, y, currentPieceNumber);
         let east = this.isEastPossible(Map, x, y, currentPieceNumber);
-        let south = this.isSouthPossible(Map, x, y, currentPieceNumber);
         let west = this.isWestPossible(Map, x, y, currentPieceNumber);
+        let south = this.isSouthPossible(Map, x, y, currentPieceNumber);
+        let north = this.isNorthPossible(Map, x, y, currentPieceNumber);
 
         let moves = [];
         if (north !== false){
@@ -120,7 +121,7 @@ class Request {
             return false;
         }
         // 0 because of start position
-        let workingCurrentPieces = [0,2,3,4,6,9];
+        let workingCurrentPieces = [0,2,3,4,5,6,9];
         let workingMovingPieces = [2,3,6,7,8,9];
 
         if(workingCurrentPieces.includes(currentPieceNumber) === false){
@@ -158,7 +159,13 @@ class Request {
     }
 
     render() {
-        this.context.drawImage(this.image, this.xFrame, this.yFrame, 32, 32, this.x, this.y, 64, 64);
+        // Render image
+        this.context.drawImage(this.image, this.xFrame, this.yFrame, 64, 64, this.x, this.y, 64, 64);
+
+        // Render name
+		cx.font = "12px Arial";
+		cx.fillStyle = "#000";
+		cx.fillText(this.name, this.x, this.y+62);
 
     }
 

@@ -104,10 +104,8 @@ function gameLoop() {
 
         // Stage
         if(gameState.state==='start_menu'){
-            cx.clearRect(0, 0, cw, cw);
             textInterface.renderStart();
         }else if(gameState.state==='end'){
-            cx.clearRect(0, 0, cw, cw);
             textInterface.renderEnd();
         }else if(gameState.state==='dead'){
             game.update();
@@ -127,6 +125,7 @@ Promise.all([
     loadImage("assets/images/file.png"),
     loadImage("assets/images/request.png"),
     loadImage("assets/images/wires.png"),
+    loadImage("assets/images/collection.png"),
 ])
     .then(() => {
         // draw images to canvas
