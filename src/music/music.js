@@ -1,5 +1,5 @@
 const AudioContext = window.AudioContext || window.webkitAudioContext;
-const audioCtx = new AudioContext();
+const audioCtx = new AudioContext({ latencyHint: 'playback' });
 
 var notes= {
     "a":440,
@@ -38,7 +38,7 @@ var notesToPlay=[    //Notes goes here
     ["","","",""]
 ];
 
-function play(){ // starts playing
+function playMusic(){ // starts playing
     isPlaying=true;
     if (audioCtx.state === 'suspended') {
         audioCtx.resume();
@@ -48,7 +48,7 @@ function play(){ // starts playing
 }
 
 const bpmControl = 100
-let lookahead = 1.0; // How frequently to call scheduling function (in milliseconds)
+let lookahead = 25.0; // How frequently to call scheduling function (in milliseconds)
 let scheduleAheadTime = 0.1; // How far ahead to schedule audio (sec)
 let currentNote = 0;
 let nextNoteTime = sixteenth; // when the next note is due.
