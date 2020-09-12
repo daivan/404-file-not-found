@@ -122,9 +122,6 @@ function gameLoop() {
 
 // get images
 Promise.all([
-    loadImage("assets/images/file.png"),
-    loadImage("assets/images/request.png"),
-    loadImage("assets/images/wires.png"),
     loadImage("assets/images/collection.png"),
     loadImage("assets/images/game_background.png"),
     loadImage("assets/images/intro_background.png"),
