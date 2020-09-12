@@ -8,6 +8,9 @@ class TileSheet
 		this.context=context;
 		this.image=img_background;
 		this.map=[];
+		let game_background = new Image();
+		game_background.src = 'assets/images/game_background.png';
+		this.game_background = game_background;
 	}
 
 	setMap(map)
@@ -75,10 +78,7 @@ class TileSheet
 
 	renderGamePanels(){
 
-		let game_background = new Image();
-		game_background.src = 'assets/images/game_background.png';
-
-		cx.drawImage(game_background, 0, 0, 768, 512, 0, 0, 768, 512);
+		cx.drawImage(this.game_background, 0, 0, 768, 512, 0, 0, 768, 512);
 
 	}
 }

@@ -1,15 +1,20 @@
 class TextInterface {
 
 	constructor() {
+		let img_background = new Image();
+		img_background.src = 'assets/images/collection.png';
+		this.image=img_background;
+		let intro_background = new Image();
+		intro_background.src = 'assets/images/intro_background.png';
+		this.intro_background = intro_background;
 	}
 
 
 	renderStart() {
 
-		let intro_background = new Image();
-		intro_background.src = 'assets/images/intro_background.png';
 
-		cx.drawImage(intro_background, 0, 0, 768, 512, 0, 0, 768, 512);
+
+		cx.drawImage(this.intro_background, 0, 0, 768, 512, 0, 0, 768, 512);
 
 		let title = "404 - File not found";
 		let subtitle = "";
@@ -104,9 +109,7 @@ class TextInterface {
 		cx.fillText(movesLeftText, 530, 38);
 		cx.fillText(nextTileText, 530, 58);
 
-	    let image = new Image();
-        image.src = 'assets/images/collection.png';
 		let croppedImage = Background.calculate(game.nextTile);
-		cx.drawImage(image, croppedImage[0], croppedImage[1], 64, 64, 530, 68, 64, 64);
+		cx.drawImage(this.image, croppedImage[0], croppedImage[1], 64, 64, 530, 68, 64, 64);
 	}
 }
