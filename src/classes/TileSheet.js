@@ -57,9 +57,17 @@ class TileSheet
 		}else if(number===9){
 			return [128,128]
 		}else if(number===10){
-			return [0,196]
+			return [0,192]
 		}else if(number===11){
-			return [64,196]
+			return [64,192]
+		}else if(number===20){
+			return [192,128]
+		}else if(number===21){
+			return [192,0]
+		}else if(number===22){
+			return [192,64]
+		}else if(number===23){
+			return [192,192]
 		}else{
 			return [0,0];
 		}
@@ -67,20 +75,10 @@ class TileSheet
 
 	renderGamePanels(){
 
-		// Game Panel
-		cx.rect(0, 0, 512, 512);
-		cx.fillStyle = "#AAA";
-		cx.fill();
-		cx.lineWidth = 1;
-		cx.strokeStyle = "black";
-		cx.stroke();
+		let game_background = new Image();
+		game_background.src = 'assets/images/game_background.png';
 
-		// sidePanel
-		cx.rect(520, 0, 248, 512);
-		cx.fillStyle = "#AAA";
-		cx.fill();
-		cx.lineWidth = 1;
-		cx.strokeStyle = "black";
-		cx.stroke();
+		cx.drawImage(game_background, 0, 0, 768, 512, 0, 0, 768, 512);
+
 	}
 }

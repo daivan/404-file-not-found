@@ -31,7 +31,7 @@ class Game {
 
 	clickWithinArea(mouseX, mouseY)
     {
-        if(mouseX > 8 && mouseY > 8 && mouseX < 520 && mouseY < 520){
+        if(mouseX > 72 && mouseY > 72 && mouseX < 456 && mouseY < 456){
             return true;
         }
         return false;

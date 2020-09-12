@@ -5,6 +5,12 @@ class TextInterface {
 
 
 	renderStart() {
+
+		let intro_background = new Image();
+		intro_background.src = 'assets/images/intro_background.png';
+
+		cx.drawImage(intro_background, 0, 0, 768, 512, 0, 0, 768, 512);
+
 		let title = "404 - File not found";
 		let subtitle = "";
 		let story1 = "You are a file server to a special site.";
@@ -86,6 +92,7 @@ class TextInterface {
 	}
 
 	renderInfoPanel(){
+
 		let currentLevel = level.currentLevel + 1;
 		let movesLeft = gameState.movesLeft;
 		let levelText = "Level: " + currentLevel.toString();
