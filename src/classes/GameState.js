@@ -91,6 +91,7 @@ class GameState {
 				let goalObject = new Goal(cx);
 				goalObject.y=goal.start[0]*64;
 				goalObject.x=goal.start[1]*64;
+				goalObject.start = [goal.start[0], goal.start[1]];
 				goalObject.name=goal.name;
 				goals.push(goalObject);
 

@@ -171,13 +171,23 @@ class Request {
     }
 
     render() {
+
+        let croppedImage = [];
+        if(this.start[0]===0){
+            croppedImage = Background.calculate(22);
+        }else{
+            croppedImage = Background.calculate(21);
+        }
+
+        // background pipe
+        this.context.drawImage(this.image, croppedImage[0], croppedImage[1], 64, 64, this.x, this.y, 64, 64);
         // Render image
         this.context.drawImage(this.image, this.xFrame, this.yFrame, 64, 64, this.x, this.y, 64, 64);
 
         // Render name
 		cx.font = "12px Arial";
 		cx.fillStyle = "#000";
-		cx.fillText(this.name, this.x, this.y+62);
+		cx.fillText(this.name, this.x+5, this.y+62);
 
     }
 
