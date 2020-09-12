@@ -1,4 +1,6 @@
 let vendors = ['webkit', 'moz'];
+const AudioContext = window.AudioContext || window.webkitAudioContext;
+const audioCtx = new AudioContext();
 for (let x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
     window.requestAnimationFrame = window[vendors[x] + 'RequestAnimationFrame'];
     window.cancelAnimationFrame =
@@ -7,7 +9,7 @@ for (let x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
 
 let requests = [];
 let goals = [];
-
+let music=new Music(audioCtx)
 let game = new Game();
 let gameState = new GameState();
 let level = new Levels(0);
@@ -24,7 +26,7 @@ cx = canvas.getContext('2d');
 
 let Background = new TileSheet(cx);
 let textInterface = new TextInterface();
-let music = new Music();
+//let music = new Music();
 
 
 let state = {
@@ -85,6 +87,8 @@ function gameLoop() {
 
     // Press Space in main menu
     if(state.pressedKeys.space && gameState.state==='start_menu'){
+        music.play();
+        //playMusic();
         gameState.initiateLevel(level.getCurrentLevel());
         gameState.state='inGame';
     }
