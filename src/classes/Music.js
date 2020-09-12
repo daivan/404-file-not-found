@@ -30,17 +30,74 @@ class Music {
     this.scheduleAheadTime = 0.1; // How far ahead to schedule audio (sec)
     this.currentNote = 0;
     this.nextNoteTime = 0.0; // when the next note is due.
-    this.notesToPlay=[    //Notes goes here
-      ["d","","",""], //[kanal1,kanal2,kanal3,kanal4]
+    /*this.bassNotes=[["d","","d","","d","","d",""],["c","","c","","c","","c",""
+  ]]*/
+    this.notesToPlay=[
+      ["d","","","d"], //[kanal1,kanal2,kanal3,kanal4]
       ["","","",""],
-      ["d","","",""],
+      ["d","","","d"],
       ["e","","",""],
-      ["","","",""],
+      ["","","","d"],
       ["a","","",""],
-      ["f","","",""],
-      ["","","",""]
+      ["f","","","d"],
+      ["","","",""],
+      ["d","","","d"], //[kanal1,kanal2,kanal3,kanal4]
+      ["","","",""],
+      ["d","","","d"],
+      ["e","","",""],
+      ["","","","d"],
+      ["a","","",""],
+      ["f","","","d"],
+      ["","","",""],
+      ["d","","","c"], //[kanal1,kanal2,kanal3,kanal4]
+      ["","","",""],
+      ["d","","","c"],
+      ["e","","",""],
+      ["","","","c"],
+      ["a","","",""],
+      ["f","","","c"],
+      ["","","",""],
+      ["d","","","c"], //[kanal1,kanal2,kanal3,kanal4]
+      ["","","",""],
+      ["d","","","c"],
+      ["e","","",""],
+      ["","","","c"],
+      ["a","","",""],
+      ["f","","","c"],
+      ["","","",""],
+      ["d","","","bs"], //[kanal1,kanal2,kanal3,kanal4]
+      ["","","",""],
+      ["d","","","bs"],
+      ["","a","",""],
+      ["","","","bs"],
+      ["","a","",""],
+      ["f","","","bs"],
+      ["e","","",""],
+      ["d","","","bs"], //[kanal1,kanal2,kanal3,kanal4]
+      ["","","",""],
+      ["d","","","bs"],
+      ["","a","",""],
+      ["","","","bs"],
+      ["","a","",""],
+      ["f","","","bs"],
+      ["e","","",""],
+      ["d","","","a"], //[kanal1,kanal2,kanal3,kanal4]
+      ["","","",""],
+      ["d","","","a"],
+      ["g","","",""],
+      ["","","","a"],
+      ["g","","",""],
+      ["e","","","a"],
+      ["d","","",""],
+      ["d","","","c"], //[kanal1,kanal2,kanal3,kanal4]
+      ["","","",""],
+      ["d","","","c"],
+      ["g","","",""],
+      ["","","","c"],
+      ["g","","",""],
+      ["e","","","c"],
+      ["d","","",""]
       ];
-      this.shedularRan=0
   }
  
   play(){
@@ -78,9 +135,36 @@ scheduler() {
     // while there are notes that will need to play before the next interval, schedule them and advance the pointer.
     while (this.nextNoteTime < this.ctx.currentTime + this.scheduleAheadTime && this.isPlaying) { 
         for (let i=0;i<4;i++){
+          if (i==0){
+            this.melody.note=this.notesToPlay[this.currentNote][i];
+            this.melody.wave="sine";
+            this.melody.octave=1;
+            this.melody.length=this.notesToPlay[this.currentNote][i].length;
+            this.playNote(this.melody,this.nextNoteTime);
+          }
+          
+          if (i==1){
+            this.melody.note=this.notesToPlay[this.currentNote][i];
+            this.melody.wave="sine";
+            this.melody.octave=2;
+            this.melody.length=this.notesToPlay[this.currentNote][i].length;
+            this.playNote(this.melody,this.nextNoteTime);
+          }
+          
+          if (i==2){
             this.melody.note=this.notesToPlay[this.currentNote][i];
             this.melody.length=this.notesToPlay[this.currentNote][i].length;
             this.playNote(this.melody,this.nextNoteTime);
+          }
+          
+          if (i==3){
+            this.melody.note=this.notesToPlay[this.currentNote][i];
+            this.melody.octave=-2;
+            this.melody.wave="triangle";
+            this.melody.length=this.notesToPlay[this.currentNote][i].length;
+            this.playNote(this.melody,this.nextNoteTime);
+          }
+            
         }
         
         this.nextNote();
@@ -95,7 +179,7 @@ playNote(instrument,time) {
         let osc = this.ctx.createOscillator();
         let filter = this.ctx.createBiquadFilter();
         filter.type="bandpass";
-        filter.frequency.value=1500;
+        filter.frequency.value=200;
         osc.type=instrument.wave;
         osc.frequency.setValueAtTime(this.notes[instrument.note]*1/Math.pow(2,(1-instrument.octave)),this.ctx.currentTime);
         let amp = this.ctx.createGain();
