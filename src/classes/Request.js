@@ -40,15 +40,35 @@ class Request {
 
         return path;
     }
-    possibleMovements(Map, Vector, path){
 
+    getPreviousDirection(currentPosition, previousPosition){
+        if(previousPosition === undefined){
+            return false;
+        }
+        let x = currentPosition[0]-previousPosition[0];
+        let y = currentPosition[1]-previousPosition[1];
+        if(y === 1){
+            return 'right';
+        }else if(y === -1){
+            return 'left';
+        }else if(x ===1){
+            return 'down';
+        }else if(x ===-1){
+            return 'up';
+        }
+        return false;
+    }
+
+    possibleMovements(Map, Vector, path){
+        let direction = this.getPreviousDirection(Vector, path[path.length-2]);
         let x = Vector[0];
         let y = Vector[1];
         let currentPieceNumber = Map[x][y];
-        let east = this.isEastPossible(Map, x, y, currentPieceNumber);
-        let west = this.isWestPossible(Map, x, y, currentPieceNumber);
-        let south = this.isSouthPossible(Map, x, y, currentPieceNumber);
-        let north = this.isNorthPossible(Map, x, y, currentPieceNumber);
+        let east = this.isEastPossible(Map, x, y, currentPieceNumber, direction);
+        let north = this.isNorthPossible(Map, x, y, currentPieceNumber, direction);
+        let west = this.isWestPossible(Map, x, y, currentPieceNumber, direction);
+        let south = this.isSouthPossible(Map, x, y, currentPieceNumber, direction);
+
 
         let moves = [];
         if (north !== false){
@@ -73,11 +93,43 @@ class Request {
         return realMoves;
     }
 
-    isNorthPossible(Map, x, y, currentPieceNumber){
+    edgeCasePossible(currentNumber, direction)
+    {
+        // undefined means from starting position
+        if (direction === undefined){
+            return false;
+        }
+
+        let strangePiece = [3,6,9];
+
+        if(strangePiece.includes(currentNumber)){
+            return true;
+        }
+        return false;
+    }
+
+    isNorthPossible(Map, x, y, currentPieceNumber, direction){
         if (x === 0){
             return false;
         }
-        // goal cant be north
+
+        if(this.edgeCasePossible(currentPieceNumber, direction))
+        {
+            // Cross
+            if(currentPieceNumber === 3){
+                if(direction !=='up'){
+                    return false;
+                }
+            }else if(currentPieceNumber === 6){ // _| |‾
+                if(direction !=='right'){
+                    return false;
+                }
+            }else if(currentPieceNumber === 9){ // ‾| |_
+                if(direction !=='left'){
+                    return false;
+                }
+            }
+        }
 
         // 0 because of start position
         let workingCurrentPieces = [0,2,3,6,7,8,9];
@@ -96,9 +148,28 @@ class Request {
         return false;
     }
 
-    isEastPossible(Map, x, y, currentPieceNumber){
+    isEastPossible(Map, x, y, currentPieceNumber, direction){
         if (y === 7){
             return false;
+        }
+
+
+        if(this.edgeCasePossible(currentPieceNumber, direction))
+        {
+            // Cross
+            if(currentPieceNumber === 3){
+                if(direction !=='right'){
+                    return false;
+                }
+            }else if(currentPieceNumber === 6){ // _| |‾
+                if(direction !=='up'){
+                    return false;
+                }
+            }else if(currentPieceNumber === 9){ // ‾| |_
+                if(direction !=='down'){
+                    return false;
+                }
+            }
         }
 
         // no the east is goal?
@@ -122,9 +193,27 @@ class Request {
         }
         return false;
     }
-    isSouthPossible(Map, x, y, currentPieceNumber){
+    isSouthPossible(Map, x, y, currentPieceNumber, direction){
         if (x === 7){
             return false;
+        }
+
+        if(this.edgeCasePossible(currentPieceNumber, direction))
+        {
+            // Cross
+            if(currentPieceNumber === 3){
+                if(direction !=='down'){
+                    return false;
+                }
+            }else if(currentPieceNumber === 6){ // _| |‾
+                if(direction !=='left'){
+                    return false;
+                }
+            }else if(currentPieceNumber === 9){ // ‾| |_
+                if(direction !=='right'){
+                    return false;
+                }
+            }
         }
 
         // no the east is goal?
@@ -148,9 +237,27 @@ class Request {
         }
         return false;
     }
-    isWestPossible(Map, x, y, currentPieceNumber){
+    isWestPossible(Map, x, y, currentPieceNumber, direction){
         if (y === 0){
             return false;
+        }
+
+        if(this.edgeCasePossible(currentPieceNumber, direction))
+        {
+            // Cross
+            if(currentPieceNumber === 3){
+                if(direction !=='left'){
+                    return false;
+                }
+            }else if(currentPieceNumber === 6){ // _| |‾
+                if(direction !=='down'){
+                    return false;
+                }
+            }else if(currentPieceNumber === 9){ // ‾| |_
+                if(direction !=='up'){
+                    return false;
+                }
+            }
         }
 
         // 0 because of start position
